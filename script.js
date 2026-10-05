@@ -245,6 +245,8 @@
   let resizeSettleTimer = 0;
 
   function galleryLimits() {
+    const mobile = window.matchMedia('(max-width: 650px)').matches;
+    if (mobile) return { top: 22, bottom: window.innerHeight - 4 };
     const head = document.querySelector('.fixed-head');
     const headH = head ? head.getBoundingClientRect().height : 0;
     const underStrip = 34.02; // 9 mm white finish below navigation
@@ -348,6 +350,19 @@
       const target = document.querySelector(id);
       if (!target) return;
 
+      // Mobile navigation is not fixed. Put the requested section near the
+      // top of the viewport instead of reserving the desktop header height.
+      const mobile = window.matchMedia('(max-width: 650px)').matches;
+      if (mobile && (target.classList.contains('section') || id === '#past' || id === '#netzwerk')) {
+        event.preventDefault();
+        if (history.replaceState) history.replaceState(null, '', id);
+        const top = window.scrollY + target.getBoundingClientRect().top - 22;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+        if (secondaryPast) secondaryPast.classList.toggle('active-secondary', id === '#past');
+        if (secondaryNetwork) secondaryNetwork.classList.toggle('active-secondary', id === '#netzwerk');
+        return;
+      }
+
       // Reading sections (PAST EVENTS / NETZWERK) need their title to remain
       // visibly below the fixed header + 9 mm white finish. Native anchor
       // scrolling would otherwise tuck the title underneath the header.
@@ -396,7 +411,8 @@
 
   function currentNavSection() {
     const head = document.querySelector('.fixed-head');
-    const headH = head ? head.getBoundingClientRect().height : 0;
+    const mobile = window.matchMedia('(max-width: 650px)').matches;
+    const headH = mobile ? 0 : (head ? head.getBoundingClientRect().height : 0);
 
     // For the reading sections use a stable reading line just below the fixed
     // navigation. This keeps NETZWERK active for its whole section instead of

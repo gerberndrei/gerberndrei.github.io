@@ -1633,3 +1633,50 @@ button.misc-divider-dot > .misc-divider-tooltip{
   #past-events .past-year{margin-left:.5em!important;}
   #past-events .past-row{margin-left:2em!important;}
 }
+
+/* v58: mobile portrait/landscape repair — keep desktop untouched. */
+@media (max-width:650px){
+  /* On phones the navigation belongs to the page and scrolls away with it. */
+  .fixed-head{position:absolute;}
+
+  /* Section headings use the same light voice as the navigation. */
+  .section-title,
+  .list-section .section-title{font-weight:300;color:inherit;}
+
+  /* Once the header has scrolled away, a selected section starts naturally
+     near the top instead of being centred below a fictitious fixed header. */
+  .section,
+  .list-section{scroll-margin-top:22px;}
+
+  /* Keep all secondary markers safely inside the phone viewport. */
+  .secondary-nav a[href="#past"]::before{right:calc(100% + .55em);}
+  .secondary-nav a[href="#past"]::after{left:calc(100% + .38em);}
+  .secondary-nav a[href="#netzwerk"]::before{right:calc(100% + .38em);}
+  .secondary-nav a[href="#netzwerk"]::after{left:calc(100% + .55em);}
+
+  /* Reading columns must never create horizontal page scrolling. */
+  .list-inner,
+  #past .list-inner{width:calc(100vw - 44px);max-width:calc(100vw - 44px);}
+  #past-events{width:100%;max-width:100%;overflow:visible;}
+  #past-events .past-year{margin-left:.5em!important;}
+  #past-events .past-row{
+    margin-left:1.25em!important;
+    max-width:calc(100% - 1.25em);
+    overflow-wrap:anywhere;
+  }
+  .network-links,
+  .network-row{width:100%;max-width:100%;min-width:0;}
+  .network-row{display:flex;flex-wrap:wrap;column-gap:.8em;}
+  .network-label,.network-row a{min-width:0;max-width:100%;overflow-wrap:anywhere;word-break:normal;}
+}
+
+/* A phone in landscape has lots of horizontal room but little height.
+   Do not subtract the tall portrait header from gallery sizing after it scrolls away. */
+@media (max-width:900px) and (orientation:landscape) and (max-height:650px){
+  .window-group{
+    width:min(calc(100vw - 44px),500px,calc(100dvh - 76px));
+  }
+  .misc-section .window-group{
+    width:min(calc((100vw - 44px) * .6667),333px,calc((100dvh - 76px) * .6667));
+  }
+}
