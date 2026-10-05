@@ -2019,3 +2019,25 @@ html,body{overflow-x:hidden;}
   }
   #past-events .past-row .past-separator{display:none!important;}
 }
+
+/* v74: portrait-phone PAST EVENTS — true flush continuation lines.
+   The description wrapper no longer creates its own inline box, so wrapped
+   prose returns to the row's left edge instead of hanging under the title. */
+@media (max-width:650px) and (orientation:portrait){
+  #past-events .past-row{
+    display:block!important;
+    margin-left:1.25em!important;
+    padding-left:0!important;
+    text-indent:0!important;
+  }
+  #past-events .past-row > span:first-child{
+    display:inline!important;
+    margin-right:.7em!important;
+  }
+  #past-events .past-row > span:last-child{
+    display:contents!important;
+  }
+  #past-events .past-row .past-separator{
+    display:none!important;
+  }
+}
