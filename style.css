@@ -2297,3 +2297,31 @@ html,body{overflow-x:hidden;}
 .fixed-head .secondary-nav a:active{
   font-weight:300!important;
 }
+
+/* v85: mobile marker optical centering + identical primary-nav rendering. */
+@media (max-width:650px) and (orientation:portrait){
+  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+    left:calc(100% + .70em)!important;
+    right:auto!important;
+  }
+}
+
+/* Prevent browser/link state and forced-dark rendering from making individual
+   primary items appear heavier or brighter than their siblings. */
+.fixed-head .primary-nav a,
+.fixed-head .primary-nav a:link,
+.fixed-head .primary-nav a:visited,
+.fixed-head .primary-nav a:hover,
+.fixed-head .primary-nav a:focus,
+.fixed-head .primary-nav a:active{
+  color:inherit!important;
+  -webkit-text-fill-color:currentColor!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-weight:300!important;
+  font-style:normal!important;
+  text-decoration:none!important;
+  text-shadow:none!important;
+  opacity:1!important;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
