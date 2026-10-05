@@ -1772,3 +1772,24 @@ button.misc-divider-dot > .misc-divider-tooltip{
     left:calc(100% + .38em)!important;
   }
 }
+
+/* v61: mobile inertial scrolling + stronger network continuation indent + no sticky touch tooltip. */
+@media (max-width:650px){
+  /* Continuation lines are deliberately subordinate to the person's name. */
+  .network-row a{
+    padding-left:3em!important;
+  }
+}
+
+/* Touch browsers emulate :hover after a tap. Tooltips are mouse-only; otherwise
+   "so?" can remain visible after the colour-dot has been pressed. */
+@media (hover:none), (pointer:coarse){
+  .mark:hover .mark-tooltip,
+  .mark:focus .mark-tooltip,
+  .mark:focus-visible .mark-tooltip,
+  .misc-divider-dot:hover .misc-divider-tooltip,
+  .misc-divider-dot:focus .misc-divider-tooltip,
+  .misc-divider-dot:focus-visible .misc-divider-tooltip{
+    opacity:0!important;
+  }
+}

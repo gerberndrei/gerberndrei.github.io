@@ -49,6 +49,7 @@
   if (colourDot) {
     colourDot.addEventListener('click', function () {
       chooseDifferentAccent();
+      colourDot.blur();
       scrollToElement(whatDot, '#what');
     });
   }
@@ -57,6 +58,7 @@
   if (whatDot) {
     whatDot.addEventListener('click', function () {
       chooseDifferentAccent();
+      whatDot.blur();
       const start = document.getElementById('start');
       if (start) start.scrollIntoView({ behavior: 'smooth', block: 'start' });
       if (history.replaceState) history.replaceState(null, '', '#start');
@@ -311,11 +313,13 @@
   }
 
   let scrollPickTimer = 0;
-  window.addEventListener('scroll', function () {
-    if (resizeInProgress) return;
-    window.clearTimeout(scrollPickTimer);
-    scrollPickTimer = window.setTimeout(chooseActiveGallery, 70);
-  }, { passive:true });
+  if (!window.matchMedia('(max-width:900px), (pointer:coarse)').matches) {
+    window.addEventListener('scroll', function () {
+      if (resizeInProgress) return;
+      window.clearTimeout(scrollPickTimer);
+      scrollPickTimer = window.setTimeout(chooseActiveGallery, 70);
+    }, { passive:true });
+  }
 
   function settleResize() {
     // Mobile Chrome changes visualViewport height while its browser chrome moves.
@@ -403,9 +407,11 @@
       const desiredTop = limits.top + Math.max(0, (available - groupH) / 2);
       const targetTop = window.scrollY + group.getBoundingClientRect().top - desiredTop;
       window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
-      [180, 420, 760].forEach(function (delay) {
-        window.setTimeout(function () { keepWholeGalleryVisible(group); }, delay);
-      });
+      if (!window.matchMedia('(max-width:900px), (pointer:coarse)').matches) {
+        [180, 420, 760].forEach(function (delay) {
+          window.setTimeout(function () { keepWholeGalleryVisible(group); }, delay);
+        });
+      }
     });
   });
   activeGallery = galleryFromHash() || chooseActiveGallery();
@@ -476,8 +482,19 @@
     if (secondaryNetwork) secondaryNetwork.classList.toggle('active-secondary', activeId === 'netzwerk');
   }
 
-  window.addEventListener('scroll', updateNavDots, { passive: true });
-  window.addEventListener('resize', updateNavDots);
+  // On phones, doing several getBoundingClientRect() reads on every raw scroll
+  // event can interrupt Chrome's inertial fling. Limit navigation bookkeeping to
+  // at most one animation frame and never write scroll position from this path.
+  let navDotFrame = 0;
+  function scheduleNavDotUpdate() {
+    if (navDotFrame) return;
+    navDotFrame = window.requestAnimationFrame(function () {
+      navDotFrame = 0;
+      updateNavDots();
+    });
+  }
+  window.addEventListener('scroll', scheduleNavDotUpdate, { passive: true });
+  window.addEventListener('resize', scheduleNavDotUpdate, { passive: true });
   updateNavDots();
 })();
 
@@ -501,6 +518,8 @@
   requestAnimationFrame(align);
   window.addEventListener('load', align, {once:true});
   window.addEventListener('resize', align, {passive:true});
-  if (window.visualViewport) window.visualViewport.addEventListener('resize', align, {passive:true});
-  if ('ResizeObserver' in window) new ResizeObserver(align).observe(viewport);
+  if (!window.matchMedia('(max-width:900px), (pointer:coarse)').matches) {
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', align, {passive:true});
+    if ('ResizeObserver' in window) new ResizeObserver(align).observe(viewport);
+  }
 })();
