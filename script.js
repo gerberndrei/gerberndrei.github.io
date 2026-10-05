@@ -295,7 +295,7 @@
         const dateText = translateMonth(m[1]);
         const row = document.createElement('div'); row.className = 'past-row';
         const date = document.createElement('span'); date.textContent = dateText;
-        const sep = document.createElement('span'); sep.className = 'list-separator past-separator'; sep.textContent = '—';
+        const sep = document.createElement('span'); sep.className = 'list-separator past-separator'; sep.textContent = '–';
         const desc = document.createElement('span'); desc.textContent = m[2];
         const mobileLine = document.createElement('span'); mobileLine.className = 'past-mobile-line'; mobileLine.textContent = dateText + '\u00A0\u00A0' + m[2];
         row.append(date, sep, desc, mobileLine); past.appendChild(row);

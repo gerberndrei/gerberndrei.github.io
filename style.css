@@ -2136,3 +2136,29 @@ html,body{overflow-x:hidden;}
     right:-.62em!important;
   }
 }
+
+/* v78: final rhythm pass — secondary nav, PAST EVENTS and NETWORK. */
+/* Desktop/landscape: PAST EVENTS and NETWORK share the same base leading. */
+@media (min-width:651px), (orientation:landscape){
+  #past-events,
+  .network-links,
+  #past-events .past-row,
+  .network-row{
+    line-height:var(--type-leading)!important;
+  }
+  .network-links{gap:0!important;}
+}
+
+/* Portrait phone: give the three-part secondary row more breathing room,
+   especially between the active NETWORK marker and the following divider. */
+@media (max-width:650px) and (orientation:portrait){
+  .fixed-head > .secondary-nav b,
+  .fixed-head > .secondary-nav .language-separator{
+    margin-left:1.32em!important;
+    margin-right:1.32em!important;
+  }
+  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+    left:calc(100% + .82em)!important;
+    right:auto!important;
+  }
+}
