@@ -70,7 +70,12 @@
   // In v67 the hash/active gallery were updated only after fitting, so the
   // what! route could retain the previous gallery geometry.
   if (whatDot) {
-    whatDot.addEventListener('click', function () {
+    whatDot.addEventListener('click', function (event) {
+      // v70: the what! control may itself participate in anchor navigation.
+      // Cancel that route completely before delegating to the real START link;
+      // otherwise its later/default handler can overwrite START's fitted state.
+      event.preventDefault();
+      event.stopImmediatePropagation();
       chooseDifferentAccent();
       flashTouchLabel(whatDot);
       whatDot.blur();
