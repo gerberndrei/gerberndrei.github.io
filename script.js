@@ -45,10 +45,21 @@
     if (history.replaceState) history.replaceState(null, '', hash);
   }
 
+  // Touch labels: show briefly after a tap, then disappear automatically.
+  function flashTouchLabel(button) {
+    if (!button || !window.matchMedia('(hover:none), (pointer:coarse)').matches) return;
+    button.classList.add('touch-label-visible');
+    window.clearTimeout(button._touchLabelTimer);
+    button._touchLabelTimer = window.setTimeout(function () {
+      button.classList.remove('touch-label-visible');
+    }, 850);
+  }
+
   // so? changes the palette and leads to what! at the bottom.
   if (colourDot) {
     colourDot.addEventListener('click', function () {
       chooseDifferentAccent();
+      flashTouchLabel(colourDot);
       colourDot.blur();
       const tip = colourDot.querySelector('.mark-tooltip');
       if (tip && window.matchMedia('(max-width:900px), (pointer:coarse)').matches) {
@@ -62,6 +73,7 @@
   if (whatDot) {
     whatDot.addEventListener('click', function () {
       chooseDifferentAccent();
+      flashTouchLabel(whatDot);
       whatDot.blur();
       const start = document.getElementById('start');
       if (start) start.scrollIntoView({ behavior: 'smooth', block: 'start' });

@@ -1841,3 +1841,34 @@ button.misc-divider-dot > .misc-divider-tooltip{
     width:min(calc(100vw - 44px),500px,calc(100svh - var(--head) - 28px))!important;
   }
 }
+
+/* v63: touch labels + cleaner PAST EVENTS rhythm. */
+@media (hover:none), (pointer:coarse){
+  /* Labels are controlled explicitly by JS on touch: tap -> briefly show. */
+  .fixed-head > .mark > .mark-tooltip,
+  .misc-divider-dot > .misc-divider-tooltip{opacity:0!important;}
+  .fixed-head > .mark.touch-label-visible > .mark-tooltip,
+  .misc-divider-dot.touch-label-visible > .misc-divider-tooltip{opacity:1!important;}
+}
+
+@media (max-width:650px){
+  /* Date + dash + title read as one compact line. Wrapped prose hangs beneath
+     the title rather than returning to the far-left date axis. */
+  #past-events .past-row{
+    margin-left:1.25em!important;
+    padding-left:4.35em!important;
+    text-indent:-4.35em!important;
+    max-width:calc(100% - 1.25em)!important;
+  }
+  #past-events .past-row .past-separator{
+    margin-left:.38em!important;
+    margin-right:.38em!important;
+  }
+}
+
+@media (max-width:900px) and (orientation:landscape) and (max-height:650px){
+  #past-events .past-row .past-separator{
+    margin-left:.45em!important;
+    margin-right:.45em!important;
+  }
+}
