@@ -2233,3 +2233,13 @@ html,body{overflow-x:hidden;}
     right:auto!important;
   }
 }
+
+/* v82: portrait phone — correct v81's active NETWORK marker position.
+   Keep the navigation widths/divider spacing unchanged; move only the dot
+   toward NETWORK so it sits visually centered in the existing gap. */
+@media (max-width:650px) and (orientation:portrait){
+  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+    left:calc(100% + .22em)!important;
+    right:auto!important;
+  }
+}
