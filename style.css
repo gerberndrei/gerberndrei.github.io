@@ -2522,33 +2522,29 @@ html,body{overflow-x:hidden;}
   }
 }
 
-/* v95: optical portrait-phone fixes based on the deployed v94 build. */
-@media (max-width:650px) and (orientation:portrait) and (prefers-color-scheme:dark){
-  /* These labels were perceptually lighter/thinner on the phone although the
-     computed v94 paint matched. Give only the reported labels a brighter paint. */
-  html[lang="de"] body .fixed-head .primary-nav a[href="#start"],
-  html[lang="de"] body .fixed-head .primary-nav a[href="#aktuell"],
-  html[lang="de"] body .fixed-head .primary-nav a[href="#solothurn"],
-  html[lang="de"] body .fixed-head .secondary-nav a[href="#past"],
-  html[lang="de"] body .fixed-head .secondary-nav a[href="#netzwerk"],
-  html[lang="en"] body .fixed-head .secondary-nav a[href="#past"],
-  html[lang="en"] body .fixed-head .secondary-nav a[href="#netzwerk"]{
-    color:#e0e0e0!important;
-    -webkit-text-fill-color:#e0e0e0!important;
-  }
 
-  /* Anchor the marker directly to NETWORK's right edge. */
-  body .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
-    left:calc(100% + .12em)!important;
-    right:auto!important;
+/* v100: consolidated fixes for the four remaining typography/layout issues.
+   This block is the sole final authority for these properties. */
+
+/* Desktop + landscape: NETWORK rows use the same explicit reading rhythm as PAST EVENTS. */
+@media (min-width:651px), (orientation:landscape){
+  #past-events .past-row,
+  .network-links .network-row{
+    font-size:var(--type-size)!important;
+    line-height:var(--type-leading)!important;
+    min-height:calc(var(--type-size) * var(--type-leading))!important;
+    margin:0!important;
+    padding-top:0!important;
+    padding-bottom:0!important;
+  }
+  .network-links{
+    row-gap:0!important;
+    gap:0!important;
   }
 }
 
-
-/* v96: structural portrait-phone fixes. */
+/* Phone portrait: real elements and a real gap after the date; no NBSP spacing. */
 @media (max-width:650px) and (orientation:portrait){
-  /* Real typographic separation: no NBSP-based spacing. Both spans remain
-     inline, so wrapped prose can still return naturally to the row axis. */
   #past-events .past-row > .past-mobile-line{
     display:inline!important;
   }
@@ -2556,81 +2552,33 @@ html,body{overflow-x:hidden;}
   #past-events .past-mobile-desc{
     display:inline!important;
   }
-  #past-events .past-mobile-date{
-    margin-right:1.35em!important;
-  }
-
-  /* Marker is now almost flush to the NETWORK text edge; its position no
-     longer attempts to visually centre it in the divider interval. */
-  body .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
-    left:calc(100% + .02em)!important;
-    right:auto!important;
-  }
-}
-
-@media (max-width:650px) and (orientation:portrait) and (prefers-color-scheme:dark){
-  /* PAST EVENTS + NETWORK are the only two labels still reading too weak on
-     the actual phone. Give them an explicit stronger optical treatment. */
-  html body .fixed-head > .secondary-nav a[href="#past"],
-  html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
-    font-weight:400!important;
-    color:#f0f0f0!important;
-    -webkit-text-fill-color:#f0f0f0!important;
-    opacity:1!important;
-  }
-}
-
-/* v97: consolidated final rules. These are the sole end-of-cascade controls
-   for the four repeatedly adjusted details. */
-
-/* PAST EVENTS and NETWORK use exactly the same rendered row pitch. */
-#past-events .past-row,
-.network-links .network-row{
-  line-height:var(--type-leading)!important;
-  min-height:calc(1em * var(--type-leading))!important;
-  margin-top:0!important;
-  margin-bottom:0!important;
-  padding-top:0!important;
-  padding-bottom:0!important;
-}
-.network-links{
-  row-gap:0!important;
-}
-
-@media (max-width:650px) and (orientation:portrait){
-  /* Mobile PAST EVENTS: use a real fixed-width spacer after the complete date.
-     No whitespace character is responsible for the visible gap. */
-  #past-events .past-mobile-date{
-    margin-right:0!important;
-  }
   #past-events .past-mobile-date::after{
-    content:""!important;
-    display:inline-block!important;
-    width:2.25em!important;
-    height:1px!important;
+    content:"";
+    display:inline-block;
+    width:2.25em;
   }
 
-  /* Active NETWORK marker: anchor to the text edge, then add exactly 4px.
-     This is independent of the divider position and its margins. */
-  body .fixed-head > .secondary-nav a[href="#netzwerk"]::after,
-  body .fixed-head > .secondary-nav a[href="#netzwerk"].active-secondary::after{
-    left:100%!important;
+  /* The active dot is attached to NETWORK itself, not centered in the space to the divider. */
+  body .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+    left:calc(100% + 2px)!important;
     right:auto!important;
-    margin-left:4px!important;
+    margin:0!important;
+    transform:translateY(-50%)!important;
   }
 }
 
-@media (max-width:650px) and (orientation:portrait) and (prefers-color-scheme:dark){
-  /* One paint and one weight for every navigation label in portrait dark mode. */
+/* Dark phone navigation, portrait AND landscape: secondary labels get the same
+   optical strength as the primary navigation. */
+@media (max-width:900px) and (prefers-color-scheme:dark){
   html body .fixed-head .primary-nav a,
-  html body .fixed-head .secondary-nav a,
-  html body .fixed-head .secondary-nav b,
-  html body .fixed-head .language-toggle{
+  html body .fixed-head .secondary-nav a[href="#past"],
+  html body .fixed-head .secondary-nav a[href="#netzwerk"]{
     font-family:Arial,Helvetica,sans-serif!important;
     font-weight:400!important;
-    color:#f0f0f0!important;
-    -webkit-text-fill-color:#f0f0f0!important;
+    color:#d0d0d0!important;
+    -webkit-text-fill-color:#d0d0d0!important;
     opacity:1!important;
     text-shadow:none!important;
+    font-synthesis:none!important;
   }
 }
