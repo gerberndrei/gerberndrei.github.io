@@ -61,10 +61,6 @@
       chooseDifferentAccent();
       flashTouchLabel(colourDot);
       colourDot.blur();
-      const tip = colourDot.querySelector('.mark-tooltip');
-      if (tip && window.matchMedia('(max-width:900px), (pointer:coarse)').matches) {
-        tip.style.setProperty('opacity', '0', 'important');
-      }
       scrollToElement(whatDot, '#what');
     });
   }

@@ -1872,3 +1872,42 @@ button.misc-divider-dot > .misc-divider-tooltip{
     margin-right:.45em!important;
   }
 }
+
+/* v64: touch labels, PAST EVENTS hanging indent, and Android tap flash. */
+@media (hover:none), (pointer:coarse){
+  /* Remove Chrome/Android's pale-blue tap rectangle without changing focus
+     treatment for keyboard/pointer users. */
+  .fixed-head a,
+  .fixed-head button,
+  .misc-divider-dot,
+  .legal-links summary{
+    -webkit-tap-highlight-color:transparent!important;
+  }
+
+  /* JS owns the brief so?/what! reveal on touch. */
+  .fixed-head > .mark.touch-label-visible > .mark-tooltip,
+  .misc-divider-dot.touch-label-visible > .misc-divider-tooltip{
+    opacity:1!important;
+    visibility:visible!important;
+  }
+}
+
+@media (max-width:650px){
+  /* Three real columns on portrait phones: date | dash | description.
+     The description therefore wraps beneath itself, never beneath the date. */
+  #past-events .past-row{
+    display:grid!important;
+    grid-template-columns:max-content max-content minmax(0,1fr)!important;
+    column-gap:.42em!important;
+    align-items:baseline!important;
+    margin-left:1.25em!important;
+    padding-left:0!important;
+    text-indent:0!important;
+    max-width:calc(100% - 1.25em)!important;
+  }
+  #past-events .past-row > span{display:block!important;min-width:0;}
+  #past-events .past-row .past-separator{
+    margin:0!important;
+    align-self:baseline!important;
+  }
+}
