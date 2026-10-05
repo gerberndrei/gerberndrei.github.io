@@ -1911,3 +1911,42 @@ button.misc-divider-dot > .misc-divider-tooltip{
     align-self:baseline!important;
   }
 }
+
+/* v65: final touch cleanup + START fits instead of auto-scrolling. */
+html,body{overflow-x:hidden;}
+
+/* Portrait phone: so?/what! are hover language and therefore intentionally absent. */
+@media (max-width:650px) and (orientation:portrait){
+  .fixed-head > .mark > .mark-tooltip,
+  .misc-divider-dot > .misc-divider-tooltip{
+    display:none!important;
+  }
+
+  /* No emulated hover/focus preview dots on touch. Only the real active accent dot remains. */
+  .primary-nav a::before,
+  .secondary-nav a[href="#past"]::after,
+  .secondary-nav a[href="#netzwerk"]::before{
+    display:none!important;
+    content:none!important;
+  }
+  .fixed-head a,
+  .fixed-head button,
+  .secondary-nav a,
+  .primary-nav a{
+    -webkit-tap-highlight-color:rgba(0,0,0,0)!important;
+    outline:none!important;
+  }
+
+  /* Mobile PAST EVENTS: date + description only. No dash. Wrapped text stays
+     aligned with the description rather than returning to the date axis. */
+  #past-events .past-row{
+    display:grid!important;
+    grid-template-columns:max-content minmax(0,1fr)!important;
+    column-gap:.7em!important;
+    align-items:baseline!important;
+    margin-left:1.25em!important;
+    padding-left:0!important;
+    text-indent:0!important;
+  }
+  #past-events .past-row .past-separator{display:none!important;}
+}

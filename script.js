@@ -48,6 +48,7 @@
   // Touch labels: show briefly after a tap, then disappear automatically.
   function flashTouchLabel(button) {
     if (!button || !window.matchMedia('(hover:none), (pointer:coarse)').matches) return;
+    if (window.matchMedia('(max-width:650px) and (orientation:portrait)').matches) return;
     button.classList.add('touch-label-visible');
     window.clearTimeout(button._touchLabelTimer);
     button._touchLabelTimer = window.setTimeout(function () {
@@ -71,8 +72,8 @@
       chooseDifferentAccent();
       flashTouchLabel(whatDot);
       whatDot.blur();
-      const start = document.getElementById('start');
-      if (start) start.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      fitStartToViewport();
+      window.scrollTo({ top:0, left:0, behavior:'smooth' });
       if (history.replaceState) history.replaceState(null, '', '#start');
     });
   }
@@ -258,6 +259,29 @@
   let resizeInProgress = false;
   let resizeSettleTimer = 0;
 
+  function fitStartToViewport() {
+    if (window.matchMedia('(max-width:900px), (pointer:coarse)').matches) return;
+    const start = document.getElementById('start');
+    const group = start && start.querySelector('.window-group');
+    if (!group) return;
+
+    /* Begin from the normal design size, then reduce only if the complete
+       START unit (title + square + dots) would extend below the viewport. */
+    group.style.width = '';
+    group.style.maxWidth = '';
+    const oldScroll = window.scrollY;
+    if (oldScroll !== 0) window.scrollTo({top:0,left:0,behavior:'auto'});
+    const bottomLimit = window.innerHeight - 6;
+    let r = group.getBoundingClientRect();
+    if (r.bottom > bottomLimit) {
+      const overflow = r.bottom - bottomLimit;
+      const currentWidth = r.width;
+      const fitted = Math.max(180, currentWidth - overflow - 2);
+      group.style.width = fitted + 'px';
+      group.style.maxWidth = fitted + 'px';
+    }
+  }
+
   function galleryLimits() {
     const mobile = window.matchMedia('(max-width: 650px)').matches;
     if (mobile) {
@@ -300,6 +324,7 @@
 
   function centerGallery(group) {
     if (!group || !document.documentElement.contains(group)) return;
+    if (group.closest('#start') && !window.matchMedia('(max-width:900px), (pointer:coarse)').matches) { fitStartToViewport(); window.scrollTo({top:0,left:0,behavior:'auto'}); return; }
     const limits = galleryLimits();
     const available = limits.bottom - limits.top;
     const r = group.getBoundingClientRect();
@@ -412,6 +437,12 @@
       if (!group) return;
       event.preventDefault();
       activeGallery = group;
+      if (id === '#start' && !window.matchMedia('(max-width:900px), (pointer:coarse)').matches) {
+        if (history.replaceState) history.replaceState(null, '', id);
+        fitStartToViewport();
+        window.scrollTo({top:0,left:0,behavior:'smooth'});
+        return;
+      }
       if (history.replaceState) history.replaceState(null, '', id);
       const limits = galleryLimits();
       const available = Math.max(0, limits.bottom - limits.top);
@@ -427,6 +458,10 @@
     });
   });
   activeGallery = galleryFromHash() || chooseActiveGallery();
+  if (!location.hash || location.hash === '#start') {
+    fitStartToViewport();
+    if (!window.matchMedia('(max-width:900px), (pointer:coarse)').matches) window.scrollTo({top:0,left:0,behavior:'auto'});
+  }
 
 
   // Navigation marker: the yellow dot follows the section that actually
