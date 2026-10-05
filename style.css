@@ -2466,3 +2466,33 @@ html,body{overflow-x:hidden;}
     right:auto!important;
   }
 }
+
+
+/* v92: portrait-only refinements.
+   Keep the two NBSP date gap only in the portrait mobile text run;
+   desktop/landscape retain their established date/separator spacing. */
+@media (max-width:650px) and (orientation:portrait){
+  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+    left:calc(100% + .42em)!important;
+    right:auto!important;
+  }
+}
+
+/* v92: use one explicit native face/weight/paint for every text node in dark mode.
+   `normal` avoids browser-specific synthetic handling of Arial 300. */
+@media (prefers-color-scheme: dark){
+  body, body *{
+    font-family:Arial,Helvetica,sans-serif!important;
+    font-weight:normal!important;
+    font-style:normal!important;
+    font-synthesis:none!important;
+    color:#d0d0d0!important;
+    -webkit-text-fill-color:#d0d0d0!important;
+    text-shadow:none!important;
+    opacity:1!important;
+  }
+  .mark-dot, .misc-divider-dot img, .slide img{
+    color:initial!important;
+    -webkit-text-fill-color:initial!important;
+  }
+}
