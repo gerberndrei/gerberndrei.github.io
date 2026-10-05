@@ -7,6 +7,38 @@
   const content = window.SITE_CONTENT || {};
   const MAX_IMAGES = 11;
 
+  // v76: German/original is the default. English is an optional overlay:
+  // whenever a *_en value is missing, the original value stays visible.
+  let currentLanguage = localStorage.getItem('gerbern-drei-language') === 'en' ? 'en' : 'de';
+  const MONTHS_EN = {
+    JANUAR:'JANUARY', FEBRUAR:'FEBRUARY', 'MÄRZ':'MARCH', APRIL:'APRIL',
+    MAI:'MAY', JUNI:'JUNE', JULI:'JULY', AUGUST:'AUGUST',
+    SEPTEMBER:'SEPTEMBER', OKTOBER:'OCTOBER', NOVEMBER:'NOVEMBER', DEZEMBER:'DECEMBER'
+  };
+  const NAV_LABELS = {
+    de:{start:'START',about:'ABOUT',aktuell:'AKTUELL',solothurn:'SOLOTHURN',kontakt:'KONTAKT',past:'PAST EVENTS',netzwerk:'NETZWERK',misc:'MISC',imprint:'IMPRESSUM',privacy:'DATENSCHUTZ'},
+    en:{start:'START',about:'ABOUT',aktuell:'NOW',solothurn:'SOLOTHURN',kontakt:'CONTACT',past:'PAST EVENTS',netzwerk:'NETWORK',misc:'MISC',imprint:'LEGAL',privacy:'PRIVACY'}
+  };
+
+  function localized(obj, key) {
+    if (!obj) return '';
+    const enKey = key + '_en';
+    return currentLanguage === 'en' && obj[enKey] != null ? obj[enKey] : obj[key];
+  }
+
+  function galleryImageSpec(data, entry, index) {
+    if (entry && typeof entry === 'object') {
+      return { base:entry.image || '', en:entry.image_en || '', alt:localized(entry,'alt') || '' };
+    }
+    const enList = Array.isArray(data.images_en) ? data.images_en : [];
+    const altList = currentLanguage === 'en' && Array.isArray(data.alt_en) ? data.alt_en : (Array.isArray(data.alt) ? data.alt : []);
+    return { base:entry || '', en:enList[index] || '', alt:altList[index] || '' };
+  }
+
+  function desiredImageName(spec) {
+    return currentLanguage === 'en' && spec.en ? spec.en : spec.base;
+  }
+
   // v52: one random saturated-pastel original dot image per page load.
   // Clicking the large navigation dot chooses a different colour AND returns to START.
   const ACCENT_DOTS = [
@@ -120,15 +152,25 @@
       const slide = document.createElement('div');
       slide.className = 'slide';
       const img = document.createElement('img');
-      img.src = 'images/' + key + '/' + name;
+      const spec = galleryImageSpec(data, name, index);
+      img.dataset.galleryKey = key;
+      img.dataset.imageIndex = String(index);
+      img.dataset.baseName = spec.base;
+      img.dataset.enName = spec.en;
+      img.src = 'images/' + key + '/' + desiredImageName(spec);
       img.loading = 'lazy';
       img.decoding = 'async';
-      // ALT-Texte werden in content.js pro Galerie gepflegt.
-      // Falls noch keiner eingetragen ist, bleibt alt leer (rein dekoratives Bild).
-      img.alt = (Array.isArray(data.alt) && data.alt[index]) ? data.alt[index] : '';
+      img.alt = spec.alt;
       img.onerror = function () {
+        // An optional image_en may already be written in content.js before the
+        // actual file is uploaded. In that case silently use the DE/base image.
+        if (currentLanguage === 'en' && img.dataset.enName && !img.dataset.fellBack) {
+          img.dataset.fellBack = '1';
+          img.src = 'images/' + key + '/' + img.dataset.baseName;
+          return;
+        }
         slide.classList.add('missing');
-        slide.textContent = 'DATEI NICHT GEFUNDEN\n' + name;
+        slide.textContent = 'DATEI NICHT GEFUNDEN\n' + img.dataset.baseName;
       };
       slide.appendChild(img);
       track.appendChild(slide);
@@ -197,76 +239,143 @@
 
   document.querySelectorAll('.carousel[data-gallery]').forEach(buildGallery);
   const past = document.getElementById('past-events');
-  past.innerHTML = '';
-  const pastLines = String(content.pastEvents || '').split(/\r?\n/);
-  let previousWasYear = false;
-  pastLines.forEach((raw, i) => {
-    const line = raw.trim();
-    if (!line) {
-      if (!previousWasYear && i < pastLines.length - 1) {
-        const gap = document.createElement('div');
-        gap.className = 'past-block-gap';
-        past.appendChild(gap);
+  const network = document.getElementById('network-links');
+
+  function translateMonth(dateText) {
+    if (currentLanguage !== 'en') return dateText;
+    return dateText.replace(/^([A-ZÄÖÜ]+)(\b|\s)/, function (whole, month, boundary) {
+      return (MONTHS_EN[month] || month) + boundary;
+    });
+  }
+
+  function renderPastEvents() {
+    past.innerHTML = '';
+    const source = currentLanguage === 'en' && content.pastEvents_en != null ? content.pastEvents_en : content.pastEvents;
+    const pastLines = String(source || '').split(/\r?\n/);
+    let previousWasYear = false;
+    pastLines.forEach((raw, i) => {
+      const line = raw.trim();
+      if (!line) {
+        if (!previousWasYear && i < pastLines.length - 1) {
+          const gap = document.createElement('div'); gap.className = 'past-block-gap'; past.appendChild(gap);
+        }
+        previousWasYear = false; return;
+      }
+      if (/^\d{4}$/.test(line)) {
+        const year = document.createElement('div'); year.className = 'past-year'; year.textContent = '\u00A0\u00A0' + line; past.appendChild(year);
+        const gap = document.createElement('div'); gap.className = 'past-year-gap'; past.appendChild(gap);
+        previousWasYear = true; return;
       }
       previousWasYear = false;
-      return;
+      const m = line.match(/^([^:]+):\s*(.*)$/);
+      if (m) {
+        const dateText = translateMonth(m[1]);
+        const row = document.createElement('div'); row.className = 'past-row';
+        const date = document.createElement('span'); date.textContent = dateText;
+        const sep = document.createElement('span'); sep.className = 'list-separator past-separator'; sep.textContent = '—';
+        const desc = document.createElement('span'); desc.textContent = m[2];
+        const mobileLine = document.createElement('span'); mobileLine.className = 'past-mobile-line'; mobileLine.textContent = dateText + '  ' + m[2];
+        row.append(date, sep, desc, mobileLine); past.appendChild(row);
+      } else {
+        const row = document.createElement('div'); row.textContent = line; past.appendChild(row);
+      }
+    });
+  }
+
+  function renderNetwork() {
+    network.innerHTML = '';
+    const links = Array.isArray(content.network) ? content.network : [];
+    links.forEach(function (item) {
+      const row = document.createElement('div'); row.className = 'network-row';
+      const labelText = localized(item, 'label');
+      const url = localized(item, 'url') || item.url;
+      const display = localized(item, 'display') || item.display;
+      const email = localized(item, 'email') || item.email;
+      const label = document.createElement('span'); label.className = 'network-label'; label.textContent = labelText ? '\u00A0\u00A0' + labelText : ''; row.appendChild(label);
+      if (labelText) { const sep = document.createElement('span'); sep.className = 'list-separator'; sep.textContent = '|'; row.appendChild(sep); }
+      if (url) {
+        const a = document.createElement('a'); a.href = url; a.textContent = display || url.replace(/^https?:\/\//i, '').replace(/\/$/, '');
+        if (/^https?:\/\//i.test(a.href)) { a.target = '_blank'; a.rel = 'noopener noreferrer'; } row.appendChild(a);
+      }
+      if (email) { const a = document.createElement('a'); a.href = 'mailto:' + email; a.textContent = email; row.appendChild(a); }
+      network.appendChild(row);
+    });
+  }
+
+  renderPastEvents();
+  renderNetwork();
+
+
+  function updateGalleryLanguage() {
+    document.querySelectorAll('.carousel[data-gallery]').forEach(function (carousel) {
+      const key = carousel.dataset.gallery;
+      const data = content[key] || {};
+      const entries = Array.isArray(data.images) ? data.images.slice(0, MAX_IMAGES) : [];
+      carousel.querySelectorAll('.slide img').forEach(function (img, index) {
+        const spec = galleryImageSpec(data, entries[index], index);
+        const slide = img.closest('.slide');
+        if (slide) slide.classList.remove('missing');
+        delete img.dataset.fellBack;
+        img.dataset.baseName = spec.base;
+        img.dataset.enName = spec.en;
+        img.alt = spec.alt;
+        const wanted = desiredImageName(spec);
+        if (wanted) img.src = 'images/' + key + '/' + wanted;
+      });
+    });
+  }
+
+  function setText(selector, value) {
+    const el = document.querySelector(selector);
+    if (el && value != null) el.textContent = value;
+  }
+
+  function applyLanguage() {
+    const labels = NAV_LABELS[currentLanguage];
+    document.documentElement.lang = currentLanguage;
+    localStorage.setItem('gerbern-drei-language', currentLanguage);
+
+    ['start','about','aktuell','solothurn','kontakt'].forEach(function (id) {
+      setText('.primary-nav a[href="#' + id + '"]', labels[id]);
+      const data = content[id] || {};
+      const title = localized(data, 'title');
+      setText('#' + id + ' .section-title', currentLanguage === 'en' && data.title_en == null ? labels[id] : title);
+    });
+    setText('.secondary-nav a[href="#past"]', labels.past);
+    setText('.secondary-nav a[href="#netzwerk"]', labels.netzwerk);
+    setText('#past .section-title', labels.past);
+    setText('#netzwerk .section-title', labels.netzwerk);
+    setText('#misc .section-title', currentLanguage === 'en' && content.misc && content.misc.title_en != null ? content.misc.title_en : labels.misc);
+    setText('#legal-imprint-title', labels.imprint);
+    setText('#legal-privacy-title', labels.privacy);
+
+    const legal = content.legal || {};
+    setText('#legal-imprint-text', localized(legal, 'imprint') || 'Hier kommt dein kurzes Impressum hin.');
+    setText('#legal-privacy-text', localized(legal, 'privacy') || 'Hier kommt deine kurze Datenschutzerklärung hin.');
+
+    const toggle = document.querySelector('.language-toggle');
+    if (toggle) {
+      toggle.textContent = currentLanguage === 'de' ? 'EN' : 'DE';
+      toggle.setAttribute('aria-label', currentLanguage === 'de' ? 'Switch to English' : 'Zur deutschen Version wechseln');
     }
-    if (/^\d{4}$/.test(line)) {
-      const year = document.createElement('div');
-      year.className = 'past-year';
-      year.textContent = '\u00A0\u00A0' + line;
-      past.appendChild(year);
-      const gap = document.createElement('div');
-      gap.className = 'past-year-gap';
-      past.appendChild(gap);
-      previousWasYear = true;
-      return;
-    }
-    previousWasYear = false;
-    const m = line.match(/^([^:]+):\s*(.*)$/);
-    if (m) {
-      const row = document.createElement('div');
-      row.className = 'past-row';
-      const date = document.createElement('span'); date.textContent = m[1];
-      const sep = document.createElement('span'); sep.className = 'list-separator past-separator'; sep.textContent = '—';
-      const desc = document.createElement('span'); desc.textContent = m[2];
-      const mobileLine = document.createElement('span');
-      mobileLine.className = 'past-mobile-line';
-      mobileLine.textContent = m[1] + '  ' + m[2];
-      row.append(date, sep, desc, mobileLine);
-      past.appendChild(row);
-    } else {
-      const row = document.createElement('div');
-      row.textContent = line;
-      past.appendChild(row);
-    }
+
+    const topTip = document.querySelector('.mark-tooltip');
+    const bottomTip = document.querySelector('.misc-divider-tooltip');
+    if (topTip) topTip.textContent = currentLanguage === 'de' ? 'na?' : 'so?';
+    if (bottomTip) bottomTip.textContent = currentLanguage === 'de' ? 'und!' : 'what!';
+
+    renderPastEvents();
+    renderNetwork();
+    updateGalleryLanguage();
+  }
+
+  const languageToggle = document.querySelector('.language-toggle');
+  if (languageToggle) languageToggle.addEventListener('click', function () {
+    currentLanguage = currentLanguage === 'de' ? 'en' : 'de';
+    applyLanguage();
   });
 
-  const network = document.getElementById('network-links');
-  const links = Array.isArray(content.network) ? content.network : [];
-  links.forEach(function (item) {
-    const row = document.createElement('div');
-    row.className = 'network-row';
-    const label = document.createElement('span');
-    label.className = 'network-label';
-    label.textContent = item.label ? '\u00A0\u00A0' + item.label : '';
-    row.appendChild(label);
-    if (item.label) { const sep = document.createElement('span'); sep.className = 'list-separator'; sep.textContent = '|'; row.appendChild(sep); }
-    if (item.url) {
-      const a = document.createElement('a');
-      a.href = item.url;
-      a.textContent = item.display || item.url.replace(/^https?:\/\//i, '').replace(/\/$/, '');
-      if (/^https?:\/\//i.test(a.href)) { a.target = '_blank'; a.rel = 'noopener noreferrer'; }
-      row.appendChild(a);
-    }
-    if (item.email) {
-      const a = document.createElement('a');
-      a.href = 'mailto:' + item.email;
-      a.textContent = item.email;
-      row.appendChild(a);
-    }
-    network.appendChild(row);
-  });
+  applyLanguage();
 
 
   // Gallery navigation: title + image + dots are one visual unit.

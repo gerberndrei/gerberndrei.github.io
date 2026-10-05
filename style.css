@@ -2063,3 +2063,59 @@ html,body{overflow-x:hidden;}
     text-indent:0!important;
   }
 }
+
+/* v76: DE/EN switch. Desktop/landscape: quiet second line under NETZWERK.
+   Portrait phone: third item in the PAST EVENTS | NETZWERK | EN row. */
+.language-toggle{
+  position:absolute;
+  right:0;
+  top:calc(100% + .72em);
+  margin:0;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#999;
+  font:inherit;
+  font-weight:300;
+  letter-spacing:inherit;
+  line-height:inherit;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.language-separator{display:none!important;}
+@media (hover:hover) and (pointer:fine){
+  .language-toggle::before{
+    content:"";
+    position:absolute;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#000;
+    right:calc(100% + .52em);
+    top:50%;
+    transform:translateY(-50%);
+    opacity:0;
+    pointer-events:none;
+  }
+  .language-toggle:hover{color:#000;}
+  .language-toggle:hover::before{opacity:1;}
+}
+@media (max-width:650px) and (orientation:portrait){
+  .fixed-head > .secondary-nav{
+    display:flex!important;
+    align-items:baseline!important;
+  }
+  .language-separator{
+    display:inline-block!important;
+    margin-left:.9em!important;
+    margin-right:.9em!important;
+    color:#777;
+  }
+  .language-toggle{
+    position:relative;
+    right:auto;
+    top:auto;
+    color:#999;
+    cursor:default;
+  }
+}

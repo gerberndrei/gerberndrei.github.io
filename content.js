@@ -2,6 +2,13 @@
   GERBERN DREI — INHALTE
   Hier pflegst du Bilder, ALT-Texte, PAST EVENTS und NETZWERK.
   Pro Galerie maximal 11 Bilder.
+
+  ENGLISCH IST IMMER OPTIONAL:
+  - Text: title_en, pastEvents_en, label_en, display_en usw.
+    Fehlt die _en-Variante, bleibt im EN-Modus automatisch das Original stehen.
+  - Slides können weiterhin einfach Strings sein: 'bild.jpg' = in DE und EN dasselbe.
+  - Für eine englische Bildalternative: { image: 'bild.jpg', image_en: 'bild-en.jpg' }
+    Fehlt bild-en.jpg im Ordner, fällt die Website automatisch auf bild.jpg zurück.
 */
 
 window.SITE_CONTENT = {
@@ -80,6 +87,14 @@ OKTOBER 11: Auf der Mauer auf der Lauer sitzt ne kleine Wanze, da hat das rote P
 2028
 
 …`,
+
+
+  legal: {
+    imprint: 'Hier kommt dein kurzes Impressum hin.',
+    imprint_en: 'Here comes your legal note.',
+    privacy: 'Hier kommt deine kurze Datenschutzerklärung hin.',
+    privacy_en: 'Here comes your privacy statement.'
+  },
 
   network: [
     {
