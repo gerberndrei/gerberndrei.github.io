@@ -318,6 +318,11 @@
   }, { passive:true });
 
   function settleResize() {
+    // Mobile Chrome changes visualViewport height while its browser chrome moves.
+    // Re-centering the page on every one of those pseudo-resizes fights the user's
+    // finger and causes the visible jump/jitter on a fast swipe. On touch/mobile
+    // layouts scrolling must stay completely native.
+    if (window.matchMedia('(max-width: 900px), (pointer: coarse)').matches) return;
     resizeInProgress = true;
     window.clearTimeout(resizeSettleTimer);
 

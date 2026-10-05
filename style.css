@@ -1732,3 +1732,43 @@ button.misc-divider-dot > .misc-divider-tooltip{
   .section,.list-section{scroll-margin-top:calc(var(--head) + 10px);}
   .window-group{width:min(calc(100vw - 44px),500px,calc(100dvh - var(--head) - 28px));}
 }
+
+/* v60: touch-scroll stability + final mobile/landscape refinements. */
+@media (max-width:650px){
+  /* URL / e-mail are subordinate lines: visibly farther in than the name line. */
+  .network-row a{padding-left:1.35em;}
+
+  /* Touch browsers can keep :hover after a tap. Never leave the black legal
+     hover marker stuck; the coloured open-state marker remains independent. */
+  .legal-links summary::before{opacity:0!important;}
+}
+
+/* Only devices with a real hover pointer get black hover markers. */
+@media (hover:hover) and (pointer:fine){
+  .legal-links summary:hover::before{opacity:1!important;}
+  .legal-links details[open] > summary:hover::before{opacity:0!important;}
+}
+
+@media (max-width:900px) and (orientation:landscape) and (max-height:650px){
+  /* Titles speak with exactly the same light weight/colour as navigation. */
+  .section-title,
+  .list-section .section-title{
+    font-weight:300!important;
+    color:inherit!important;
+  }
+
+  /* Keep long event prose away from the right screen edge. */
+  #past .list-inner{
+    width:min(68vw,680px)!important;
+    max-width:68vw!important;
+  }
+  #past-events .past-row{
+    max-width:calc(100% - 3em)!important;
+    overflow-wrap:normal!important;
+  }
+
+  /* The active NETZWERK marker stays comfortably inside the viewport. */
+  .secondary-nav a[href="#netzwerk"]::after{
+    left:calc(100% + .38em)!important;
+  }
+}
