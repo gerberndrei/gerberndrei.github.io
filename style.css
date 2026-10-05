@@ -2162,3 +2162,64 @@ html,body{overflow-x:hidden;}
     right:auto!important;
   }
 }
+\n\n/* v79: one vertical rhythm for reading lists; semantic NETWORK blocks remain. */
+:root{
+  --reading-line:calc(var(--type-size) * var(--type-leading));
+}
+
+/* Every rendered list line uses the same line box. */
+#past-events,
+#past-events .past-year,
+#past-events .past-row,
+.network-links,
+.network-row{
+  line-height:var(--type-leading)!important;
+}
+#past-events .past-year,
+#past-events .past-row,
+.network-row{
+  min-height:var(--reading-line)!important;
+}
+
+/* A semantic blank line is exactly one full text line high. */
+.network-block-gap,
+#past-events .past-block-gap,
+#past-events .past-year-gap{
+  display:block!important;
+  height:var(--reading-line)!important;
+  min-height:var(--reading-line)!important;
+  margin:0!important;
+  padding:0!important;
+}
+
+/* NETWORK starts after one full blank line, matching the block gaps below. */
+.network-links{
+  margin-top:var(--reading-line)!important;
+  gap:0!important;
+}
+
+/* Desktop/landscape: NETWORK entries use the same second-step reading indent
+   as the event rows; the heading itself stays on the section axis. */
+@media (min-width:651px), (orientation:landscape){
+  .network-links{
+    box-sizing:border-box;
+    padding-left:3em!important;
+  }
+}
+
+/* Portrait phone: keep the active dot clearly attached to NETWORK, with a
+   visibly larger pocket of air before the following language divider. */
+@media (max-width:650px) and (orientation:portrait){
+  .fixed-head > .secondary-nav .language-separator{
+    margin-left:1.75em!important;
+    margin-right:1.32em!important;
+  }
+}
+
+/* v80: keep semantic NETWORK blank rows from collapsing inside the flex list. */
+.network-block-gap{
+  flex:0 0 var(--reading-line)!important;
+  width:100%;
+  height:var(--reading-line)!important;
+  min-height:var(--reading-line)!important;
+}

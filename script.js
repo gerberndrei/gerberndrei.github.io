@@ -324,7 +324,7 @@
       network.appendChild(row);
       if (item.spaceAfter) {
       const gap = document.createElement('div');
-      gap.style.height = '1em';
+      gap.className = 'network-block-gap';
       network.appendChild(gap);
 }
     });
