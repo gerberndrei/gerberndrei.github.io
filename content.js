@@ -7,18 +7,21 @@
 window.SITE_CONTENT = {
   start: {
     title: 'START',
-    images: []
+    images: [
+      'stempel.jpg',
+      'IG a side.jpg',
+      'hall.jpg'
+]
   },
 
   about: {
     title: 'ABOUT',
     images: [
-      'a-side.jpg',
-      'b-side.jpg',
-      'eingang.jpg',
-      'roof.jpg',
-      'room.jpg',
-      'trungpa.jpg'
+      'IG b side.jpg',
+      'fenster.jpg',
+      'eingang skizze.jpg',
+      'dach skizze.jpg',
+      'dach foto.jpg'
     ],
     alt: [
       'Hier kommt der ALT-Text für a-side.jpg hin',
@@ -32,22 +35,41 @@ window.SITE_CONTENT = {
 
   aktuell: {
     title: 'AKTUELL',
-    images: []
+    images: [
+      'IG a side.jpg',
+      'IG b side.jpg'
+]
   },
 
   solothurn: {
     title: 'SOLOTHURN',
-    images: []
+    images: [
+      'krummturm.jpg',
+      'oelberg.jpg',
+      'felsenkapelle.jpg',
+      'einsiedelei.jpg',
+      'verena.jpg',
+      'weissenstein.jpg',
+      'ruettenen.jpg',
+      'jesuiten.jpg',
+      'aare.jpg'
+]
   },
 
   kontakt: {
     title: 'KONTAKT',
-    images: []
+    images: [
+      'trungpa.jpg'
+]
   },
 
   misc: {
     title: 'MISC',
-    images: []
+    images: [
+      'ukies.jpg',
+      'plastik.jpg',
+      'peace.jpg'
+]
   },
 
   pastEvents: `2027
