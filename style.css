@@ -1997,3 +1997,25 @@ html,body{overflow-x:hidden;}
 /* v67: START fitting is measured iteratively in JS so title + window + dots
    share one identical first-screen geometry on load and on return to START. */
 \n\n/* v71: portrait-phone PAST EVENTS without hanging continuation indent.\n   Date and prose flow inline; wrapped lines return to the row's own left axis. */\n@media (max-width:650px) and (orientation:portrait){\n  #past-events .past-row{\n    display:block!important;\n    margin-left:1.25em!important;\n    padding-left:0!important;\n    text-indent:0!important;\n  }\n  #past-events .past-row > span{\n    display:inline!important;\n    min-width:0!important;\n  }\n  #past-events .past-row .past-separator{display:none!important;}\n  #past-events .past-row .past-date{margin-right:.7em!important;}\n}\n
+/* v72: portrait-phone PAST EVENTS flow naturally, with no continuation indent. */
+@media (max-width:650px) and (orientation:portrait){
+  #past-events .past-row{
+    display:block!important;
+    margin-left:1.25em!important;
+    padding-left:0!important;
+    text-indent:0!important;
+    grid-template-columns:none!important;
+  }
+  #past-events .past-row > span{
+    display:inline!important;
+    max-width:none!important;
+    width:auto!important;
+    margin:0!important;
+    padding:0!important;
+    text-indent:0!important;
+  }
+  #past-events .past-row > span:first-child{
+    margin-right:.7em!important;
+  }
+  #past-events .past-row .past-separator{display:none!important;}
+}
