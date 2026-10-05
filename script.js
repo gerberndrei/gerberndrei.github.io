@@ -1,0 +1,435 @@
+(function () {
+  'use strict';
+
+  const content = window.SITE_CONTENT || {};
+  const MAX_IMAGES = 11;
+
+  // v52: one random saturated-pastel original dot image per page load.
+  // Clicking the large navigation dot chooses a different colour AND returns to START.
+  const ACCENT_DOTS = [
+    { colour: '#F3A51F', file: 'dot-apricot.png' },
+    { colour: '#F28C8C', file: 'dot-coral.png' },
+    { colour: '#E99BCB', file: 'dot-rose.png' },
+    { colour: '#B69BE8', file: 'dot-lavender.png' },
+    { colour: '#82AEE8', file: 'dot-sky.png' },
+    { colour: '#72C7C0', file: 'dot-turquoise.png' },
+    { colour: '#91C98D', file: 'dot-sage.png' },
+    { colour: '#D6C85F', file: 'dot-mustard.png' }
+  ];
+
+  let accentDot = ACCENT_DOTS[Math.floor(Math.random() * ACCENT_DOTS.length)];
+
+  function applyAccent(dot) {
+    accentDot = dot;
+    document.documentElement.style.setProperty('--accent', dot.colour);
+    const image = document.querySelector('.mark-dot');
+    if (image) image.src = dot.file;
+  }
+
+  function chooseDifferentAccent() {
+    const alternatives = ACCENT_DOTS.filter(function (dot) { return dot.file !== accentDot.file; });
+    applyAccent(alternatives[Math.floor(Math.random() * alternatives.length)]);
+  }
+
+  applyAccent(accentDot);
+
+  const colourDot = document.querySelector('.mark');
+  if (colourDot) {
+    colourDot.addEventListener('click', function () {
+      chooseDifferentAccent();
+      const start = document.getElementById('start');
+      if (start) start.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (history.replaceState) history.replaceState(null, '', '#start');
+    });
+  }
+
+  function buildGallery(carousel) {
+    const key = carousel.dataset.gallery;
+    const data = content[key] || {};
+    const images = Array.isArray(data.images) ? data.images.slice(0, MAX_IMAGES) : [];
+    const track = carousel.querySelector('.track');
+    const dots = carousel.querySelector('.dots');
+    const prev = carousel.querySelector('.prev');
+    const next = carousel.querySelector('.next');
+
+    track.innerHTML = '';
+    dots.innerHTML = '';
+
+    if (!images.length) {
+      const empty = document.createElement('div');
+      empty.className = 'slide empty';
+      empty.textContent = 'BILD';
+      track.appendChild(empty);
+      prev.hidden = true;
+      next.hidden = true;
+      dots.hidden = true;
+      return;
+    }
+
+    images.forEach(function (name, index) {
+      const slide = document.createElement('div');
+      slide.className = 'slide';
+      const img = document.createElement('img');
+      img.src = 'images/' + key + '/' + name;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      // ALT-Texte werden in content.js pro Galerie gepflegt.
+      // Falls noch keiner eingetragen ist, bleibt alt leer (rein dekoratives Bild).
+      img.alt = (Array.isArray(data.alt) && data.alt[index]) ? data.alt[index] : '';
+      img.onerror = function () {
+        slide.classList.add('missing');
+        slide.textContent = 'DATEI NICHT GEFUNDEN\n' + name;
+      };
+      slide.appendChild(img);
+      track.appendChild(slide);
+
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', 'Bild ' + (index + 1));
+      if (index === 0) dot.classList.add('active');
+      dot.addEventListener('click', function () { goTo(index); });
+      dots.appendChild(dot);
+    });
+
+    if (images.length === 1) {
+      prev.hidden = true;
+      next.hidden = true;
+      dots.hidden = true;
+      return;
+    }
+
+    dots.hidden = false;
+    let index = 0;
+
+    function slideWidth() { return track.clientWidth || 1; }
+    function goTo(i) {
+      index = Math.max(0, Math.min(images.length - 1, i));
+      track.scrollTo({ left: index * slideWidth(), behavior: 'smooth' });
+      update();
+    }
+    function update() {
+      index = Math.max(0, Math.min(images.length - 1, Math.round(track.scrollLeft / slideWidth())));
+      Array.from(dots.children).forEach(function (dot, i) { dot.classList.toggle('active', i === index); });
+      prev.hidden = index === 0;
+      next.hidden = index === images.length - 1;
+    }
+
+    prev.addEventListener('click', function (event) { event.stopPropagation(); goTo(index - 1); });
+    next.addEventListener('click', function (event) { event.stopPropagation(); goTo(index + 1); });
+
+    // On devices with a real cursor, clicking the image advances one slide.
+    // Touch devices keep their native swipe behaviour and do not advance on a tap.
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      track.addEventListener('click', function (event) {
+        if (event.target.tagName === 'IMG' && index < images.length - 1) goTo(index + 1);
+      });
+    }
+
+    track.addEventListener('scroll', function () { window.requestAnimationFrame(update); }, { passive: true });
+
+    // Keep the selected slide locked when responsive sizing changes the window width.
+    // Without this, the old pixel scrollLeft can land between slides during resize.
+    let resizeFrame = 0;
+    const keepSlideLocked = function () {
+      window.cancelAnimationFrame(resizeFrame);
+      resizeFrame = window.requestAnimationFrame(function () {
+        track.scrollTo({ left: index * slideWidth(), behavior: 'auto' });
+        update();
+      });
+    };
+    window.addEventListener('resize', keepSlideLocked, { passive: true });
+    if (window.ResizeObserver) {
+      const ro = new ResizeObserver(keepSlideLocked);
+      ro.observe(track);
+    }
+    update();
+  }
+
+  document.querySelectorAll('.carousel[data-gallery]').forEach(buildGallery);
+  const past = document.getElementById('past-events');
+  past.innerHTML = '';
+  const pastLines = String(content.pastEvents || '').split(/\r?\n/);
+  let previousWasYear = false;
+  pastLines.forEach((raw, i) => {
+    const line = raw.trim();
+    if (!line) {
+      if (!previousWasYear && i < pastLines.length - 1) {
+        const gap = document.createElement('div');
+        gap.className = 'past-block-gap';
+        past.appendChild(gap);
+      }
+      previousWasYear = false;
+      return;
+    }
+    if (/^\d{4}$/.test(line)) {
+      const year = document.createElement('div');
+      year.className = 'past-year';
+      year.textContent = '\u00A0\u00A0' + line;
+      past.appendChild(year);
+      const gap = document.createElement('div');
+      gap.className = 'past-year-gap';
+      past.appendChild(gap);
+      previousWasYear = true;
+      return;
+    }
+    previousWasYear = false;
+    const m = line.match(/^([^:]+):\s*(.*)$/);
+    if (m) {
+      const row = document.createElement('div');
+      row.className = 'past-row';
+      const date = document.createElement('span'); date.textContent = m[1];
+      const sep = document.createElement('span'); sep.className = 'list-separator past-separator'; sep.textContent = '—';
+      const desc = document.createElement('span'); desc.textContent = m[2];
+      row.append(date, sep, desc);
+      past.appendChild(row);
+    } else {
+      const row = document.createElement('div');
+      row.textContent = line;
+      past.appendChild(row);
+    }
+  });
+
+  const network = document.getElementById('network-links');
+  const links = Array.isArray(content.network) ? content.network : [];
+  links.forEach(function (item) {
+    const row = document.createElement('div');
+    row.className = 'network-row';
+    const label = document.createElement('span');
+    label.className = 'network-label';
+    label.textContent = item.label ? '\u00A0\u00A0' + item.label : '';
+    row.appendChild(label);
+    if (item.label) { const sep = document.createElement('span'); sep.className = 'list-separator'; sep.textContent = '|'; row.appendChild(sep); }
+    if (item.url) {
+      const a = document.createElement('a');
+      a.href = item.url;
+      a.textContent = item.display || item.url.replace(/^https?:\/\//i, '').replace(/\/$/, '');
+      if (/^https?:\/\//i.test(a.href)) { a.target = '_blank'; a.rel = 'noopener noreferrer'; }
+      row.appendChild(a);
+    }
+    if (item.email) {
+      const a = document.createElement('a');
+      a.href = 'mailto:' + item.email;
+      a.textContent = item.email;
+      row.appendChild(a);
+    }
+    network.appendChild(row);
+  });
+
+
+  // Gallery navigation: title + image + dots are one visual unit.
+  // During a browser resize, the section named in the URL hash is authoritative.
+  // This avoids scroll events generated by Chrome's maximize/restore operation
+  // accidentally switching the active gallery while the viewport is changing.
+  let activeGallery = null;
+  let resizeInProgress = false;
+  let resizeSettleTimer = 0;
+
+  function galleryLimits() {
+    const head = document.querySelector('.fixed-head');
+    const headH = head ? head.getBoundingClientRect().height : 0;
+    const underStrip = 34.02; // 9 mm white finish below navigation
+    return { top: headH + underStrip, bottom: window.innerHeight - 4 };
+  }
+
+  function galleryFromHash() {
+    const id = location.hash;
+    if (!id) return null;
+    const section = document.querySelector(id);
+    return section && section.classList.contains('section') ? section.querySelector('.window-group') : null;
+  }
+
+  function chooseActiveGallery() {
+    const hashed = galleryFromHash();
+    if (hashed) { activeGallery = hashed; return activeGallery; }
+    const limits = galleryLimits();
+    const viewportCenter = (limits.top + limits.bottom) / 2;
+    let best = null;
+    let bestOverlap = -1;
+    let bestDistance = Infinity;
+    document.querySelectorAll('.section .window-group').forEach(function (group) {
+      const r = group.getBoundingClientRect();
+      const overlap = Math.max(0, Math.min(r.bottom, limits.bottom) - Math.max(r.top, limits.top));
+      const distance = Math.abs(((r.top + r.bottom) / 2) - viewportCenter);
+      if (overlap > bestOverlap || (overlap === bestOverlap && distance < bestDistance)) {
+        best = group; bestOverlap = overlap; bestDistance = distance;
+      }
+    });
+    if (best && bestOverlap > 0) activeGallery = best;
+    return activeGallery;
+  }
+
+  function centerGallery(group) {
+    if (!group || !document.documentElement.contains(group)) return;
+    const limits = galleryLimits();
+    const available = limits.bottom - limits.top;
+    const r = group.getBoundingClientRect();
+    if (r.height > available) return;
+    const desiredTop = limits.top + (available - r.height) / 2;
+    const absoluteTop = window.scrollY + r.top;
+    const wantedScroll = Math.max(0, absoluteTop - desiredTop);
+    window.scrollTo({ top: wantedScroll, left: 0, behavior: 'auto' });
+  }
+
+  function keepWholeGalleryVisible(group) {
+    if (!group || !document.documentElement.contains(group)) return;
+    const limits = galleryLimits();
+    const r = group.getBoundingClientRect();
+    const pad = 10;
+    if (r.bottom > limits.bottom - pad) {
+      window.scrollBy({ top: r.bottom - (limits.bottom - pad), left: 0, behavior: 'auto' });
+    }
+    const r2 = group.getBoundingClientRect();
+    if (r2.top < limits.top + pad && r2.height <= (limits.bottom - limits.top - 2 * pad)) {
+      window.scrollBy({ top: r2.top - (limits.top + pad), left: 0, behavior: 'auto' });
+    }
+  }
+
+  let scrollPickTimer = 0;
+  window.addEventListener('scroll', function () {
+    if (resizeInProgress) return;
+    window.clearTimeout(scrollPickTimer);
+    scrollPickTimer = window.setTimeout(chooseActiveGallery, 70);
+  }, { passive:true });
+
+  function settleResize() {
+    resizeInProgress = true;
+    window.clearTimeout(resizeSettleTimer);
+
+    // Windows/Chrome restore/maximize can rebuild the viewport in several passes.
+    // Keep the explicitly selected/hash gallery authoritative throughout that
+    // sequence and re-center it after each likely layout pass.
+    const target = galleryFromHash() || activeGallery || chooseActiveGallery();
+    if (target) activeGallery = target;
+
+    [0, 80, 180, 320, 520, 800, 1200].forEach(function (delay) {
+      window.setTimeout(function () {
+        const wanted = galleryFromHash() || activeGallery;
+        if (!wanted) return;
+        window.requestAnimationFrame(function () { centerGallery(wanted); });
+      }, delay);
+    });
+
+    resizeSettleTimer = window.setTimeout(function () {
+      const wanted = galleryFromHash() || activeGallery || chooseActiveGallery();
+      if (wanted) {
+        activeGallery = wanted;
+        centerGallery(wanted);
+      }
+      resizeInProgress = false;
+    }, 1350);
+  }
+  window.addEventListener('resize', settleResize, { passive:true });
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', settleResize, { passive:true });
+
+  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      const id = link.getAttribute('href');
+      if (!id || id === '#') return;
+      const target = document.querySelector(id);
+      if (!target) return;
+
+      // Reading sections (PAST EVENTS / NETZWERK) need their title to remain
+      // visibly below the fixed header + 9 mm white finish. Native anchor
+      // scrolling would otherwise tuck the title underneath the header.
+      if (id === '#past' || id === '#netzwerk') {
+        event.preventDefault();
+        if (history.replaceState) history.replaceState(null, '', id);
+        const head = document.querySelector('.fixed-head');
+        const headH = head ? head.getBoundingClientRect().height : 0;
+        const underStrip = 34.02; // 9 mm
+        const breathingRoom = 22;
+        const top = window.scrollY + target.getBoundingClientRect().top - headH - underStrip - breathingRoom;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+        if (secondaryPast) secondaryPast.classList.toggle('active-secondary', id === '#past');
+        if (secondaryNetwork) secondaryNetwork.classList.toggle('active-secondary', id === '#netzwerk');
+        return;
+      }
+
+      if (!target.classList.contains('section')) return;
+      const group = target.querySelector('.window-group');
+      if (!group) return;
+      event.preventDefault();
+      activeGallery = group;
+      if (history.replaceState) history.replaceState(null, '', id);
+      const limits = galleryLimits();
+      const available = Math.max(0, limits.bottom - limits.top);
+      const groupH = group.getBoundingClientRect().height;
+      const desiredTop = limits.top + Math.max(0, (available - groupH) / 2);
+      const targetTop = window.scrollY + group.getBoundingClientRect().top - desiredTop;
+      window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+      [180, 420, 760].forEach(function (delay) {
+        window.setTimeout(function () { keepWholeGalleryVisible(group); }, delay);
+      });
+    });
+  });
+  activeGallery = galleryFromHash() || chooseActiveGallery();
+
+
+  // Navigation marker: the yellow dot follows the section that actually
+  // occupies the centre of the visible browser area. This prevents KONTAKT
+  // from staying active once PAST EVENTS has reached the reading position.
+  const primaryIds = ['start', 'about', 'aktuell', 'solothurn', 'kontakt'];
+  const primaryLinks = Array.from(document.querySelectorAll('.primary-nav a'));
+  const secondaryPast = document.querySelector('.secondary-nav a[href="#past"]');
+  const secondaryNetwork = document.querySelector('.secondary-nav a[href="#netzwerk"]');
+  const navSectionIds = ['start', 'about', 'aktuell', 'solothurn', 'kontakt', 'past', 'netzwerk', 'misc'];
+
+  function currentNavSection() {
+    const head = document.querySelector('.fixed-head');
+    const headH = head ? head.getBoundingClientRect().height : 0;
+
+    // For the reading sections use a stable reading line just below the fixed
+    // navigation. This keeps NETZWERK active for its whole section instead of
+    // letting a short section lose its dot immediately to the following gap.
+    const readingY = headH + 34.02 + 24;
+    const pastSection = document.getElementById('past');
+    const networkSection = document.getElementById('netzwerk');
+    const miscSection = document.getElementById('misc');
+    if (networkSection && miscSection) {
+      const nr = networkSection.getBoundingClientRect();
+      const mr = miscSection.getBoundingClientRect();
+      if (nr.top <= readingY && mr.top > readingY) return 'netzwerk';
+    }
+    if (pastSection && networkSection) {
+      const pr = pastSection.getBoundingClientRect();
+      const nr = networkSection.getBoundingClientRect();
+      if (pr.top <= readingY && nr.top > readingY) return 'past';
+    }
+
+    const y = headH + (window.innerHeight - headH) / 2;
+
+    for (const id of navSectionIds) {
+      const section = document.getElementById(id);
+      if (!section) continue;
+      const r = section.getBoundingClientRect();
+      if (r.top <= y && r.bottom > y) return id;
+    }
+
+    // Fallback for gaps between sections: choose the nearest section centre.
+    let nearest = null;
+    let nearestDistance = Infinity;
+    navSectionIds.forEach(function (id) {
+      const section = document.getElementById(id);
+      if (!section) return;
+      const r = section.getBoundingClientRect();
+      const distance = Math.abs((r.top + r.bottom) / 2 - y);
+      if (distance < nearestDistance) { nearestDistance = distance; nearest = id; }
+    });
+    return nearest;
+  }
+
+  function updateNavDots() {
+    const activeId = currentNavSection();
+
+    primaryLinks.forEach(function (link) {
+      link.classList.toggle('active-section', link.getAttribute('href') === '#' + activeId);
+    });
+
+    if (secondaryPast) secondaryPast.classList.toggle('active-secondary', activeId === 'past');
+    if (secondaryNetwork) secondaryNetwork.classList.toggle('active-secondary', activeId === 'netzwerk');
+  }
+
+  window.addEventListener('scroll', updateNavDots, { passive: true });
+  window.addEventListener('resize', updateNavDots);
+  updateNavDots();
+})();

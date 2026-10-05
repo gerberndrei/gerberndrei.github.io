@@ -1,0 +1,1489 @@
+:root{--edge:clamp(22px,4vw,58px);--head:160px;--foot:64px;--ink:#111;--muted:#bbb;--accent:#e8a300}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--ink);font-family:Arial,Helvetica,sans-serif;font-weight:300}.fixed-head{position:fixed;z-index:20;top:0;left:0;right:0;height:var(--head);background:#fff;padding:clamp(24px,3.2vw,46px) var(--edge);display:flex;justify-content:space-between;align-items:flex-start}.fixed-head nav{display:flex;flex-direction:column;gap:5px;font-size:11px;letter-spacing:.16em;line-height:1.05}.fixed-head nav span{height:8px}.secondary-nav{display:flex;align-items:center;gap:10px;white-space:nowrap}.secondary-nav b{font-weight:300;color:#777}.fixed-head a{color:inherit;text-decoration:none}.mark{width:54px;height:64px;position:relative;display:block}.dot{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--accent);top:0;left:23px}.arches{position:absolute;top:15px;right:0;font-family:Georgia,serif;font-size:34px;letter-spacing:-12px;transform:scaleX(1.05)}
+main{padding-top:var(--head);padding-bottom:var(--foot)}
+.section{height:calc(100dvh - var(--head) - var(--foot));min-height:560px;padding:28px var(--edge);scroll-margin-top:var(--head);display:flex;flex-direction:column;align-items:center;justify-content:center}.section-title{align-self:flex-start;font-size:10px;letter-spacing:.16em;font-weight:400;margin:0 0 18px}.carousel{width:min(50vw,500px,calc(100dvh - var(--head) - var(--foot) - 105px));position:relative}.viewport{overflow:hidden;aspect-ratio:1;background:#fff}.track{height:100%;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}.track::-webkit-scrollbar{display:none}.slide{flex:0 0 100%;height:100%;scroll-snap-align:start;display:grid;place-items:center;background:#fff}.slide img{width:100%;height:100%;object-fit:contain;display:block}.empty{border:1px solid #eee;font-size:11px;letter-spacing:.12em;color:#bbb}.arrow{display:none;position:absolute;z-index:3;top:50%;transform:translateY(-50%);width:42px;height:64px;border:0;background:transparent;cursor:pointer;padding:0;opacity:0;transition:opacity .18s}.arrow::before,.arrow::after{content:"";position:absolute;left:50%;width:18px;height:1px;background:rgba(0,0,0,.38);transform-origin:center}.prev::before{top:25px;transform:translateX(-50%) rotate(-45deg)}.prev::after{top:37px;transform:translateX(-50%) rotate(45deg)}.next::before{top:25px;transform:translateX(-50%) rotate(45deg)}.next::after{top:37px;transform:translateX(-50%) rotate(-45deg)}.prev{left:0}.next{right:0}.dots{height:24px;display:flex;align-items:flex-end;justify-content:center;gap:8px}.dots button{width:5px;height:5px;padding:0;border:0;border-radius:50%;background:#ccc;cursor:pointer}.dots button.active{background:#333}.fixed-foot{position:fixed;z-index:15;left:0;right:0;bottom:0;height:var(--foot);background:#fff}.missing{white-space:pre-line;text-align:center;border:1px solid #eee;color:#999;font-size:10px;letter-spacing:.08em;line-height:1.6}.arrow[hidden]{display:none!important}
+.list-section{min-height:calc(100dvh - var(--head) - var(--foot));padding:12vh var(--edge) 14vh;scroll-margin-top:var(--head)}.list-inner{width:min(72vw,680px);margin:auto}.list-section pre{margin:28px 0 0;white-space:pre-wrap;font:300 13px/1.9 Arial,Helvetica,sans-serif;letter-spacing:.04em}.network-section{padding-top:16vh}.network-links{margin-top:28px;display:flex;flex-direction:column;align-items:flex-start;gap:13px;font-size:13px;line-height:1.5;letter-spacing:.04em}.network-links a{color:inherit;text-decoration:none;border-bottom:1px solid transparent}.network-links a:hover{border-bottom-color:#aaa}.end-spacer{height:calc(var(--foot) + 18vh)}
+@media(hover:hover) and (pointer:fine){.arrow{display:block}.carousel:hover .arrow:not([hidden]){opacity:1}}
+@media(max-width:650px){:root{--head:148px;--foot:48px}.fixed-head{padding-top:22px}.carousel,.list-inner{width:min(calc(100vw - 44px),calc(100dvh - var(--head) - var(--foot) - 92px))}.section{height:calc(100dvh - var(--head) - var(--foot));min-height:500px;padding:22px}.mark{transform:scale(.82);transform-origin:top right}.list-section{padding-left:22px;padding-right:22px}.end-spacer{height:calc(var(--foot) + 14vh)}}
+
+/* v7: title and window are one responsive unit, so the title never drifts
+   independently when the browser is resized. */
+.window-group{width:min(50vw,500px,calc(100dvh - var(--head) - var(--foot) - 105px));display:flex;flex-direction:column;align-items:stretch}
+.window-group .carousel{width:100%}
+.window-group .section-title{align-self:auto;width:100%;margin:0 0 18px}
+@media(max-width:650px){.window-group{width:min(calc(100vw - 44px),calc(100dvh - var(--head) - var(--foot) - 92px))}}
+.network-row{display:flex;flex-wrap:wrap;gap:5px 14px;align-items:baseline}
+.network-label{white-space:normal}
+.network-row a{white-space:normal}
+
+/* v8: responsive rhythm, real signet, restrained navigation */
+.fixed-head nav{font-size:15px}
+.mark{width:64px;height:auto;display:block}
+.mark img{display:block;width:100%;height:auto}
+.section{height:auto;min-height:calc(100dvh - var(--head) - var(--foot));padding-top:clamp(54px,9vh,110px);padding-bottom:clamp(150px,25vh,300px)}
+.section + .section{margin-top:clamp(100px,18vh,240px)}
+.secondary-nav b{font-weight:300;color:#777}
+@media(max-width:650px){
+  .fixed-head nav{font-size:16px;gap:5px;letter-spacing:.13em}
+  .section{min-height:calc(100dvh - var(--head) - var(--foot));padding-top:clamp(38px,7vh,72px);padding-bottom:clamp(90px,16vh,150px)}
+  .section + .section{margin-top:clamp(54px,10vh,100px)}
+  .mark{width:52px;transform:none}
+}
+
+/* v9: wider separator breathing room + stronger signet */
+.secondary-nav{gap:0}
+.secondary-nav b{display:inline-block;margin-left:2.8em;margin-right:2.8em}
+.mark{width:86px}
+@media(max-width:650px){
+  .secondary-nav b{margin-left:2.15em;margin-right:2.15em}
+  .mark{width:72px}
+}
+
+/* v10 experiment: signet spans the full navigation block */
+.mark{width:172px}
+@media(max-width:650px){.mark{width:110px}}
+
+/* v11: unified typography and refined header proportions */
+.fixed-head nav{
+  font-size:13px;
+  gap:8px;
+  line-height:1.05;
+}
+.fixed-head nav span{height:8px}
+.section-title,
+.list-section .section-title{
+  font-size:13px;
+  letter-spacing:.16em;
+  font-weight:400;
+}
+.list-section pre{
+  font-size:13px;
+}
+.network-links{
+  font-size:13px;
+}
+/* Signet: black form ends approximately on the PAST EVENTS axis;
+   top begins around the AKTUELL axis. */
+.mark{
+  width:112px;
+  position:absolute;
+  right:var(--edge);
+  top:82px;
+}
+/* Network is content-sized: no full-screen blank area after the list. */
+.network-section{
+  min-height:0;
+  padding-top:10vh;
+  padding-bottom:42px;
+}
+.end-spacer{height:clamp(70px,10vh,120px)}
+
+@media(max-width:650px){
+  .fixed-head nav{
+    font-size:14px;
+    gap:8px;
+    letter-spacing:.13em;
+  }
+  .section-title,
+  .list-section .section-title,
+  .list-section pre,
+  .network-links{font-size:14px}
+  .mark{
+    width:86px;
+    right:22px;
+    top:78px;
+  }
+  .network-section{padding-top:8vh;padding-bottom:34px}
+  .end-spacer{height:72px}
+}
+\n\n/* v12: three-part header — primary nav left, signet centered, secondary nav right */\n.fixed-head{position:fixed}\n.fixed-head nav{\n  gap:11px;\n  line-height:1.12;\n}\n.mark{\n  width:112px;\n  position:absolute;\n  left:50%;\n  right:auto;\n  top:50%;\n  transform:translate(-50%,-50%);\n}\n.fixed-head > .secondary-nav{\n  position:absolute;\n  right:var(--edge);\n  top:calc(clamp(24px,3.2vw,46px) + 4 * (13px * 1.12 + 11px));\n  display:flex;\n  align-items:baseline;\n  gap:0;\n  white-space:nowrap;\n  font-size:13px;\n  line-height:1.12;\n  letter-spacing:.16em;\n}\n.fixed-head > .secondary-nav a{color:inherit;text-decoration:none}\n.fixed-head > .secondary-nav b{\n  display:inline-block;\n  margin-left:1.4em;\n  margin-right:1.4em;\n  font-weight:300;\n  color:#777;\n}\n.list-section pre{line-height:2.15}\n.network-links{line-height:1.8;gap:16px}\n\n@media(max-width:650px){\n  .fixed-head nav{gap:10px;line-height:1.12}\n  .mark{\n    width:86px;\n    left:50%;\n    right:auto;\n    top:50%;\n    transform:translate(-50%,-50%);\n  }\n  .fixed-head > .secondary-nav{\n    right:22px;\n    top:calc(22px + 4 * (14px * 1.12 + 10px));\n    font-size:14px;\n    letter-spacing:.13em;\n  }\n  .fixed-head > .secondary-nav b{margin-left:.9em;margin-right:.9em}\n  .list-section pre{line-height:2.05}\n  .network-links{line-height:1.75;gap:15px}\n}\n
+/* v13: precise three-part header alignment */
+.fixed-head nav {
+  font-size: 13px;
+  line-height: 1.2;
+  gap: 9px;
+  letter-spacing: .16em;
+}
+
+/* Signet is centered on the browser viewport, independent of side columns. */
+.mark {
+  position: absolute;
+  left: 50%;
+  right: auto;
+  top: 97px;
+  width: 128px;
+  height: auto;
+  transform: translate(-50%, -50%);
+}
+
+/* Secondary navigation shares the fifth-row baseline with KONTAKT. */
+.fixed-head > .secondary-nav {
+  position: absolute;
+  right: var(--edge);
+  top: calc(clamp(24px, 3.2vw, 46px) + 4 * (13px * 1.2 + 9px));
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  white-space: nowrap;
+  font-size: 13px;
+  line-height: 1.2;
+  letter-spacing: .16em;
+}
+.fixed-head > .secondary-nav b {
+  display: inline-block;
+  margin-left: 1.4em;
+  margin-right: 1.4em;
+  font-weight: 300;
+  color: #777;
+}
+
+/* One typographic size throughout; spacing creates hierarchy. */
+.section-title,
+.list-section .section-title,
+.list-section pre,
+.network-links {
+  font-size: 13px;
+}
+.list-section pre {
+  line-height: 2.35;
+}
+.network-links {
+  line-height: 2.05;
+  gap: 18px;
+}
+
+@media(max-width:650px) {
+  .fixed-head nav {
+    font-size: 14px;
+    line-height: 1.2;
+    gap: 9px;
+    letter-spacing: .13em;
+  }
+  .mark {
+    left: 50%;
+    right: auto;
+    top: 91px;
+    width: 96px;
+    transform: translate(-50%, -50%);
+  }
+  .fixed-head > .secondary-nav {
+    right: 22px;
+    top: calc(22px + 4 * (14px * 1.2 + 9px));
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: .13em;
+  }
+  .fixed-head > .secondary-nav b {
+    margin-left: .9em;
+    margin-right: .9em;
+  }
+  .section-title,
+  .list-section .section-title,
+  .list-section pre,
+  .network-links {
+    font-size: 14px;
+  }
+  .list-section pre { line-height: 2.25; }
+  .network-links { line-height: 2; gap: 17px; }
+}
+
+/* v14: fixed three-axis header + unified generous rhythm + MISC */
+:root{
+  --head:190px;
+  --type-size:13px;
+  --type-leading:1.45;
+  --nav-gap:9px;
+  --head-pad-top:clamp(24px,3.2vw,46px);
+}
+.fixed-head{height:var(--head);padding-top:var(--head-pad-top)}
+.fixed-head nav{
+  font-size:var(--type-size);
+  line-height:var(--type-leading);
+  gap:var(--nav-gap);
+  letter-spacing:.16em;
+}
+/* Secondary navigation begins on exactly the START axis and stays independent
+   of the centered signet, so it may visually pass over it on narrower desktops. */
+.fixed-head > .secondary-nav{
+  top:var(--head-pad-top);
+  right:var(--edge);
+  font-size:var(--type-size);
+  line-height:var(--type-leading);
+  letter-spacing:.16em;
+  z-index:3;
+}
+.fixed-head > .secondary-nav b{margin-left:1.4em;margin-right:1.4em}
+/* Centered signet. Its black form ends on the KONTAKT row. */
+.mark{
+  left:50%;
+  right:auto;
+  top:53px;
+  width:128px;
+  transform:translateX(-50%);
+  z-index:2;
+}
+.section-title,
+.list-section .section-title,
+.list-section pre,
+.network-links{
+  font-size:var(--type-size);
+  line-height:var(--type-leading);
+}
+.list-section pre{line-height:2.5}
+.network-links{line-height:2.5;gap:20px}
+
+/* MISC is deliberately a smaller epilogue window and has no header-nav entry. */
+.misc-section{min-height:auto;margin-top:clamp(90px,14vh,180px);padding-bottom:clamp(90px,14vh,170px)}
+.misc-section .window-group{width:min(33.333vw,333px,calc((100dvh - var(--head) - var(--foot) - 105px) * .6667))}
+
+@media(max-width:650px){
+  :root{--head:178px;--type-size:14px;--type-leading:1.42;--nav-gap:8px;--head-pad-top:22px}
+  .fixed-head > .secondary-nav{top:var(--head-pad-top);right:22px;font-size:var(--type-size);line-height:var(--type-leading)}
+  .fixed-head > .secondary-nav b{margin-left:.9em;margin-right:.9em}
+  .mark{left:50%;top:58px;width:96px;transform:translateX(-50%)}
+  .section-title,.list-section .section-title,.list-section pre,.network-links{font-size:var(--type-size);line-height:var(--type-leading)}
+  .list-section pre{line-height:2.35}
+  .network-links{line-height:2.35;gap:18px}
+  .misc-section .window-group{width:min(calc((100vw - 44px) * .6667),calc((100dvh - var(--head) - var(--foot) - 92px) * .6667))}
+}
+
+/* v15: lock the desktop axes, compact footer, and a deliberate mobile header */
+:root{
+  --foot:38px;
+  --type-leading:1.62;
+  --nav-gap:8px;
+}
+
+/* The signet remains geometrically centered. On desktop its top starts no
+   higher than ABOUT and its bottom meets the KONTAKT row. */
+.mark{
+  left:50%;
+  right:auto;
+  top:calc(var(--head-pad-top) + 1 * (var(--type-size) * var(--type-leading) + var(--nav-gap)));
+  width:150px;
+  transform:translateX(-50%);
+}
+
+/* All visible typography shares the same line-height rhythm. */
+.fixed-head nav,
+.fixed-head > .secondary-nav,
+.section-title,
+.list-section .section-title,
+.list-section pre,
+.network-links{
+  line-height:var(--type-leading);
+}
+
+/* A window title may follow its centered window, but never cross left of the
+   same page edge used by START in the navigation. */
+.window-group .section-title{
+  position:relative;
+  left:max(0px, calc(var(--edge) - (50vw - 50%)));
+}
+
+/* Network entries are consecutive lines, not paragraphs. */
+.network-links{
+  gap:0;
+}
+.network-row{
+  min-height:calc(1em * var(--type-leading));
+}
+
+/* MISC is an epilogue: deliberately smaller and more detached from NETWORK. */
+.misc-section{
+  margin-top:clamp(150px,22vh,280px);
+}
+
+/* The fixed white footer is only a slim visual frame. */
+.fixed-foot{height:var(--foot)}
+.end-spacer{height:clamp(54px,8vh,90px)}
+
+@media(max-width:650px){
+  :root{
+    --head:224px;
+    --foot:30px;
+    --type-size:14px;
+    --type-leading:1.62;
+    --nav-gap:7px;
+    --head-pad-top:22px;
+  }
+  .fixed-head{padding:var(--head-pad-top) 22px 0}
+  .fixed-head nav{
+    gap:var(--nav-gap);
+    line-height:var(--type-leading);
+  }
+  /* Mobile: primary navigation stays left. The signet moves right but keeps
+     essentially desktop presence; only very narrow phones reduce it. */
+  .mark{
+    left:auto;
+    right:22px;
+    top:calc(var(--head-pad-top) + 1 * (var(--type-size) * var(--type-leading) + var(--nav-gap)));
+    width:clamp(112px,31vw,150px);
+    transform:none;
+  }
+  /* Secondary navigation sits below KONTAKT with a visible but sub-line gap. */
+  .fixed-head > .secondary-nav{
+    left:22px;
+    right:auto;
+    top:calc(var(--head-pad-top) + 5 * (var(--type-size) * var(--type-leading) + var(--nav-gap)) + .65 * (var(--type-size) * var(--type-leading)));
+    font-size:var(--type-size);
+    line-height:var(--type-leading);
+    letter-spacing:.13em;
+  }
+  .fixed-head > .secondary-nav b{
+    margin-left:1.15em;
+    margin-right:1.15em;
+  }
+  .window-group .section-title{
+    left:max(0px, calc(22px - (50vw - 50%)));
+  }
+  .network-links{gap:0;line-height:var(--type-leading)}
+  .list-section pre{line-height:var(--type-leading)}
+  .misc-section{margin-top:clamp(110px,18vh,190px)}
+  .end-spacer{height:48px}
+}
+
+/* v16: final responsive polish before content loading */
+:root{--foot:36px}
+
+/* Window headings: on narrow layouts use exactly the same left page axis as
+   the primary navigation. On roomy layouts they remain attached to the window. */
+@media(max-width:900px){
+  .section{padding-left:var(--edge);padding-right:var(--edge)}
+  .window-group{width:min(calc(100vw - (2 * var(--edge))),500px,calc(100dvh - var(--head) - var(--foot) - 105px))}
+  .window-group .section-title{
+    width:auto;
+    align-self:flex-start;
+    margin-left:calc(max(0px, (50vw - var(--edge)) - (50%)) * -1);
+  }
+}
+
+/* Network rows use the common generous rhythm, but no full blank line. */
+.network-links{gap:calc(.38em * var(--type-leading));line-height:var(--type-leading)}
+.network-row{min-height:auto;line-height:var(--type-leading)}
+
+/* Footer is now only a very slim white safety strip. */
+.fixed-foot{height:var(--foot)}
+.end-spacer{height:calc(var(--foot) + 12px)}
+
+/* Arrow geometry scales with the actual gallery width. */
+.arrow{width:clamp(24px,8%,42px);height:clamp(38px,12%,64px)}
+.arrow::before,.arrow::after{width:clamp(9px,3.6%,18px);top:50%}
+.prev::before{transform:translate(-50%,-4px) rotate(-45deg)}
+.prev::after{transform:translate(-50%,4px) rotate(45deg)}
+.next::before{transform:translate(-50%,-4px) rotate(45deg)}
+.next::after{transform:translate(-50%,4px) rotate(-45deg)}
+
+@media(max-width:650px){
+  :root{--foot:14px}
+  /* Keep the mobile signet on the right, but align its black lower edge with
+     the secondary-navigation row. */
+  .mark{
+    top:auto;
+    bottom:calc(var(--head) - (var(--head-pad-top) + 5 * (var(--type-size) * var(--type-leading) + var(--nav-gap)) + .65 * (var(--type-size) * var(--type-leading)) + (var(--type-size) * var(--type-leading))));
+    width:clamp(112px,31vw,150px);
+  }
+  .window-group .section-title{
+    margin-left:0;
+  }
+  .network-links{gap:calc(.38em * var(--type-leading))}
+  .end-spacer{height:24px}
+}
+
+/* v17: consolidated geometry / typography cleanup */
+:root{
+  --type-size:14px;
+  --type-leading:1.72;
+  --foot:12px;
+  --nav-gap:8px;
+  --bottom-mask:12px;
+}
+
+/* One type size and one line rhythm for navigation, headings and lists. */
+.fixed-head nav,
+.fixed-head > .secondary-nav,
+.section-title,
+.list-section .section-title,
+.list-section pre,
+.network-links,
+.network-row{
+  font-size:var(--type-size);
+  line-height:var(--type-leading);
+}
+.fixed-head nav{gap:var(--nav-gap)}
+.list-section pre{line-height:var(--type-leading)}
+.network-links{line-height:var(--type-leading);gap:calc(.55em * var(--type-leading))}
+.network-row{line-height:var(--type-leading)}
+
+/* The only fixed lower mask is now a hairline white finish. */
+.fixed-foot{height:var(--bottom-mask)}
+.end-spacer{height:20px}
+
+/* Keep gallery headings attached to the window, but guarantee that the window
+   (and therefore its heading) can never begin left of the navigation axis. */
+.section{padding-left:var(--edge);padding-right:var(--edge)}
+.window-group{
+  width:min(50vw,500px,calc(100vw - (2 * var(--edge))),calc(100dvh - var(--head) - var(--bottom-mask) - 105px));
+  margin-left:auto;
+  margin-right:auto;
+}
+.window-group .section-title{margin-left:0;left:auto;transform:none}
+
+/* Small white cap directly under the fixed navigation/header. */
+.fixed-head::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:-11px;
+  height:11px;
+  background:#fff;
+  pointer-events:none;
+}
+
+/* Arrow size follows the actual gallery scale. */
+.arrow{width:clamp(20px,7.5%,42px);height:clamp(30px,11%,64px)}
+.arrow::before,.arrow::after{width:clamp(8px,3.3%,18px)}
+
+@media(max-width:650px){
+  :root{
+    --type-size:14px;
+    --type-leading:1.72;
+    --foot:12px;
+    --bottom-mask:12px;
+    --head:236px;
+    --nav-gap:8px;
+  }
+  .fixed-head{padding-left:22px;padding-right:22px}
+  .section{padding-left:22px;padding-right:22px}
+  .window-group{
+    width:min(calc(100vw - 44px),500px,calc(100dvh - var(--head) - var(--bottom-mask) - 76px));
+  }
+  .window-group .section-title{margin-left:0;left:auto;transform:none}
+
+  /* Secondary navigation keeps its deliberate gap below KONTAKT. */
+  .fixed-head > .secondary-nav{
+    left:22px;
+    right:auto;
+    top:calc(var(--head-pad-top) + 5 * (var(--type-size) * var(--type-leading) + var(--nav-gap)) + .58 * (var(--type-size) * var(--type-leading)));
+    line-height:var(--type-leading);
+  }
+
+  /* On the narrow composition, the black bottom of the signet meets the
+     secondary-nav baseline.  The signet stays on the right. */
+  .mark{
+    left:auto;
+    right:22px;
+    transform:none;
+    width:clamp(112px,31vw,150px);
+    top:auto;
+    bottom:calc(var(--head) - (var(--head-pad-top) + 5 * (var(--type-size) * var(--type-leading) + var(--nav-gap)) + .58 * (var(--type-size) * var(--type-leading)) + (var(--type-size) * var(--type-leading))));
+  }
+
+  .network-links{gap:calc(.55em * var(--type-leading))}
+  .end-spacer{height:18px}
+}
+
+/* v18: keep gallery controls attached to the visible window */
+:root{
+  --list-row-gap:.42em;
+  --year-gap:1.15em;
+}
+
+/* Dots belong to the carousel geometry: when the whole image window fits,
+   the dots fit with it and stay directly below it. */
+.dots{
+  flex:0 0 24px;
+  height:24px;
+  min-height:24px;
+  align-items:flex-end;
+}
+.window-group{
+  max-height:calc(100dvh - var(--head) - var(--bottom-mask) - 24px);
+}
+.carousel{display:flex;flex-direction:column;min-height:0}
+.viewport{flex:0 1 auto}
+
+/* One coherent chevron per side. Its geometry scales with the carousel itself. */
+.arrow{
+  --arrow-leg:clamp(8px,2.8vw,18px);
+  --arrow-spread:clamp(4px,1vw,8px);
+  width:clamp(24px,7.5%,44px);
+  height:clamp(34px,11%,66px);
+}
+.arrow::before,.arrow::after{
+  width:var(--arrow-leg);
+  height:1px;
+  top:50%;
+  left:50%;
+}
+.prev::before{transform:translate(-50%,calc(var(--arrow-spread) * -.5)) rotate(-45deg)}
+.prev::after{transform:translate(-50%,calc(var(--arrow-spread) * .5)) rotate(45deg)}
+.next::before{transform:translate(-50%,calc(var(--arrow-spread) * -.5)) rotate(45deg)}
+.next::after{transform:translate(-50%,calc(var(--arrow-spread) * .5)) rotate(-45deg)}
+
+/* Lists use the same typographic leading. Extra space is semantic only. */
+.list-section pre{line-height:var(--type-leading)}
+.network-links{line-height:var(--type-leading);gap:var(--list-row-gap)}
+.network-row{line-height:var(--type-leading);min-height:calc(1em * var(--type-leading))}
+
+@media(max-width:650px){
+  /* In the narrow header the signet's black lower edge is tied to the
+     secondary navigation row rather than to a fixed pixel offset. */
+  .mark{
+    bottom:auto;
+    top:calc(var(--head-pad-top) + 5 * (var(--type-size) * var(--type-leading) + var(--nav-gap)) + .58 * (var(--type-size) * var(--type-leading)) - clamp(112px,31vw,150px) + 1.15em);
+  }
+  .window-group{
+    max-height:calc(100dvh - var(--head) - var(--bottom-mask) - 18px);
+  }
+}
+
+/* v19: final rhythm/alignment cleanup */
+:root{
+  --bottom-mask:4px;
+  --foot:4px;
+  --gallery-reserve:116px;
+}
+
+/* The bottom frame is genuinely only a hairline, including all sizing maths. */
+.fixed-foot{height:var(--bottom-mask)}
+main{padding-bottom:var(--bottom-mask)}
+.end-spacer{height:12px}
+.section{
+  min-height:calc(100dvh - var(--head) - var(--bottom-mask));
+}
+.window-group{
+  width:min(50vw,500px,calc(100vw - (2 * var(--edge))),calc(100dvh - var(--head) - var(--bottom-mask) - var(--gallery-reserve)));
+  max-height:none;
+}
+
+/* PAST EVENTS and NETWORK use exactly the same line box. Only the blank line
+   between years in PAST EVENTS creates an intentional larger break. */
+.list-section pre,
+.network-links,
+.network-row{
+  font-size:var(--type-size);
+  line-height:var(--type-leading);
+}
+.network-links{gap:0}
+.network-row{min-height:calc(1em * var(--type-leading))}
+
+/* Content headings for the two reading sections are centered on their text column. */
+.list-section .section-title{
+  width:100%;
+  text-align:center;
+}
+
+/* Two strokes meet at one point: no crossed / detached chevron.  Percentages
+   are relative to the responsive arrow box, so the symbol grows with the window. */
+.arrow{
+  width:clamp(24px,8%,48px);
+  height:clamp(34px,12%,68px);
+}
+.arrow::before,.arrow::after{
+  width:46%;
+  height:1px;
+  top:50%;
+  left:50%;
+  transform-origin:0 50%;
+}
+.prev::before{transform:translate(-35%,0) rotate(135deg)}
+.prev::after{transform:translate(-35%,0) rotate(-135deg)}
+.next::before{transform:translate(-65%,0) rotate(45deg)}
+.next::after{transform:translate(-65%,0) rotate(-45deg)}
+
+@media(max-width:900px){
+  .window-group{
+    width:min(calc(100vw - (2 * var(--edge))),500px,calc(100dvh - var(--head) - var(--bottom-mask) - var(--gallery-reserve)));
+  }
+}
+
+@media(max-width:650px){
+  :root{
+    --bottom-mask:4px;
+    --foot:4px;
+    --gallery-reserve:104px;
+  }
+  .window-group{
+    width:min(calc(100vw - 44px),500px,calc(100dvh - var(--head) - var(--bottom-mask) - var(--gallery-reserve)));
+    max-height:none;
+  }
+  /* The actual bottom edge of the SVG now shares the bottom of the secondary
+     navigation line box. */
+  .mark{
+    top:auto;
+    bottom:calc(var(--head) - (var(--head-pad-top) + 5 * (var(--type-size) * var(--type-leading) + var(--nav-gap)) + .58 * (var(--type-size) * var(--type-leading)) + (var(--type-size) * var(--type-leading))));
+  }
+  .end-spacer{height:10px}
+}
+
+/* v20: geometry is deliberately simple: no hidden footer reserve, stable galleries. */
+:root{
+  --bottom-mask:4px;
+  --foot:4px;
+  --list-pitch:calc(var(--type-size) * var(--type-leading) + var(--nav-gap));
+}
+.fixed-foot{height:4px}
+main{padding-bottom:0}
+.end-spacer{height:8px}
+
+/* The header's requested fine white finish remains independent of gallery maths. */
+.fixed-head::after{height:10px;bottom:-10px}
+
+/* Gallery size is continuous in both dimensions. Dots are part of the unit. */
+.window-group{
+  width:min(50vw,500px,calc(100vw - (2 * var(--edge))),calc(100dvh - var(--head) - 92px));
+  max-height:none;
+}
+.section{
+  min-height:calc(100dvh - var(--head));
+}
+
+/* Correct chevrons: point left / point right, with two legs meeting cleanly. */
+.prev::before{transform:translate(-65%,0) rotate(45deg)}
+.prev::after{transform:translate(-65%,0) rotate(-45deg)}
+.next::before{transform:translate(-35%,0) rotate(135deg)}
+.next::after{transform:translate(-35%,0) rotate(-135deg)}
+
+/* Lists use the same vertical pitch as the navigation. */
+.list-section pre{
+  line-height:var(--list-pitch);
+}
+.network-links{
+  line-height:var(--type-leading);
+  gap:var(--nav-gap);
+}
+.network-row{
+  line-height:var(--type-leading);
+  min-height:calc(var(--type-size) * var(--type-leading));
+}
+
+@media(max-width:900px){
+  .window-group{
+    width:min(calc(100vw - (2 * var(--edge))),500px,calc(100dvh - var(--head) - 92px));
+  }
+}
+
+@media(max-width:650px){
+  .window-group{
+    width:min(calc(100vw - 44px),500px,calc(100dvh - var(--head) - 82px));
+  }
+  /* The SVG artwork has a little optical space below the black arches.
+     Raising the element aligns the visible black edge with PAST EVENTS / NETZWERK. */
+  .mark{
+    bottom:calc(var(--head) - (var(--head-pad-top) + 5 * (var(--type-size) * var(--type-leading) + var(--nav-gap)) + .58 * (var(--type-size) * var(--type-leading)) + (var(--type-size) * var(--type-leading)) + 15px));
+  }
+}
+
+/* v21: optical alignment + short-viewport safety */
+/* Reading sections: title and entries share one centered column. */
+.list-inner{width:min(72vw,680px);margin-left:auto;margin-right:auto;text-align:center}
+.list-section pre{text-align:center}
+.network-links{align-items:center;text-align:center}
+.network-row{justify-content:center;width:100%}
+
+/* Keep both chevrons at the same optical inset from the square viewport. */
+.prev{left:1.5%}
+.next{right:1.5%}
+
+/* A very wide but shallow browser must still have enough vertical room for
+   all five primary links.  Reducing only the top inset avoids clipping KONTAKT. */
+@media (min-width:651px) and (max-height:420px){
+  .fixed-head{padding-top:18px;padding-bottom:12px}
+  .fixed-head > .secondary-nav{
+    top:calc(18px + 4 * (13px * 1.2 + 9px));
+  }
+}
+
+@media(max-width:650px){
+  /* Optical, not SVG-box, alignment: raise the visible black arch edge to
+     the PAST EVENTS / NETZWERK row. */
+  .mark{
+    bottom:calc(var(--head) - (var(--head-pad-top) + 5 * (var(--type-size) * var(--type-leading) + var(--nav-gap)) + .58 * (var(--type-size) * var(--type-leading)) + (var(--type-size) * var(--type-leading)) - 30px));
+  }
+}
+
+/* v22: list axis + narrow-header optical corrections */
+/* PAST EVENTS / NETZWERK use the same left axis as the gallery windows. */
+.list-inner{
+  width:min(50vw,500px,calc(100vw - (2 * var(--edge))));
+  margin-left:auto;
+  margin-right:auto;
+  text-align:left;
+}
+.list-section pre{text-align:left}
+.network-links{align-items:flex-start;text-align:left}
+.network-row{justify-content:flex-start;width:100%}
+
+/* Equal breathing room around the network arrow. */
+.network-row{
+  column-gap:1.15em;
+}
+.network-label{margin:0}
+
+/* In extremely shallow desktop windows keep all five navigation rows inside
+   the viewport instead of letting KONTAKT be clipped at the browser edge. */
+@media (min-width:651px) and (max-height:420px){
+  :root{--head-pad-top:8px;--nav-gap:4px;--type-leading:1.34}
+  .fixed-head{
+    height:min(100dvh,160px);
+    padding-top:var(--head-pad-top);
+    padding-bottom:4px;
+  }
+  .fixed-head nav{gap:var(--nav-gap);line-height:var(--type-leading)}
+  .fixed-head > .secondary-nav{
+    top:var(--head-pad-top);
+    line-height:var(--type-leading);
+  }
+  .mark{
+    top:calc(var(--head-pad-top) + 1 * (var(--type-size) * var(--type-leading) + var(--nav-gap)));
+  }
+}
+
+@media(max-width:900px){
+  .list-inner{
+    width:min(calc(100vw - (2 * var(--edge))),500px);
+  }
+}
+
+@media(max-width:650px){
+  .list-inner{width:min(calc(100vw - 44px),500px)}
+  /* Restore the lower mobile signet placement: its visible arch bottom sits
+     on the secondary-navigation row rather than floating above it. */
+  .mark{
+    top:auto;
+    bottom:calc(var(--head) - (var(--head-pad-top) + 5 * (var(--type-size) * var(--type-leading) + var(--nav-gap)) + .58 * (var(--type-size) * var(--type-leading)) + (var(--type-size) * var(--type-leading)) + 2px));
+  }
+}
+.network-row{display:grid;grid-template-columns:max-content max-content minmax(0,max-content);column-gap:1.15em;align-items:baseline}
+.network-separator{display:inline-block}
+@media(max-width:650px){
+  .network-row{grid-template-columns:max-content max-content minmax(0,1fr)}
+}
+
+/* v23: remove the overlaying header cap; use a real white under-strip instead. */
+.fixed-head::after{content:none!important}
+.fixed-head{box-shadow:0 10mm 0 #fff}
+
+/* The very shallow desktop view must never let the white header extension
+   paint over KONTAKT. Keep the navigation itself unchanged and visible. */
+@media (min-width:651px) and (max-height:420px){
+  .fixed-head{overflow:visible;box-shadow:0 10mm 0 #fff}
+  .fixed-head nav{position:relative;z-index:4}
+}
+
+@media(max-width:650px){
+  /* Align the visible bottom of the signet with the bottom of the secondary
+     navigation line box. The SVG artwork reaches essentially to its own edge. */
+  .mark{
+    top:auto!important;
+    bottom:calc(var(--head) - (var(--head-pad-top) + 5 * (var(--type-size) * var(--type-leading) + var(--nav-gap)) + .58 * (var(--type-size) * var(--type-leading)) + (var(--type-size) * var(--type-leading))))!important;
+  }
+}
+
+
+/* v24: 7 mm navigation under-strip + reading-section alignment */
+.fixed-head{box-shadow:0 7mm 0 #fff}
+@media (min-width:651px) and (max-height:420px){.fixed-head{box-shadow:0 7mm 0 #fff}}
+.list-section .section-title{text-align:left}
+
+/* PAST EVENTS uses the same separator rhythm as NETZWERK. */
+#past-events{white-space:normal;font-family:inherit;margin:0}
+.past-year{line-height:var(--type-leading)}
+.past-year-gap{height:calc(1em * var(--type-leading))}
+.past-row{display:grid;grid-template-columns:max-content max-content minmax(0,1fr);column-gap:1.15em;align-items:baseline;line-height:var(--type-leading)}
+.past-block-gap{height:calc(1em * var(--type-leading))}
+@media(max-width:650px){.past-row{grid-template-columns:max-content max-content minmax(0,1fr)}}
+\n\n/* v25: bracketed metadata, two-line title gap, top-anchored galleries */\n.list-section .section-title{\n  margin-bottom:calc(2 * var(--type-size) * var(--type-leading));\n}\n\n/* The gallery unit is anchored from the top of its section. When viewport\n   height changes, spare space is therefore added/removed below the window,\n   never above it. */\n.section{\n  justify-content:flex-start;\n}\n
+
+/* v26: 15 px typography + compact double-chevron metadata */
+:root{--type-size:15px}
+@media(max-width:650px){:root{--type-size:15px}}
+.network-row,.past-row{
+  grid-template-columns:max-content minmax(0,1fr);
+  column-gap:1.15em;
+}
+
+/* v27: unified 15 px text, quiet links, resize-safe gallery visibility */
+.fixed-head nav,
+.fixed-head > .secondary-nav,
+.section-title,
+.list-section .section-title,
+.list-section pre,
+.network-links,
+.network-row,
+.past-row,
+.past-year{
+  font-size:15px;
+}
+
+/* Reading text is intentionally less tracked than navigation, but not smaller. */
+.list-section pre,
+.network-links{
+  letter-spacing:.04em;
+}
+
+/* Links stay typographically quiet: no long grey hover underline. */
+.network-links a,
+.network-links a:hover,
+.network-links a:focus{
+  color:inherit;
+  text-decoration:none;
+  border-bottom:0;
+}
+
+
+/* v28: metadata touches its content with one non-breaking space only. */
+.network-row,.past-row{column-gap:0}
+
+
+/* v29: list metadata uses the same vertical separator rhythm as the header. */
+.network-row,.past-row{
+  grid-template-columns:max-content max-content minmax(0,1fr);
+  column-gap:1.15em;
+}
+.list-separator{color:#777; font-weight:400;}
+
+/* v31: horizontal separator for PAST EVENTS only. */
+.past-separator{
+  color:#777;
+  font-weight:400;
+  transform:translateY(-.03em);
+}
+
+/* v32: PAST EVENTS dash keeps its form, but breathes 30% less than the standard separator. */
+.past-row{column-gap:.805em;}
+
+
+/* v33: PAST EVENTS dash: 15% tighter than the original 1.15em rhythm. */
+.past-row{column-gap:.9775em;}
+
+/* MISC: quiet inline legal accordions. */
+.misc-section{height:auto;min-height:calc(100dvh - var(--head) - var(--foot));flex-direction:column;align-items:center;}
+.legal-links{width:min(50vw,500px,calc(100vw - (2 * var(--edge))));margin:42px auto 0;font:300 12px/1.55 Arial,Helvetica,sans-serif;letter-spacing:.12em;}
+.legal-links details{border:0;margin:0 0 12px;}
+.legal-links summary{cursor:pointer;list-style:none;display:inline-block;}
+.legal-links summary::-webkit-details-marker{display:none;}
+.legal-links p{margin:10px 0 18px;letter-spacing:.04em;font-size:12px;max-width:520px;}
+@media(max-width:650px){.legal-links{width:min(calc(100vw - 44px),500px);}}
+
+
+/* v34: a little more air between the MISC gallery and legal accordions. */
+.legal-links{margin-top:58px;}
+.legal-links details{margin-bottom:calc(1em * 1.55);}
+.legal-links details:last-child{margin-bottom:0;}
+
+
+/* v35: final small rhythm refinements + active primary-navigation marker. */
+.legal-links{margin-top:76px;}
+
+/* One full blank line between the two closed legal items. */
+.legal-links details{margin-bottom:calc(1em * 1.55);}
+.legal-links details:last-child{margin-bottom:0;}
+
+/* Yellow dot follows START / ABOUT / AKTUELL / SOLOTHURN / KONTAKT. */
+.primary-nav a{position:relative;width:max-content;}
+.primary-nav a::after{
+  content:"";
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--accent);
+  left:calc(100% + .7em);
+  top:50%;
+  transform:translateY(-50%);
+  opacity:0;
+}
+.primary-nav a.active-section::after{opacity:1;}
+
+
+/* v36: section markers + MISC/legal rhythm. */
+.secondary-nav a{position:relative;}
+.secondary-nav a[href="#past"]::before,
+.secondary-nav a[href="#netzwerk"]::after{
+  content:"";
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--accent);
+  top:50%;
+  transform:translateY(-50%);
+  opacity:0;
+}
+.secondary-nav a[href="#past"]::before{right:calc(100% + .7em);}
+.secondary-nav a[href="#netzwerk"]::after{left:calc(100% + .7em);}
+.secondary-nav a.active-secondary::before,
+.secondary-nav a.active-secondary::after{opacity:1;}
+
+/* The hand-drawn dot sits between the MISC window and the legal links. */
+.misc-divider-dot{
+  width:22px;
+  height:22px;
+  margin:clamp(72px,10vh,112px) auto 0;
+}
+.misc-divider-dot img{display:block;width:100%;height:100%;object-fit:contain;}
+.legal-links{margin-top:clamp(72px,10vh,112px);}
+
+/* A visibly empty line between the two closed legal entries. */
+.legal-links details{margin:0;}
+.legal-links details + details{margin-top:calc(2em * 1.55);}
+
+
+/* v37: quieter hierarchy, hover feedback, and a deliberately hidden-away MISC. */
+
+/* Give NETZWERK more room before MISC begins. */
+#netzwerk{margin-bottom:clamp(140px,22vh,260px);}
+
+/* A larger hand-drawn punctuation mark between MISC and the legal material. */
+.misc-divider-dot{
+  width:clamp(64px,7vw,104px);
+  height:clamp(64px,7vw,104px);
+  margin-top:clamp(110px,15vh,180px);
+}
+.legal-links{margin-top:clamp(92px,12vh,150px);}
+
+/* Closed legal headings have a clearly visible blank line between them. */
+.legal-links details + details{margin-top:calc(2.55em * 1.55);}
+
+/* Hover: a black dot previews where the yellow active marker can land. */
+.primary-nav a:hover::after{
+  opacity:1;
+  background:#000;
+}
+.primary-nav a.active-section:hover::after{
+  background:var(--accent);
+}
+.secondary-nav a[href="#past"]:hover::before,
+.secondary-nav a[href="#netzwerk"]:hover::after{
+  opacity:1;
+  background:#000;
+}
+.secondary-nav a.active-secondary:hover::before,
+.secondary-nav a.active-secondary:hover::after{
+  background:var(--accent);
+}
+
+
+/* v38: dot as header mark, opposite-side hover markers, wider secondary navigation,
+   and a clearer third hierarchy level for event rows. */
+.mark img{
+  width:clamp(28px,2.45vw,42px);
+  height:clamp(28px,2.45vw,42px);
+  object-fit:contain;
+}
+
+/* More breathing room between the two secondary destinations. */
+.secondary-nav{gap:2.15em;}
+.secondary-nav b{margin:0 -.8em;}
+
+/* Primary navigation: active yellow stays on the right; hover preview is black on the left. */
+.primary-nav a::before{
+  content:"";
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#000;
+  right:calc(100% + .7em);
+  top:50%;
+  transform:translateY(-50%);
+  opacity:0;
+}
+.primary-nav a:hover::before{opacity:1;}
+.primary-nav a.active-section:hover::before{opacity:0;}
+.primary-nav a:hover::after{background:var(--accent);opacity:0;}
+.primary-nav a.active-section::after,
+.primary-nav a.active-section:hover::after{background:var(--accent);opacity:1;}
+
+/* Secondary navigation: hover preview appears on the side opposite the active yellow marker. */
+.secondary-nav a[href="#past"]::after,
+.secondary-nav a[href="#netzwerk"]::before{
+  content:"";
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#000;
+  top:50%;
+  transform:translateY(-50%);
+  opacity:0;
+}
+.secondary-nav a[href="#past"]::after{left:calc(100% + .7em);}
+.secondary-nav a[href="#netzwerk"]::before{right:calc(100% + .7em);}
+.secondary-nav a[href="#past"]:hover::after,
+.secondary-nav a[href="#netzwerk"]:hover::before{opacity:1;}
+.secondary-nav a.active-secondary:hover::after,
+.secondary-nav a.active-secondary:hover::before{opacity:0;}
+/* Do not turn the active yellow marker black on hover. */
+.secondary-nav a[href="#past"]:hover::before,
+.secondary-nav a[href="#netzwerk"]:hover::after{background:var(--accent);}
+
+/* Events form the third indentation level: title -> year -> event. */
+.past-row{margin-left:2em;}
+.past-year{margin-left:1em;}
+.past-row > span:last-child{max-width:34em;}
+
+/* v39: wider PAST EVENTS text measure, unambiguous nav markers, and more distance before MISC. */
+
+/* PAST EVENTS may use the open horizontal field instead of the gallery-window measure. */
+#past .list-inner{
+  width:min(78vw,980px);
+}
+.past-row > span:last-child{
+  max-width:none;
+}
+
+/* NETZWERK -> MISC: 30% more distance than v37/v38. */
+#netzwerk{
+  margin-bottom:clamp(182px,28.6vh,338px);
+}
+
+/* Secondary navigation marker logic:
+   PAST EVENTS: active yellow left, hover black right.
+   NETZWERK: active yellow right, hover black left.
+   Hover never creates a second yellow marker on an inactive item. */
+.secondary-nav a[href="#past"]::before,
+.secondary-nav a[href="#netzwerk"]::after{
+  opacity:0;
+  background:var(--accent);
+}
+.secondary-nav a[href="#past"].active-secondary::before,
+.secondary-nav a[href="#netzwerk"].active-secondary::after{
+  opacity:1;
+}
+.secondary-nav a[href="#past"]:hover::before,
+.secondary-nav a[href="#netzwerk"]:hover::after{
+  opacity:0;
+  background:var(--accent);
+}
+.secondary-nav a[href="#past"].active-secondary:hover::before,
+.secondary-nav a[href="#netzwerk"].active-secondary:hover::after{
+  opacity:1;
+}
+.secondary-nav a[href="#past"]::after,
+.secondary-nav a[href="#netzwerk"]::before{
+  opacity:0;
+  background:#000;
+}
+.secondary-nav a[href="#past"]:hover::after,
+.secondary-nav a[href="#netzwerk"]:hover::before{
+  opacity:1;
+}
+
+
+/* v40: clarified navigation grammar and legal controls. */
+/* More room around the divider so the two inner hover dots have the same visual breathing room as the outer dots. */
+.secondary-nav{gap:3em;}
+.secondary-nav b{margin:0;}
+
+/* Secondary navigation grammar:
+   active = yellow outside; hover = black inside.  The two states may coexist. */
+.secondary-nav a[href="#past"]::before,
+.secondary-nav a[href="#netzwerk"]::after{background:var(--accent);opacity:0;}
+.secondary-nav a[href="#past"].active-secondary::before,
+.secondary-nav a[href="#netzwerk"].active-secondary::after{opacity:1;}
+.secondary-nav a[href="#past"]::after,
+.secondary-nav a[href="#netzwerk"]::before{background:#000;opacity:0;}
+.secondary-nav a[href="#past"]:hover::after,
+.secondary-nav a[href="#netzwerk"]:hover::before{background:#000;opacity:1;}
+/* Keep an active outer marker yellow even while hovering it. */
+.secondary-nav a[href="#past"].active-secondary:hover::before,
+.secondary-nav a[href="#netzwerk"].active-secondary:hover::after{background:var(--accent);opacity:1;}
+
+/* Legal accordions use the primary-navigation grammar: hover black left, open yellow right. */
+.legal-links summary{position:relative;}
+.legal-links summary::before,
+.legal-links summary::after{
+  content:"";
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  top:50%;
+  transform:translateY(-50%);
+  opacity:0;
+}
+.legal-links summary::before{right:calc(100% + .7em);background:#000;}
+.legal-links summary::after{left:calc(100% + .7em);background:var(--accent);}
+.legal-links summary:hover::before{opacity:1;}
+.legal-links details[open] > summary::after{opacity:1;}
+
+/* NETZWERK -> MISC: another 30% more than v39. */
+#netzwerk{margin-bottom:clamp(237px,37.18vh,439px);}
+
+/* v41: final marker geometry + full-dot tooltip. */
+:root{--nav-dot:6px;--nav-active-gap:.70em;--nav-hover-gap:.52em;}
+
+/* Primary: active yellow right, hover black left; never show hover on active. */
+.primary-nav a::before{right:calc(100% + var(--nav-hover-gap));}
+.primary-nav a::after{left:calc(100% + var(--nav-active-gap));}
+.primary-nav a.active-section:hover::before{opacity:0;}
+
+/* Secondary: use one vertical centre and reserve equal inner space around the divider. */
+.secondary-nav{display:flex;align-items:center;gap:0;}
+.secondary-nav b{display:block;margin:0 2.55em;line-height:1;}
+.secondary-nav a{display:inline-block;line-height:inherit;}
+.secondary-nav a[href="#past"]::before{right:calc(100% + var(--nav-active-gap));}
+.secondary-nav a[href="#past"]::after{left:calc(100% + var(--nav-hover-gap));}
+.secondary-nav a[href="#netzwerk"]::before{right:calc(100% + var(--nav-hover-gap));}
+.secondary-nav a[href="#netzwerk"]::after{left:calc(100% + var(--nav-active-gap));}
+.secondary-nav a[href="#past"]::before,
+.secondary-nav a[href="#past"]::after,
+.secondary-nav a[href="#netzwerk"]::before,
+.secondary-nav a[href="#netzwerk"]::after{top:50%;transform:translateY(-50%);}
+.secondary-nav a.active-secondary:hover::after,
+.secondary-nav a.active-secondary:hover::before{opacity:0;}
+.secondary-nav a[href="#past"].active-secondary::before,
+.secondary-nav a[href="#netzwerk"].active-secondary::after{opacity:1;}
+
+/* Legal: same grammar as primary; no black hover marker while open. */
+.legal-links summary::before{right:calc(100% + var(--nav-hover-gap));}
+.legal-links summary::after{left:calc(100% + var(--nav-active-gap));}
+.legal-links details[open] > summary:hover::before{opacity:0;}
+
+/* Make the entire large dot the hover target and show our own stable tooltip. */
+.misc-divider-dot{position:relative;cursor:default;}
+.misc-divider-dot::after{
+  content:"what?";
+  position:absolute;
+  left:50%;
+  top:calc(100% + 12px);
+  transform:translateX(-50%);
+  padding:5px 8px;
+  background:#fff;
+  border:1px solid #cfcfcf;
+  font:400 12px/1.2 Arial,Helvetica,sans-serif;
+  letter-spacing:0;
+  color:#111;
+  white-space:nowrap;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .08s linear;
+  z-index:20;
+}
+.misc-divider-dot:hover::after{opacity:1;}
+
+/* v42: gallery dots stay visible, freer event wrapping, and a final brush gesture. */
+
+/* A PAST EVENT is a paragraph, not a three-column table: when its description
+   wraps, the continuation returns to the event's own left edge (the date axis). */
+.past-row{
+  display:block;
+  margin-left:2em;
+  line-height:var(--type-leading);
+}
+.past-row > span{display:inline;}
+.past-row .past-separator{
+  display:inline-block;
+  margin-left:.9775em;
+  margin-right:.9775em;
+}
+
+/* The dots are part of the visible gallery unit and always keep their own room. */
+.carousel .dots{
+  flex:0 0 24px;
+  height:24px;
+  min-height:24px;
+}
+
+/* Bottom epilogue: a single brush gesture at the far left. It belongs to the
+   scrolling page, so it can pass behind/under the thin fixed white bottom line. */
+.misc-section{position:relative;}
+.zen-brush{
+  position:absolute;
+  left:var(--edge);
+  bottom:clamp(12px,2.2vh,28px);
+  width:clamp(150px,18vw,280px);
+  height:auto;
+  z-index:16;
+  pointer-events:none;
+}
+.zen-brush img{display:block;width:100%;height:auto;}
+
+@media(max-width:650px){
+  /* On a phone, keep the hierarchy but reclaim horizontal space. */
+  .past-year,
+  .past-row{margin-left:1em;}
+  .zen-brush{
+    left:22px;
+    width:clamp(120px,38vw,190px);
+  }
+}
+
+/* v43: secondary marker optical alignment + final-page spacing. */
+:root{
+  --secondary-active-dot:5px;
+  --secondary-hover-dot:6px;
+  --secondary-active-gap:.88em;
+  --secondary-hover-gap:.52em;
+}
+
+/* Centre both different-sized dots on exactly the same typographic midline. */
+.secondary-nav a[href="#past"]::before,
+.secondary-nav a[href="#netzwerk"]::after{
+  width:var(--secondary-active-dot);
+  height:var(--secondary-active-dot);
+  top:50%;
+  transform:translateY(-50%);
+}
+.secondary-nav a[href="#past"]::after,
+.secondary-nav a[href="#netzwerk"]::before{
+  width:var(--secondary-hover-dot);
+  height:var(--secondary-hover-dot);
+  top:50%;
+  transform:translateY(-50%);
+}
+/* Active yellow markers sit farther outside, like the primary navigation. */
+.secondary-nav a[href="#past"]::before{right:calc(100% + var(--secondary-active-gap));}
+.secondary-nav a[href="#netzwerk"]::after{left:calc(100% + var(--secondary-active-gap));}
+.secondary-nav a[href="#past"]::after{left:calc(100% + var(--secondary-hover-gap));}
+.secondary-nav a[href="#netzwerk"]::before{right:calc(100% + var(--secondary-hover-gap));}
+
+/* NETZWERK -> MISC: 5 mm less than v42 (CSS reference: 96 dpi ≈ 18.9 px). */
+#netzwerk{margin-bottom:clamp(218px,calc(37.18vh - 18.9px),420px);}
+
+/* Larger diagonal brush gesture: heavy at upper left, fading toward lower right. */
+.zen-brush{
+  left:var(--edge);
+  bottom:clamp(8px,1.5vh,20px);
+  width:clamp(250px,31vw,500px);
+}
+@media(max-width:650px){
+  .zen-brush{left:18px;width:clamp(190px,55vw,300px);}
+}
+
+
+/* v44: 9 mm header finish, restore PAST EVENTS to the gallery axis, no brush. */
+.fixed-head{box-shadow:0 9mm 0 #fff}
+@media (min-width:651px) and (max-height:420px){.fixed-head{box-shadow:0 9mm 0 #fff}}
+
+/* Keep the PAST EVENTS heading/year on exactly the gallery-window left axis,
+   while allowing long event rows to use the open space to the right. */
+#past .list-inner{
+  width:min(50vw,500px,calc(100vw - (2 * var(--edge))));
+  overflow:visible;
+}
+#past-events{overflow:visible;width:min(78vw,980px);max-width:none;}
+
+/* Optical correction: PAST EVENTS' outside active marker gets the same generous
+   separation perceived in the primary navigation. NETZWERK already reads correctly. */
+.secondary-nav a[href="#past"]::before{right:calc(100% + 1.15em);}
+
+.zen-brush{display:none!important;}
+
+/* v45: one shared inter-section rhythm, 15% tighter than the former gallery gap.
+   This governs START→ABOUT→AKTUELL→SOLOTHURN→KONTAKT and the transitions
+   KONTAKT→PAST EVENTS→NETZWERK→MISC. The MISC→dot→legal epilogue is untouched. */
+:root{--inter-section-gap:clamp(85px,15.3vh,204px);}
+
+/* Gallery-to-gallery spacing. */
+.section + .section{margin-top:var(--inter-section-gap);}
+
+/* The reading sections use the same outside rhythm instead of their older,
+   individually tuned separation. */
+#past{
+  margin-top:var(--inter-section-gap);
+  padding-top:0;
+}
+#netzwerk{
+  margin-top:var(--inter-section-gap);
+  margin-bottom:0;
+  padding-top:0;
+}
+#misc{
+  margin-top:var(--inter-section-gap);
+}
+
+@media(max-width:650px){
+  :root{--inter-section-gap:clamp(46px,8.5vh,85px);}
+}
+
+
+/* v46: readable anchor fallback for the two reading sections. */
+#past,#netzwerk{scroll-margin-top:calc(9mm + 150px);}
+
+
+/* v48: MISC returns to the common left axis; the header dot shuffles the accent. */
+.misc-section .window-group{
+  align-self:flex-start;
+  margin-left:max(0px, calc((100% - min(50vw,500px,calc(100vw - (2 * var(--edge))))) / 2));
+}
+
+/* Keep MISC smaller than the other gallery windows, but place its title on the
+   same left axis as their titles rather than centring the whole MISC block. */
+@media(min-width:651px){
+  .misc-section .window-group{
+    margin-left:calc((100% - min(50vw,500px,calc(100vw - (2 * var(--edge))))) / 2);
+  }
+}
+@media(max-width:650px){
+  .misc-section .window-group{
+    margin-left:0;
+  }
+}
+
+/* Use the irregular dot silhouette as a colourable mask. */
+.mark img{opacity:0;}
+.mark::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:var(--accent);
+  -webkit-mask:url("dot.png") center/contain no-repeat;
+  mask:url("dot.png") center/contain no-repeat;
+}
+.mark{cursor:pointer;}
+
+
+/* v49: the header dot is a real CSS shape, so it works reliably from file:// too.
+   It changes the session accent without navigating away from the current section. */
+.mark{
+  appearance:none;
+  -webkit-appearance:none;
+  border:0;
+  padding:0;
+  background:transparent;
+  cursor:pointer;
+  width:54px;
+  height:64px;
+  position:relative;
+  overflow:visible;
+}
+.mark img{display:none!important;}
+.mark::after{
+  content:"";
+  position:absolute;
+  width:40px;
+  height:40px;
+  left:50%;
+  top:0;
+  transform:translateX(-50%);
+  background:var(--accent);
+  /* almost round, with the slight hand-made imbalance of the supplied dot */
+  border-radius:49% 51% 48% 52% / 51% 49% 52% 48%;
+  -webkit-mask:none;
+  mask:none;
+}
+.mark::before{
+  content:attr(data-tooltip);
+  position:absolute;
+  left:50%;
+  top:46px;
+  transform:translateX(-50%);
+  white-space:nowrap;
+  font:300 11px/1 Arial,Helvetica,sans-serif;
+  letter-spacing:.04em;
+  color:#111;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .12s ease;
+}
+.mark:hover::before,
+.mark:focus-visible::before{opacity:1;}
+.mark:focus{outline:none;}
+
+
+/* v50: use the exact original uploaded SVG silhouette for the large header/start dot. */
+.mark::after{content:none!important;display:none!important;}
+.mark-dot{
+  position:absolute;
+  width:40px;
+  height:40px;
+  left:50%;
+  top:0;
+  transform:translateX(-50%);
+  display:block;
+  overflow:visible;
+}
+.mark-dot path{fill:var(--accent);stroke:none;}
+
+/* v51: the original irregular dot is rasterised in all eight palette colours.
+   The image itself is the START + colour-change control. */
+.mark{
+  width:54px;
+  height:64px;
+  position:relative;
+  display:block;
+  overflow:visible;
+  appearance:none;
+  -webkit-appearance:none;
+  border:0;
+  padding:0;
+  background:transparent;
+  cursor:pointer;
+}
+.mark::before,.mark::after{content:none!important;display:none!important;}
+.mark .mark-dot{
+  display:block!important;
+  position:absolute;
+  width:40px;
+  height:40px;
+  left:50%;
+  top:0;
+  transform:translateX(-50%);
+  object-fit:contain;
+  opacity:1!important;
+  pointer-events:none;
+}
+.mark-tooltip{
+  position:absolute;
+  left:calc(50% + 24px);
+  top:14px;
+  white-space:nowrap;
+  font:300 11px/1 Arial,Helvetica,sans-serif;
+  letter-spacing:.04em;
+  color:#111;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .12s ease;
+}
+.mark:hover .mark-tooltip,
+.mark:focus-visible .mark-tooltip{opacity:1;}
+.mark:focus{outline:none;}
+
+
+/* v52: restore the original centred header dot robustly.
+   Keep the mathematically centred position deliberately uncorrected. */
+.fixed-head > .mark{
+  position:absolute!important;
+  left:50%!important;
+  right:auto!important;
+  top:calc(var(--head-pad-top) + 1 * (var(--type-size) * var(--type-leading) + var(--nav-gap)))!important;
+  bottom:auto!important;
+  width:54px!important;
+  height:64px!important;
+  transform:translateX(-50%)!important;
+  overflow:visible!important;
+  z-index:4!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+.fixed-head > .mark > .mark-dot{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  position:absolute!important;
+  left:50%!important;
+  top:0!important;
+  width:40px!important;
+  height:40px!important;
+  transform:translateX(-50%)!important;
+  object-fit:contain!important;
+  z-index:1!important;
+}
+.fixed-head > .mark > .mark-tooltip{
+  display:block;
+  left:calc(50% + 25px);
+  top:14px;
+  z-index:2;
+}
+@media(max-width:650px){
+  .fixed-head > .mark{
+    left:50%!important;
+    right:auto!important;
+    top:calc(var(--head-pad-top) + 1 * (var(--type-size) * var(--type-leading) + var(--nav-gap)))!important;
+    bottom:auto!important;
+    transform:translateX(-50%)!important;
+  }
+}

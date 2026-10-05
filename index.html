@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="de">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>gerbern drei — Solothurn</title>
+  <meta name="description" content="Hier kommt deine Meta-Description hin">
+
+  <!-- TEMPORÄR: vor dem offiziellen Launch entfernen, damit Suchmaschinen die Seite indexieren dürfen. -->
+  <meta name="robots" content="noindex">
+
+  <link rel="icon" href="favicon-v32.png" type="image/png">
+  <link rel="stylesheet" href="style.css?v=52">
+</head>
+
+<body>
+
+  <header class="fixed-head">
+    <nav class="primary-nav">
+      <a href="#start">START</a>
+      <a href="#about">ABOUT</a>
+      <a href="#aktuell">AKTUELL</a>
+      <a href="#solothurn">SOLOTHURN</a>
+      <a href="#kontakt">KONTAKT</a>
+    </nav>
+
+    <button class="mark" type="button" aria-label="Zurück zu START und Farbe wechseln">
+      <img class="mark-dot" src="dot-apricot.png" alt="" width="40" height="40" style="display:block!important; opacity:1!important; position:absolute; left:50%; top:0; width:40px; height:40px; transform:translateX(-50%); object-fit:contain;">
+      <span class="mark-tooltip" aria-hidden="true">so?</span>
+    </button>
+
+    <div class="secondary-nav">
+      <a href="#past">PAST EVENTS</a>
+      <b>|</b>
+      <a href="#netzwerk">NETZWERK</a>
+    </div>
+  </header>
+
+  <main id="app">
+
+    <section class="section" id="start">
+      <div class="window-group">
+        <h2 class="section-title">START</h2>
+        <div class="carousel" data-gallery="start">
+          <div class="viewport">
+            <div class="track">
+              <div class="slide empty">BILD</div>
+            </div>
+          </div>
+          <button class="arrow prev" aria-label="Vorheriges Bild"></button>
+          <button class="arrow next" aria-label="Nächstes Bild"></button>
+          <div class="dots"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="window-group">
+        <h2 class="section-title">ABOUT</h2>
+        <div class="carousel" data-gallery="about">
+          <div class="viewport">
+            <div class="track">
+              <div class="slide empty">BILD</div>
+            </div>
+          </div>
+          <button class="arrow prev" aria-label="Vorheriges Bild"></button>
+          <button class="arrow next" aria-label="Nächstes Bild"></button>
+          <div class="dots"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="aktuell">
+      <div class="window-group">
+        <h2 class="section-title">AKTUELL</h2>
+        <div class="carousel" data-gallery="aktuell">
+          <div class="viewport">
+            <div class="track">
+              <div class="slide empty">BILD</div>
+            </div>
+          </div>
+          <button class="arrow prev" aria-label="Vorheriges Bild"></button>
+          <button class="arrow next" aria-label="Nächstes Bild"></button>
+          <div class="dots"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="solothurn">
+      <div class="window-group">
+        <h2 class="section-title">SOLOTHURN</h2>
+        <div class="carousel" data-gallery="solothurn">
+          <div class="viewport">
+            <div class="track">
+              <div class="slide empty">BILD</div>
+            </div>
+          </div>
+          <button class="arrow prev" aria-label="Vorheriges Bild"></button>
+          <button class="arrow next" aria-label="Nächstes Bild"></button>
+          <div class="dots"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="kontakt">
+      <div class="window-group">
+        <h2 class="section-title">KONTAKT</h2>
+        <div class="carousel" data-gallery="kontakt">
+          <div class="viewport">
+            <div class="track">
+              <div class="slide empty">BILD</div>
+            </div>
+          </div>
+          <button class="arrow prev" aria-label="Vorheriges Bild"></button>
+          <button class="arrow next" aria-label="Nächstes Bild"></button>
+          <div class="dots"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="past" class="list-section">
+      <div class="list-inner">
+        <h2 class="section-title">PAST EVENTS</h2>
+        <pre id="past-events"></pre>
+      </div>
+    </section>
+
+    <section id="netzwerk" class="list-section network-section">
+      <div class="list-inner">
+        <h2 class="section-title">NETZWERK</h2>
+        <div id="network-links" class="network-links"></div>
+      </div>
+    </section>
+
+    <section class="section misc-section" id="misc">
+      <div class="window-group">
+        <h2 class="section-title">MISC</h2>
+        <div class="carousel" data-gallery="misc">
+          <div class="viewport">
+            <div class="track">
+              <div class="slide empty">BILD</div>
+            </div>
+          </div>
+          <button class="arrow prev" aria-label="Vorheriges Bild"></button>
+          <button class="arrow next" aria-label="Nächstes Bild"></button>
+          <div class="dots"></div>
+        </div>
+      </div>
+
+      <div class="misc-divider-dot" aria-label="what?">
+        <img src="dot.png" alt="">
+      </div>
+
+
+      <div class="legal-links" aria-label="Rechtliche Informationen">
+        <details>
+          <summary>IMPRESSUM</summary>
+          <p>Hier kommt dein kurzes Impressum hin.</p>
+        </details>
+
+        <details>
+          <summary>DATENSCHUTZ</summary>
+          <p>Hier kommt deine kurze Datenschutzerklärung hin.</p>
+        </details>
+      </div>
+    </section>
+
+    <div class="end-spacer" aria-hidden="true"></div>
+  </main>
+
+  <div class="fixed-foot"></div>
+
+  <script src="content.js"></script>
+  <script src="script.js?v=45"></script>
+
+</body>
+</html>
