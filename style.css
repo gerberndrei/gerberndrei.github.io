@@ -2325,3 +2325,22 @@ html,body{overflow-x:hidden;}
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
 }
+
+/* v86: final mobile NETWORK marker spacing + deterministic primary-nav tone. */
+@media (max-width:650px) and (orientation:portrait){
+  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+    left:calc(100% + .82em)!important;
+    right:auto!important;
+  }
+}
+.fixed-head .primary-nav a,
+.fixed-head .primary-nav a:link,
+.fixed-head .primary-nav a:visited,
+.fixed-head .primary-nav a:hover,
+.fixed-head .primary-nav a:focus,
+.fixed-head .primary-nav a:active{
+  color:#111!important;
+  -webkit-text-fill-color:#111!important;
+  font-weight:300!important;
+  opacity:1!important;
+}
