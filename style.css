@@ -2243,3 +2243,12 @@ html,body{overflow-x:hidden;}
     right:auto!important;
   }
 }
+
+/* v83: portrait phone — midpoint between v81 (.52em) and v82 (.22em).
+   Move only the active NETWORK dot; preserve all navigation spacing. */
+@media (max-width:650px) and (orientation:portrait){
+  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+    left:calc(100% + .37em)!important;
+    right:auto!important;
+  }
+}
