@@ -246,7 +246,11 @@
 
   function galleryLimits() {
     const mobile = window.matchMedia('(max-width: 650px)').matches;
-    if (mobile) return { top: 22, bottom: window.innerHeight - 4 };
+    if (mobile) {
+      const head = document.querySelector('.fixed-head');
+      const headH = head ? head.getBoundingClientRect().height : 0;
+      return { top: headH + 22, bottom: window.innerHeight - 4 };
+    }
     const head = document.querySelector('.fixed-head');
     const headH = head ? head.getBoundingClientRect().height : 0;
     const underStrip = 34.02; // 9 mm white finish below navigation
@@ -350,13 +354,15 @@
       const target = document.querySelector(id);
       if (!target) return;
 
-      // Mobile navigation is not fixed. Put the requested section near the
-      // top of the viewport instead of reserving the desktop header height.
+      // On phones the navigation remains fixed, so all anchor targets reserve
+      // the actual current header height (portrait or compact landscape).
       const mobile = window.matchMedia('(max-width: 650px)').matches;
       if (mobile && (target.classList.contains('section') || id === '#past' || id === '#netzwerk')) {
         event.preventDefault();
         if (history.replaceState) history.replaceState(null, '', id);
-        const top = window.scrollY + target.getBoundingClientRect().top - 22;
+        const head = document.querySelector('.fixed-head');
+        const headH = head ? head.getBoundingClientRect().height : 0;
+        const top = window.scrollY + target.getBoundingClientRect().top - headH - 22;
         window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
         if (secondaryPast) secondaryPast.classList.toggle('active-secondary', id === '#past');
         if (secondaryNetwork) secondaryNetwork.classList.toggle('active-secondary', id === '#netzwerk');
@@ -412,7 +418,7 @@
   function currentNavSection() {
     const head = document.querySelector('.fixed-head');
     const mobile = window.matchMedia('(max-width: 650px)').matches;
-    const headH = mobile ? 0 : (head ? head.getBoundingClientRect().height : 0);
+    const headH = head ? head.getBoundingClientRect().height : 0;
 
     // For the reading sections use a stable reading line just below the fixed
     // navigation. This keeps NETZWERK active for its whole section instead of

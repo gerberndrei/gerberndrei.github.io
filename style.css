@@ -1680,3 +1680,55 @@ button.misc-divider-dot > .misc-divider-tooltip{
     width:min(calc((100vw - 44px) * .6667),333px,calc((100dvh - 76px) * .6667));
   }
 }
+
+/* v59: mobile navigation stays available; network continuations align; landscape loses the white under-bar. */
+@media (max-width:650px){
+  /* Keep the phone navigation available while moving between sections. */
+  .fixed-head{position:fixed;box-shadow:none!important;}
+
+  /* Content starts below the fixed navigation again. */
+  main{padding-top:var(--head);}
+  .section,
+  .list-section{scroll-margin-top:calc(var(--head) + 22px);}
+
+  /* A wrapped URL/e-mail starts on the same inset as its label. */
+  .network-row{
+    display:grid;
+    grid-template-columns:1.25em minmax(0,1fr);
+    column-gap:0!important;
+    row-gap:0;
+    padding-left:0;
+  }
+  .network-label,
+  .network-row .list-separator,
+  .network-row a{grid-column:2;}
+  .network-label{display:inline;}
+  .network-row .list-separator{display:none;}
+  .network-row a{display:block;}
+}
+
+/* Landscape phone: compact fixed navigation, no deep white header/under-strip. */
+@media (max-width:900px) and (orientation:landscape) and (max-height:650px){
+  :root{--head:118px;--head-pad-top:12px;--nav-gap:3px;--type-leading:1.25;}
+  .fixed-head{
+    position:fixed;
+    height:var(--head);
+    padding:var(--head-pad-top) 22px 0;
+    box-shadow:none!important;
+  }
+  .fixed-head nav{gap:var(--nav-gap);line-height:var(--type-leading);}
+  .fixed-head > .secondary-nav{
+    top:var(--head-pad-top);
+    left:auto;
+    right:22px;
+    line-height:var(--type-leading);
+  }
+  .fixed-head > .mark{
+    top:var(--head-pad-top)!important;
+    left:50%!important;
+    transform:translateX(-50%)!important;
+  }
+  main{padding-top:var(--head);}
+  .section,.list-section{scroll-margin-top:calc(var(--head) + 10px);}
+  .window-group{width:min(calc(100vw - 44px),500px,calc(100dvh - var(--head) - 28px));}
+}
