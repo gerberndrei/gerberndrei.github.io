@@ -2521,3 +2521,25 @@ html,body{overflow-x:hidden;}
     right:auto!important;
   }
 }
+
+/* v95: optical portrait-phone fixes based on the deployed v94 build. */
+@media (max-width:650px) and (orientation:portrait) and (prefers-color-scheme:dark){
+  /* These labels were perceptually lighter/thinner on the phone although the
+     computed v94 paint matched. Give only the reported labels a brighter paint. */
+  html[lang="de"] body .fixed-head .primary-nav a[href="#start"],
+  html[lang="de"] body .fixed-head .primary-nav a[href="#aktuell"],
+  html[lang="de"] body .fixed-head .primary-nav a[href="#solothurn"],
+  html[lang="de"] body .fixed-head .secondary-nav a[href="#past"],
+  html[lang="de"] body .fixed-head .secondary-nav a[href="#netzwerk"],
+  html[lang="en"] body .fixed-head .secondary-nav a[href="#past"],
+  html[lang="en"] body .fixed-head .secondary-nav a[href="#netzwerk"]{
+    color:#e0e0e0!important;
+    -webkit-text-fill-color:#e0e0e0!important;
+  }
+
+  /* Anchor the marker directly to NETWORK's right edge. */
+  body .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+    left:calc(100% + .12em)!important;
+    right:auto!important;
+  }
+}
