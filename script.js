@@ -50,6 +50,10 @@
     colourDot.addEventListener('click', function () {
       chooseDifferentAccent();
       colourDot.blur();
+      const tip = colourDot.querySelector('.mark-tooltip');
+      if (tip && window.matchMedia('(max-width:900px), (pointer:coarse)').matches) {
+        tip.style.setProperty('opacity', '0', 'important');
+      }
       scrollToElement(whatDot, '#what');
     });
   }
@@ -493,8 +497,17 @@
       updateNavDots();
     });
   }
-  window.addEventListener('scroll', scheduleNavDotUpdate, { passive: true });
-  window.addEventListener('resize', scheduleNavDotUpdate, { passive: true });
+  const touchLayout = window.matchMedia('(max-width:900px), (pointer:coarse)').matches;
+  let touchScrollTimer = 0;
+  if (touchLayout) {
+    window.addEventListener('scroll', function () {
+      window.clearTimeout(touchScrollTimer);
+      touchScrollTimer = window.setTimeout(updateNavDots, 180);
+    }, { passive:true });
+  } else {
+    window.addEventListener('scroll', scheduleNavDotUpdate, { passive:true });
+  }
+  window.addEventListener('resize', scheduleNavDotUpdate, { passive:true });
   updateNavDots();
 })();
 

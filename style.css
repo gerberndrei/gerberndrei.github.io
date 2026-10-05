@@ -1793,3 +1793,51 @@ button.misc-divider-dot > .misc-divider-tooltip{
     opacity:0!important;
   }
 }
+
+/* v62: stable mobile viewport, stronger network indent, deterministic touch tooltip,
+   and a slightly left-of-centre colour dot on wide/landscape layouts. */
+
+/* Chrome's dynamic browser chrome changes 100dvh while a finger fling is in
+   progress.  Use the stable small viewport on touch layouts so section heights
+   do not continuously reflow underneath the scroll position. */
+@media (max-width:900px), (pointer:coarse){
+  .section,
+  .list-section,
+  .misc-section{
+    min-height:calc(100svh - var(--head) - var(--foot))!important;
+  }
+  .window-group{
+    width:min(calc(100vw - 44px),500px,calc(100svh - var(--head) - var(--bottom-mask) - var(--gallery-reserve)))!important;
+  }
+}
+
+@media (max-width:650px){
+  /* Make continuation information unmistakably subordinate to the name. */
+  .network-row a{
+    padding-left:0!important;
+    margin-left:5em!important;
+    width:calc(100% - 5em)!important;
+  }
+
+  /* Do not rely on emulated :hover/:focus on Android for this tooltip. */
+  .fixed-head > .mark > .mark-tooltip{
+    opacity:0!important;
+  }
+}
+
+/* Desktop: intentionally a touch left of the mathematical centre. */
+@media (min-width:901px){
+  .fixed-head > .mark{
+    left:48.5%!important;
+  }
+}
+
+/* Phone landscape gets the same optical asymmetry. */
+@media (max-width:900px) and (orientation:landscape) and (max-height:650px){
+  .fixed-head > .mark{
+    left:48.5%!important;
+  }
+  .window-group{
+    width:min(calc(100vw - 44px),500px,calc(100svh - var(--head) - 28px))!important;
+  }
+}
