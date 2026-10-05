@@ -2377,7 +2377,7 @@ html,body{overflow-x:hidden;}
    hierarchy comes from size, spacing, position and caps, not brightness. */
 @media (max-width:650px) and (orientation:portrait){
   .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
-    left:calc(100% + .62em)!important;
+    left:calc(100% + .54em)!important;
     right:auto!important;
   }
 }
@@ -2421,5 +2421,48 @@ html,body{overflow-x:hidden;}
     font-synthesis:none!important;
     text-shadow:none!important;
     opacity:1!important;
+  }
+}
+
+
+/* v90: final optical normalization. All textual UI/content shares one paint in dark mode. */
+@media (prefers-color-scheme: dark){
+  body{--uniform-dark-text:#d0d0d0;}
+  body, body *{
+    color:var(--uniform-dark-text)!important;
+    -webkit-text-fill-color:var(--uniform-dark-text)!important;
+    text-shadow:none!important;
+  }
+  body, body a, body button, body summary, body pre, body span, body p, body h1, body h2, body h3, body div{
+    font-synthesis:none!important;
+    -webkit-font-smoothing:antialiased!important;
+    -moz-osx-font-smoothing:grayscale!important;
+  }
+  .mark-dot, .misc-divider-dot img, .slide img{color:initial!important;-webkit-text-fill-color:initial!important;}
+}
+
+/* v91: true site-wide dark-mode typography normalization.
+   v90 normalized paint globally but did not normalize font-weight globally. */
+@media (prefers-color-scheme: dark){
+  body, body *{
+    color:#d0d0d0!important;
+    -webkit-text-fill-color:#d0d0d0!important;
+    font-weight:300!important;
+    font-synthesis:none!important;
+    text-shadow:none!important;
+    opacity:1!important;
+  }
+  .mark-dot, .misc-divider-dot img, .slide img{
+    color:initial!important;
+    -webkit-text-fill-color:initial!important;
+    opacity:1!important;
+  }
+}
+
+/* v91: final tiny optical move toward NETWORK; spacing itself is unchanged. */
+@media (max-width:650px) and (orientation:portrait){
+  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+    left:calc(100% + .48em)!important;
+    right:auto!important;
   }
 }
