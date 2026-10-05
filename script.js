@@ -286,7 +286,6 @@
       }
       if (/^\d{4}$/.test(line)) {
         const year = document.createElement('div'); year.className = 'past-year'; year.textContent = '\u00A0\u00A0' + line; past.appendChild(year);
-        const gap = document.createElement('div'); gap.className = 'past-year-gap'; past.appendChild(gap);
         previousWasYear = true; return;
       }
       previousWasYear = false;
