@@ -75,13 +75,20 @@
       flashTouchLabel(whatDot);
       whatDot.blur();
 
-      const start = document.getElementById('start');
-      const startGroup = start && start.querySelector('.window-group');
-      if (startGroup) activeGallery = startGroup;
-      if (history.replaceState) history.replaceState(null, '', '#start');
-
-      fitStartToViewport();
-      window.scrollTo({ top:0, left:0, behavior:'smooth' });
+      // v69: do not maintain a second START route here. Delegate to the
+      // actual START navigation link so what! and START are literally identical.
+      const startLink = document.querySelector('.primary-nav a[href="#start"]');
+      if (startLink) {
+        startLink.click();
+      } else {
+        // Defensive fallback only if the navigation markup ever changes.
+        const start = document.getElementById('start');
+        const startGroup = start && start.querySelector('.window-group');
+        if (startGroup) activeGallery = startGroup;
+        if (history.replaceState) history.replaceState(null, '', '#start');
+        fitStartToViewport();
+        window.scrollTo({ top:0, left:0, behavior:'smooth' });
+      }
     });
   }
 

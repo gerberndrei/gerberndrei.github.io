@@ -1996,3 +1996,4 @@ html,body{overflow-x:hidden;}
 
 /* v67: START fitting is measured iteratively in JS so title + window + dots
    share one identical first-screen geometry on load and on return to START. */
+\n\n/* v69: portrait PAST EVENTS wraps naturally back to the row axis.\n   No dash and no hanging indent on continuation lines. */\n@media (max-width:650px) and (orientation:portrait){\n  #past-events .past-row{\n    display:block!important;\n    margin-left:1.25em!important;\n    max-width:calc(100% - 1.25em)!important;\n    padding-left:0!important;\n    text-indent:0!important;\n  }\n  #past-events .past-row > span{display:inline!important;}\n  #past-events .past-row > span:first-child{margin-right:.7em!important;}\n  #past-events .past-row .past-separator{display:none!important;}\n}\n
