@@ -87,7 +87,7 @@ NOVEMBER 01: Glory to Ukraine
 
 2028
 
-JANUAR 02: TBA
+TBA
 
 …`,
 
@@ -108,9 +108,10 @@ JANUAR 02: TBA
     {
       label: 'Niklaus Zumstein, Solothurn',
       url: 'mailto:niklauszumstein@gmail.com',
-      display: 'niklauszumstein@gmail.com',
-      spaceAfter: true
-    },
+      display: 'niklauszumstein@gmail.com'
+    }
+
+,
     {
       label: 'Shambhala Zentrum, Bern',
       url: 'https://bern.shambhala.org/',

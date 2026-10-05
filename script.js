@@ -9,7 +9,15 @@
 
   // v76: German/original is the default. English is an optional overlay:
   // whenever a *_en value is missing, the original value stays visible.
-  let currentLanguage = localStorage.getItem('gerbern-drei-language') === 'en' ? 'en' : 'de';
+  const urlLanguage = new URLSearchParams(window.location.search).get('lang');
+  let currentLanguage = urlLanguage === 'en' ? 'en' : (urlLanguage === 'de' ? 'de' : (localStorage.getItem('gerbern-drei-language') === 'en' ? 'en' : 'de'));
+
+  function syncLanguageUrl() {
+    const url = new URL(window.location.href);
+    if (currentLanguage === 'en') url.searchParams.set('lang', 'en');
+    else url.searchParams.delete('lang');
+    history.replaceState(null, '', url.pathname + (url.search ? url.search : '') + url.hash);
+  }
   const MONTHS_EN = {
     JANUAR:'JANUARY', FEBRUAR:'FEBRUARY', 'MÄRZ':'MARCH', APRIL:'APRIL',
     MAI:'MAY', JUNI:'JUNE', JULI:'JULY', AUGUST:'AUGUST',
@@ -136,6 +144,11 @@
 
     track.innerHTML = '';
     dots.innerHTML = '';
+    carousel.setAttribute('role', 'region');
+    carousel.setAttribute('aria-roledescription', 'carousel');
+    carousel.setAttribute('aria-label', (NAV_LABELS[currentLanguage][key] || key) + ' Bildergalerie');
+    track.setAttribute('tabindex', '0');
+    track.setAttribute('aria-label', 'Bilder mit Pfeiltasten wechseln');
 
     if (!images.length) {
       const empty = document.createElement('div');
@@ -151,6 +164,9 @@
     images.forEach(function (name, index) {
       const slide = document.createElement('div');
       slide.className = 'slide';
+      slide.setAttribute('role', 'group');
+      slide.setAttribute('aria-roledescription', 'slide');
+      slide.setAttribute('aria-label', (index + 1) + ' von ' + images.length);
       const img = document.createElement('img');
       const spec = galleryImageSpec(data, name, index);
       img.dataset.galleryKey = key;
@@ -201,13 +217,20 @@
     }
     function update() {
       index = Math.max(0, Math.min(images.length - 1, Math.round(track.scrollLeft / slideWidth())));
-      Array.from(dots.children).forEach(function (dot, i) { dot.classList.toggle('active', i === index); });
+      Array.from(dots.children).forEach(function (dot, i) {
+        dot.classList.toggle('active', i === index);
+        if (i === index) dot.setAttribute('aria-current', 'true'); else dot.removeAttribute('aria-current');
+      });
       prev.hidden = index === 0;
       next.hidden = index === images.length - 1;
     }
 
     prev.addEventListener('click', function (event) { event.stopPropagation(); goTo(index - 1); });
     next.addEventListener('click', function (event) { event.stopPropagation(); goTo(index + 1); });
+    track.addEventListener('keydown', function (event) {
+      if (event.key === 'ArrowLeft') { event.preventDefault(); goTo(index - 1); }
+      if (event.key === 'ArrowRight') { event.preventDefault(); goTo(index + 1); }
+    });
 
     // On devices with a real cursor, clicking the image advances one slide.
     // Touch devices keep their native swipe behaviour and do not advance on a tap.
@@ -274,7 +297,7 @@
         const date = document.createElement('span'); date.textContent = dateText;
         const sep = document.createElement('span'); sep.className = 'list-separator past-separator'; sep.textContent = '—';
         const desc = document.createElement('span'); desc.textContent = m[2];
-        const mobileLine = document.createElement('span'); mobileLine.className = 'past-mobile-line'; mobileLine.textContent = dateText + '  ' + m[2];
+        const mobileLine = document.createElement('span'); mobileLine.className = 'past-mobile-line'; mobileLine.textContent = dateText + '\u00A0\u00A0' + m[2];
         row.append(date, sep, desc, mobileLine); past.appendChild(row);
       } else {
         const row = document.createElement('div'); row.textContent = line; past.appendChild(row);
@@ -339,6 +362,7 @@
     const labels = NAV_LABELS[currentLanguage];
     document.documentElement.lang = currentLanguage;
     localStorage.setItem('gerbern-drei-language', currentLanguage);
+    syncLanguageUrl();
 
     ['start','about','aktuell','solothurn','kontakt'].forEach(function (id) {
       setText('.primary-nav a[href="#' + id + '"]', labels[id]);
@@ -372,6 +396,12 @@
     renderPastEvents();
     renderNetwork();
     updateGalleryLanguage();
+    document.querySelectorAll('.carousel[data-gallery]').forEach(function (carousel) {
+      const key = carousel.dataset.gallery;
+      carousel.setAttribute('aria-label', (NAV_LABELS[currentLanguage][key] || key) + (currentLanguage === 'en' ? ' image gallery' : ' Bildergalerie'));
+      const track = carousel.querySelector('.track');
+      if (track) track.setAttribute('aria-label', currentLanguage === 'en' ? 'Use arrow keys to change image' : 'Bilder mit Pfeiltasten wechseln');
+    });
   }
 
   const languageToggle = document.querySelector('.language-toggle');

@@ -2119,3 +2119,20 @@ html,body{overflow-x:hidden;}
     cursor:default;
   }
 }
+
+
+/* v77: portrait-phone secondary navigation gets more breathing room. */
+@media (max-width:650px) and (orientation:portrait){
+  .fixed-head > .secondary-nav{
+    column-gap:0!important;
+    letter-spacing:.12em!important;
+  }
+  .fixed-head > .secondary-nav b,
+  .fixed-head > .secondary-nav .language-separator{
+    margin-left:1.15em!important;
+    margin-right:1.15em!important;
+  }
+  .fixed-head > .secondary-nav a[href="#netzwerk"].active-secondary::after{
+    right:-.62em!important;
+  }
+}
