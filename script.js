@@ -1,6 +1,9 @@
 (function () {
   'use strict';
 
+  // v66: do not let the browser restore a slightly scrolled START position.
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
   const content = window.SITE_CONTENT || {};
   const MAX_IMAGES = 11;
 
@@ -47,13 +50,9 @@
 
   // Touch labels: show briefly after a tap, then disappear automatically.
   function flashTouchLabel(button) {
-    if (!button || !window.matchMedia('(hover:none), (pointer:coarse)').matches) return;
-    if (window.matchMedia('(max-width:650px) and (orientation:portrait)').matches) return;
-    button.classList.add('touch-label-visible');
-    window.clearTimeout(button._touchLabelTimer);
-    button._touchLabelTimer = window.setTimeout(function () {
-      button.classList.remove('touch-label-visible');
-    }, 850);
+    /* v66: no so?/what! labels on touch devices. Hover labels belong to real pointers only. */
+    if (!button) return;
+    button.classList.remove('touch-label-visible');
   }
 
   // so? changes the palette and leads to what! at the bottom.
@@ -271,7 +270,7 @@
     group.style.maxWidth = '';
     const oldScroll = window.scrollY;
     if (oldScroll !== 0) window.scrollTo({top:0,left:0,behavior:'auto'});
-    const bottomLimit = window.innerHeight - 6;
+    const bottomLimit = window.innerHeight - 22;
     let r = group.getBoundingClientRect();
     if (r.bottom > bottomLimit) {
       const overflow = r.bottom - bottomLimit;
@@ -459,6 +458,13 @@
   });
   activeGallery = galleryFromHash() || chooseActiveGallery();
   if (!location.hash || location.hash === '#start') {
+    // START is a fitted first screen, never a remembered scroll position.
+    window.scrollTo({top:0,left:0,behavior:'auto'});
+    requestAnimationFrame(function(){
+      fitStartToViewport();
+      window.scrollTo({top:0,left:0,behavior:'auto'});
+      requestAnimationFrame(function(){ window.scrollTo({top:0,left:0,behavior:'auto'}); });
+    });
     fitStartToViewport();
     if (!window.matchMedia('(max-width:900px), (pointer:coarse)').matches) window.scrollTo({top:0,left:0,behavior:'auto'});
   }

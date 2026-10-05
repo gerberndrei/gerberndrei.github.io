@@ -1950,3 +1950,45 @@ html,body{overflow-x:hidden;}
   }
   #past-events .past-row .past-separator{display:none!important;}
 }
+
+/* v66: touch means touch; desktop START never needs a corrective page scroll. */
+@media (hover:none), (pointer:coarse){
+  /* so?/what! are mouse-hover language only. */
+  .fixed-head > .mark > .mark-tooltip,
+  .misc-divider-dot > .misc-divider-tooltip{
+    display:none!important;
+    opacity:0!important;
+    visibility:hidden!important;
+  }
+  .fixed-head > .mark.touch-label-visible > .mark-tooltip,
+  .misc-divider-dot.touch-label-visible > .misc-divider-tooltip{
+    display:none!important;
+    opacity:0!important;
+    visibility:hidden!important;
+  }
+
+  /* Remove the black hover previews completely on touch. Keep only coloured active markers. */
+  .primary-nav a::before,
+  .secondary-nav a[href="#past"]::after,
+  .secondary-nav a[href="#netzwerk"]::before{
+    content:none!important;
+    display:none!important;
+  }
+
+  a,button,summary{
+    -webkit-tap-highlight-color:transparent!important;
+    outline:none!important;
+  }
+  a:focus,button:focus,summary:focus,
+  a:focus-visible,button:focus-visible,summary:focus-visible{
+    outline:none!important;
+    box-shadow:none!important;
+  }
+}
+
+/* A little safety air below START's gallery dots on desktop. */
+@media (min-width:901px) and (hover:hover) and (pointer:fine){
+  #start .window-group{
+    max-height:calc(100vh - var(--head) - 18px)!important;
+  }
+}
