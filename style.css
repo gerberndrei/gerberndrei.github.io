@@ -1487,3 +1487,149 @@ main{padding-bottom:0}
     transform:translateX(-50%)!important;
   }
 }
+\n\n/* v53: restore the so? <-> what! pair after deployment cleanup. */\n.misc-divider-dot{\n  position:relative;\n  display:block;\n  appearance:none;\n  -webkit-appearance:none;\n  border:0;\n  padding:0;\n  background:transparent;\n  cursor:pointer;\n  overflow:visible;\n}\n.misc-divider-dot::before,.misc-divider-dot::after{content:none!important;display:none!important;}\n.misc-divider-dot img{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none;}\n.misc-divider-tooltip{\n  position:absolute;\n  left:calc(100% + 8px);\n  top:50%;\n  transform:translateY(-50%);\n  white-space:nowrap;\n  font:300 11px/1 Arial,Helvetica,sans-serif;\n  letter-spacing:.04em;\n  color:#111;\n  opacity:0;\n  pointer-events:none;\n  transition:opacity .12s ease;\n}\n.misc-divider-dot:hover .misc-divider-tooltip,\n.misc-divider-dot:focus-visible .misc-divider-tooltip{opacity:1;}\n.misc-divider-dot:focus{outline:none;}\n
+/* v54: definitive MISC dot interaction repair. */
+button.misc-divider-dot {
+  position: relative !important;
+  display: block !important;
+  width: clamp(64px,7vw,104px) !important;
+  height: clamp(64px,7vw,104px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 0 !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  cursor: pointer !important;
+  overflow: visible !important;
+  font: inherit !important;
+}
+button.misc-divider-dot::before,
+button.misc-divider-dot::after {
+  content: none !important;
+  display: none !important;
+}
+button.misc-divider-dot > img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  pointer-events: none !important;
+}
+button.misc-divider-dot > .misc-divider-tooltip {
+  position: absolute !important;
+  display: block !important;
+  left: calc(100% + 8px) !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  white-space: nowrap !important;
+  font: 300 11px/1 Arial,Helvetica,sans-serif !important;
+  letter-spacing: .04em !important;
+  color: #111 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+button.misc-divider-dot:hover > .misc-divider-tooltip,
+button.misc-divider-dot:focus-visible > .misc-divider-tooltip {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* v55: keep the large what! dot centred on the actual MISC window,
+   whose deliberately left-shifted axis differs from the viewport centre. */
+button.misc-divider-dot{
+  align-self:flex-start !important;
+  margin-right:0 !important;
+}
+\n\n/* v56: deployment-safe MISC dot + PAST EVENTS indentation. */
+/* The wrapper uses exactly the same horizontal geometry as the MISC window.
+   The button is centred inside that axis, not in the browser viewport. */
+.misc-dot-axis{
+  width:min(50vw,500px,calc(100vw - (2 * var(--edge))));
+  align-self:flex-start;
+  margin-left:calc((100% - min(50vw,500px,calc(100vw - (2 * var(--edge))))) / 2);
+  display:flex;
+  justify-content:center;
+  overflow:visible;
+}
+button.misc-divider-dot{
+  display:block!important;
+  flex:0 0 auto!important;
+  width:clamp(64px,7vw,104px)!important;
+  height:clamp(64px,7vw,104px)!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  background:none!important;
+  appearance:none!important;
+  -webkit-appearance:none!important;
+  cursor:pointer!important;
+  overflow:visible!important;
+}
+button.misc-divider-dot:hover,
+button.misc-divider-dot:focus,
+button.misc-divider-dot:active{
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  background:none!important;
+  cursor:pointer!important;
+}
+button.misc-divider-dot > img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  object-fit:contain!important;
+  pointer-events:none!important;
+}
+button.misc-divider-dot > .misc-divider-tooltip{
+  left:calc(100% + 8px)!important;
+  top:50%!important;
+  transform:translateY(-50%)!important;
+}
+/* Year stays close to the shared reading axis; event dates step farther in. */
+#past-events .past-year{margin-left:1em!important;}
+#past-events .past-row{margin-left:2em!important;}
+@media(max-width:650px){
+  .misc-dot-axis{
+    width:min(calc(100vw - 44px),500px);
+    margin-left:0;
+  }
+  #past-events .past-year{margin-left:.5em!important;}
+  #past-events .past-row{margin-left:1.5em!important;}
+}
+
+/* v57: final MISC rhythm + stronger PAST EVENTS hierarchy. */
+:root{--misc-epilogue-gap:clamp(92px,12vh,150px);}
+.misc-dot-axis{
+  margin-top:var(--misc-epilogue-gap)!important;
+  margin-right:0!important;
+  margin-bottom:0!important;
+  /* width + left position are synced to the actual MISC viewport in script.js */
+}
+.legal-links{margin-top:var(--misc-epilogue-gap)!important;}
+/* Date rows step clearly farther in than the year steps in from the title. */
+#past-events .past-year{margin-left:1em!important;}
+#past-events .past-row{margin-left:3em!important;}
+@media(max-width:650px){
+  #past-events .past-year{margin-left:.5em!important;}
+  #past-events .past-row{margin-left:2em!important;}
+}

@@ -34,8 +34,25 @@
   applyAccent(accentDot);
 
   const colourDot = document.querySelector('.mark');
+  const whatDot = document.querySelector('.misc-divider-dot');
+
+  function scrollToElement(el, hash) {
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (history.replaceState) history.replaceState(null, '', hash);
+  }
+
+  // so? changes the palette and leads to what! at the bottom.
   if (colourDot) {
     colourDot.addEventListener('click', function () {
+      chooseDifferentAccent();
+      scrollToElement(whatDot, '#what');
+    });
+  }
+
+  // what! changes the palette and returns to START.
+  if (whatDot) {
+    whatDot.addEventListener('click', function () {
       chooseDifferentAccent();
       const start = document.getElementById('start');
       if (start) start.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -432,4 +449,28 @@
   window.addEventListener('scroll', updateNavDots, { passive: true });
   window.addEventListener('resize', updateNavDots);
   updateNavDots();
+})();
+
+// v57: make the what! dot follow the *actual visible MISC viewport* axis.
+(function alignWhatDotToMiscWindow(){
+  const misc = document.getElementById('misc');
+  const viewport = misc && misc.querySelector('.window-group .viewport');
+  const axis = misc && misc.querySelector('.misc-dot-axis');
+  if (!misc || !viewport || !axis) return;
+
+  function align(){
+    const mr = misc.getBoundingClientRect();
+    const vr = viewport.getBoundingClientRect();
+    const cs = getComputedStyle(misc);
+    const padLeft = parseFloat(cs.paddingLeft) || 0;
+    axis.style.width = vr.width + 'px';
+    axis.style.marginLeft = (vr.left - mr.left - padLeft) + 'px';
+  }
+
+  align();
+  requestAnimationFrame(align);
+  window.addEventListener('load', align, {once:true});
+  window.addEventListener('resize', align, {passive:true});
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', align, {passive:true});
+  if ('ResizeObserver' in window) new ResizeObserver(align).observe(viewport);
 })();
