@@ -2543,3 +2543,39 @@ html,body{overflow-x:hidden;}
     right:auto!important;
   }
 }
+
+
+/* v96: structural portrait-phone fixes. */
+@media (max-width:650px) and (orientation:portrait){
+  /* Real typographic separation: no NBSP-based spacing. Both spans remain
+     inline, so wrapped prose can still return naturally to the row axis. */
+  #past-events .past-row > .past-mobile-line{
+    display:inline!important;
+  }
+  #past-events .past-mobile-date,
+  #past-events .past-mobile-desc{
+    display:inline!important;
+  }
+  #past-events .past-mobile-date{
+    margin-right:1.35em!important;
+  }
+
+  /* Marker is now almost flush to the NETWORK text edge; its position no
+     longer attempts to visually centre it in the divider interval. */
+  body .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+    left:calc(100% + .02em)!important;
+    right:auto!important;
+  }
+}
+
+@media (max-width:650px) and (orientation:portrait) and (prefers-color-scheme:dark){
+  /* PAST EVENTS + NETWORK are the only two labels still reading too weak on
+     the actual phone. Give them an explicit stronger optical treatment. */
+  html body .fixed-head > .secondary-nav a[href="#past"],
+  html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
+    font-weight:400!important;
+    color:#f0f0f0!important;
+    -webkit-text-fill-color:#f0f0f0!important;
+    opacity:1!important;
+  }
+}
