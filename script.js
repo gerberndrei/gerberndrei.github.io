@@ -65,35 +65,31 @@
     });
   }
 
-  // what! changes the palette and returns to START.
-  // v68: use the *same START state and order* as clicking the START nav link.
-  // In v67 the hash/active gallery were updated only after fitting, so the
-  // what! route could retain the previous gallery geometry.
+  // what! changes the palette and returns to the exact fitted START state.
+  // Important: make START authoritative *before* fitting it.  Otherwise the
+  // scroll bookkeeping can still regard MISC as the active gallery while the
+  // page is travelling back from the bottom.
   if (whatDot) {
     whatDot.addEventListener('click', function (event) {
-      // v70: the what! control may itself participate in anchor navigation.
-      // Cancel that route completely before delegating to the real START link;
-      // otherwise its later/default handler can overwrite START's fitted state.
       event.preventDefault();
-      event.stopImmediatePropagation();
+      event.stopPropagation();
       chooseDifferentAccent();
       flashTouchLabel(whatDot);
       whatDot.blur();
 
-      // v69: do not maintain a second START route here. Delegate to the
-      // actual START navigation link so what! and START are literally identical.
-      const startLink = document.querySelector('.primary-nav a[href="#start"]');
-      if (startLink) {
-        startLink.click();
-      } else {
-        // Defensive fallback only if the navigation markup ever changes.
-        const start = document.getElementById('start');
-        const startGroup = start && start.querySelector('.window-group');
-        if (startGroup) activeGallery = startGroup;
-        if (history.replaceState) history.replaceState(null, '', '#start');
+      const start = document.getElementById('start');
+      const startGroup = start && start.querySelector('.window-group');
+      if (startGroup) activeGallery = startGroup;
+      if (history.replaceState) history.replaceState(null, '', '#start');
+
+      // fitStartToViewport itself establishes scrollY=0, so do not start a
+      // competing smooth-scroll animation here.  Re-measure once after layout
+      // has settled; this is the same geometry used by the working START link.
+      fitStartToViewport();
+      requestAnimationFrame(function () {
         fitStartToViewport();
-        window.scrollTo({ top:0, left:0, behavior:'smooth' });
-      }
+        window.scrollTo({ top:0, left:0, behavior:'auto' });
+      });
     });
   }
 
