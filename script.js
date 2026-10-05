@@ -7,7 +7,7 @@
   // v52: one random saturated-pastel original dot image per page load.
   // Clicking the large navigation dot chooses a different colour AND returns to START.
   const ACCENT_DOTS = [
-    { colour: '#F3A51F', file: 'dot-apricot.png' },
+    { colour: '#F3A51F', file: 'dot.png' },
     { colour: '#F28C8C', file: 'dot-coral.png' },
     { colour: '#E99BCB', file: 'dot-rose.png' },
     { colour: '#B69BE8', file: 'dot-lavender.png' },
@@ -23,7 +23,10 @@
     accentDot = dot;
     document.documentElement.style.setProperty('--accent', dot.colour);
     const image = document.querySelector('.mark-dot');
-    if (image) image.src = dot.file;
+    if (image) {
+      image.onerror = function () { this.onerror = null; this.src = 'dot.png'; };
+      image.src = dot.file;
+    }
   }
 
   function chooseDifferentAccent() {
