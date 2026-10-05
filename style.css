@@ -2223,3 +2223,13 @@ html,body{overflow-x:hidden;}
   height:var(--reading-line)!important;
   min-height:var(--reading-line)!important;
 }
+
+/* v81: portrait phone — center the active NETWORK dot in the existing
+   space between NETWORK and the following vertical divider.  Navigation
+   widths and divider margins stay unchanged. */
+@media (max-width:650px) and (orientation:portrait){
+  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+    left:calc(100% + .52em)!important;
+    right:auto!important;
+  }
+}
