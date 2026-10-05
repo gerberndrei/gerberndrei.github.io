@@ -66,14 +66,22 @@
   }
 
   // what! changes the palette and returns to START.
+  // v68: use the *same START state and order* as clicking the START nav link.
+  // In v67 the hash/active gallery were updated only after fitting, so the
+  // what! route could retain the previous gallery geometry.
   if (whatDot) {
     whatDot.addEventListener('click', function () {
       chooseDifferentAccent();
       flashTouchLabel(whatDot);
       whatDot.blur();
+
+      const start = document.getElementById('start');
+      const startGroup = start && start.querySelector('.window-group');
+      if (startGroup) activeGallery = startGroup;
+      if (history.replaceState) history.replaceState(null, '', '#start');
+
       fitStartToViewport();
       window.scrollTo({ top:0, left:0, behavior:'smooth' });
-      if (history.replaceState) history.replaceState(null, '', '#start');
     });
   }
 
