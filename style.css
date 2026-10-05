@@ -2377,7 +2377,7 @@ html,body{overflow-x:hidden;}
    hierarchy comes from size, spacing, position and caps, not brightness. */
 @media (max-width:650px) and (orientation:portrait){
   .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
-    left:calc(100% + .68em)!important;
+    left:calc(100% + .62em)!important;
     right:auto!important;
   }
 }
