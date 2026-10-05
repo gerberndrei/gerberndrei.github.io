@@ -264,21 +264,35 @@
     const group = start && start.querySelector('.window-group');
     if (!group) return;
 
-    /* Begin from the normal design size, then reduce only if the complete
-       START unit (title + square + dots) would extend below the viewport. */
+    /* START has one geometry only: at scrollY 0 the complete unit
+       (title + square + gallery dots) must fit inside the visible viewport.
+       Because the unit is vertically centred, reducing its width moves its
+       top down as well; therefore we measure again after every reduction. */
     group.style.width = '';
     group.style.maxWidth = '';
-    const oldScroll = window.scrollY;
-    if (oldScroll !== 0) window.scrollTo({top:0,left:0,behavior:'auto'});
-    const bottomLimit = window.innerHeight - 22;
-    let r = group.getBoundingClientRect();
-    if (r.bottom > bottomLimit) {
+
+    const root = document.documentElement;
+    const previousScrollBehavior = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    window.scrollTo(0, 0);
+    void group.offsetHeight;
+
+    const foot = document.querySelector('.fixed-foot');
+    const footH = foot ? foot.getBoundingClientRect().height : 0;
+    const bottomLimit = window.innerHeight - footH - 8;
+
+    for (let pass = 0; pass < 5; pass += 1) {
+      const r = group.getBoundingClientRect();
       const overflow = r.bottom - bottomLimit;
-      const currentWidth = r.width;
-      const fitted = Math.max(180, currentWidth - overflow - 2);
+      if (overflow <= 0.5) break;
+      const fitted = Math.max(180, r.width - (overflow * 2) - 3);
       group.style.width = fitted + 'px';
       group.style.maxWidth = fitted + 'px';
+      void group.offsetHeight;
     }
+
+    window.scrollTo(0, 0);
+    root.style.scrollBehavior = previousScrollBehavior;
   }
 
   function galleryLimits() {

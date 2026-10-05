@@ -1992,3 +1992,7 @@ html,body{overflow-x:hidden;}
     max-height:calc(100vh - var(--head) - 18px)!important;
   }
 }
+
+
+/* v67: START fitting is measured iteratively in JS so title + window + dots
+   share one identical first-screen geometry on load and on return to START. */
