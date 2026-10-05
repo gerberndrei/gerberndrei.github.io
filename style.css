@@ -2371,3 +2371,55 @@ html,body{overflow-x:hidden;}
   text-shadow:none!important;
   opacity:1!important;
 }
+
+/* v88: uniform typography in dark mode + final NETWORK-dot optical adjustment.
+   In dark mode every piece of text uses the same tone and normal weight;
+   hierarchy comes from size, spacing, position and caps, not brightness. */
+@media (max-width:650px) and (orientation:portrait){
+  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+    left:calc(100% + .68em)!important;
+    right:auto!important;
+  }
+}
+
+@media (prefers-color-scheme: dark){
+  :root{color-scheme:dark;}
+  body,
+  .fixed-head,
+  .fixed-foot,
+  .section,
+  .slide,
+  .viewport{background:#111!important;}
+
+  body,
+  body a,
+  body a:link,
+  body a:visited,
+  body a:hover,
+  body a:focus,
+  body a:active,
+  .fixed-head nav a,
+  .fixed-head .secondary-nav a,
+  .fixed-head .secondary-nav b,
+  .fixed-head .language-toggle,
+  .section-title,
+  .list-section,
+  .list-section pre,
+  #past-events,
+  #past-events .past-year,
+  #past-events .past-row,
+  #past-events .past-separator,
+  .network-links,
+  .network-row,
+  .network-links a,
+  .network-label,
+  .list-separator,
+  .misc-divider-tooltip{
+    color:#d0d0d0!important;
+    -webkit-text-fill-color:#d0d0d0!important;
+    font-weight:300!important;
+    font-synthesis:none!important;
+    text-shadow:none!important;
+    opacity:1!important;
+  }
+}
