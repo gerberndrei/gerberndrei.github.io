@@ -230,7 +230,10 @@
       const date = document.createElement('span'); date.textContent = m[1];
       const sep = document.createElement('span'); sep.className = 'list-separator past-separator'; sep.textContent = '—';
       const desc = document.createElement('span'); desc.textContent = m[2];
-      row.append(date, sep, desc);
+      const mobileLine = document.createElement('span');
+      mobileLine.className = 'past-mobile-line';
+      mobileLine.textContent = m[1] + '  ' + m[2];
+      row.append(date, sep, desc, mobileLine);
       past.appendChild(row);
     } else {
       const row = document.createElement('div');

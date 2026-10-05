@@ -2041,3 +2041,25 @@ html,body{overflow-x:hidden;}
     display:none!important;
   }
 }
+
+
+/* v75: portrait PAST EVENTS use one literal text run.
+   This guarantees that wrapped continuation lines return to the row's left edge. */
+.past-mobile-line{display:none!important;}
+@media (max-width:650px) and (orientation:portrait){
+  #past-events .past-row{
+    display:block!important;
+    margin-left:1.25em!important;
+    padding-left:0!important;
+    text-indent:0!important;
+  }
+  #past-events .past-row > span:not(.past-mobile-line){display:none!important;}
+  #past-events .past-row > .past-mobile-line{
+    display:inline!important;
+    margin:0!important;
+    padding:0!important;
+    width:auto!important;
+    max-width:none!important;
+    text-indent:0!important;
+  }
+}
