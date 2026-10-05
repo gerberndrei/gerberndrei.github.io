@@ -299,6 +299,11 @@
       }
       if (email) { const a = document.createElement('a'); a.href = 'mailto:' + email; a.textContent = email; row.appendChild(a); }
       network.appendChild(row);
+      if (item.spaceAfter) {
+      const gap = document.createElement('div');
+      gap.style.height = '1em';
+      network.appendChild(gap);
+}
     });
   }
 

@@ -81,10 +81,13 @@ window.SITE_CONTENT = {
 
   pastEvents: `2027
 
-MÄRZ 15: Der blablabla-Event mit Blablabla
-OKTOBER 11: Auf der Mauer auf der Lauer sitzt ne kleine Wanze, da hat das rote Pferd sich einfach umgedreht und hat mit seinem Schwanz die Fliege abgewehrt
+MÄRZ 15: Once upon a time there will neither this nor that
+OKTOBER 11: Gestern war heute  noch morgen
+NOVEMBER 01: Glory to Ukraine
 
 2028
+
+JANUAR 02: TBA
 
 …`,
 
@@ -105,7 +108,14 @@ OKTOBER 11: Auf der Mauer auf der Lauer sitzt ne kleine Wanze, da hat das rote P
     {
       label: 'Niklaus Zumstein, Solothurn',
       url: 'mailto:niklauszumstein@gmail.com',
-      display: 'niklauszumstein@gmail.com'
+      display: 'niklauszumstein@gmail.com',
+      spaceAfter: true
+    },
+    {
+      label: 'Shambhala Zentrum, Bern',
+      url: 'https://bern.shambhala.org/',
+      display: 'bern.shambhala.org'
     }
+
   ]
 };
