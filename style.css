@@ -2975,3 +2975,15 @@ html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
     opacity:1!important;
   }
 }
+
+/* v111: optical dark-mode match for secondary navigation labels.
+   HOME stays unchanged; language toggle remains muted. */
+@media (prefers-color-scheme:dark){
+  html body .fixed-head > .secondary-nav a[href="#past"],
+  html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
+    font-weight:400!important;
+    color:#e6e6e6!important;
+    -webkit-text-fill-color:#e6e6e6!important;
+    opacity:1!important;
+  }
+}
