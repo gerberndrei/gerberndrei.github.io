@@ -1,121 +1,64 @@
 /*
-  GERBERN DREI — INHALTE
-  Hier pflegst du Bilder, ALT-Texte, PAST EVENTS und NETZWERK.
-  Pro Galerie maximal 11 Bilder.
-
-  ENGLISCH IST IMMER OPTIONAL:
-  - Text: title_en, pastEvents_en, label_en, display_en usw.
-    Fehlt die _en-Variante, bleibt im EN-Modus automatisch das Original stehen.
-  - Slides können weiterhin einfach Strings sein: 'bild.jpg' = in DE und EN dasselbe.
-  - Für eine englische Bildalternative: { image: 'bild.jpg', image_en: 'bild-en.jpg' }
-    Fehlt bild-en.jpg im Ordner, fällt die Website automatisch auf bild.jpg zurück.
+  GERBERNGESTALT — INHALTE
+  Erste Strukturfassung. Vorhandene gerbern-drei-Bilder dienen vorerst als Dummy-Slides.
+  Die Inhalte und Stempelbilder werden später ersetzt.
 */
-
 window.SITE_CONTENT = {
   start: {
     title: 'START',
-    images: [
-      'stempel.jpg',
-      'ig-a-side.jpg',
-      'hall.jpg'
-]
+    title_en: 'HOME',
+    images: ['stempel.jpg','ig-a-side.jpg','hall.jpg']
   },
 
   about: {
-    title: 'ABOUT',
-    images: [
-      'ig-b-side.jpg',
-      'fenster.jpg',
-      'eingang-skizze.jpg',
-      'dach-skizze.jpg',
-      'dach-foto.jpg'
-    ],
-    alt: [
-      'Hier kommt der ALT-Text für a-side.jpg hin',
-      'Hier kommt der ALT-Text für b-side.jpg hin',
-      'Hier kommt der ALT-Text für eingang.jpg hin',
-      'Hier kommt der ALT-Text für roof.jpg hin',
-      'Hier kommt der ALT-Text für room.jpg hin',
-      'Hier kommt der ALT-Text für trungpa.jpg hin'
-    ]
+    title: 'ÜBER MICH',
+    title_en: 'ABOUT ME',
+    images: ['ig-b-side.jpg','fenster.jpg','eingang-skizze.jpg']
   },
 
-  aktuell: {
-    title: 'AKTUELL',
-    images: [
-      'ig-a-side.jpg',
-      'ig-b-side.jpg'
-]
+  angebot: {
+    title: 'ANGEBOT',
+    title_en: 'WHAT I DO',
+    images: ['ig-a-side.jpg','ig-b-side.jpg']
   },
 
-  solothurn: {
-    title: 'SOLOTHURN',
-    images: [
-      'krummturm.jpg',
-      'oelberg.jpg',
-      'felsenkapelle.jpg',
-      'einsiedelei.jpg',
-      'verena.jpg',
-      'weissenstein.jpg',
-      'ruettenen.jpg',
-      'jesuiten.jpg',
-      'aare.jpg'
-]
+  praktisches: {
+    title: 'PRAKTISCHES',
+    title_en: 'PRACTICALITIES',
+    images: ['krummturm.jpg','oelberg.jpg','felsenkapelle.jpg']
+  },
+
+  gestalt: {
+    title: 'GESTALT',
+    title_en: 'GESTALT',
+    images: ['einsiedelei.jpg','verena.jpg','weissenstein.jpg','ruettenen.jpg']
   },
 
   kontakt: {
     title: 'KONTAKT',
-    images: [
-      'trungpa.jpg'
-]
+    title_en: 'CONTACT',
+    images: ['trungpa.jpg']
   },
 
-  misc: {
-    title: 'MISC',
-    images: [
-      'ukies.jpg',
-      'plastik.jpg',
-      'peace.jpg'
-]
+  contact: {
+    name: 'Niklaus Zumstein',
+    role: 'Gestalttherapeut in Ausbildung',
+    service: 'psychologische beratung',
+    location: 'Solothurner Altstadt',
+    address: 'Praxisadresse folgt',
+    email: 'niklauszumstein@gmail.com'
   },
-
-  pastEvents: `2027
-
-MÄRZ 15: Once upon a time there will neither this nor that
-OKTOBER 11: Gestern war heute  noch morgen
-NOVEMBER 01: Glory to Ukraine
-
-2028
-
-JANUAR 02: TBA
-
-…`,
-
 
   legal: {
-    imprint: 'Hier kommt dein kurzes Impressum hin.',
-    imprint_en: 'Here comes your legal note.',
-    privacy: 'Hier kommt deine kurze Datenschutzerklärung hin.',
-    privacy_en: 'Here comes your privacy statement.'
+    imprint: 'Niklaus Zumstein · gerberngestalt · Solothurn. Weitere Angaben folgen.',
+    imprint_en: 'Niklaus Zumstein · gerberngestalt · Solothurn. Further details to follow.',
+    privacy: 'Kurze Datenschutzerklärung folgt.',
+    privacy_en: 'Privacy information to follow.'
   },
 
   network: [
-    {
-      label: 'Miguel Guldimann, Solothurn',
-      url: 'https://www.zenmeditation.ch',
-      display: 'www.zenmeditation.ch'
-    },
-    {
-      label: 'Niklaus Zumstein, Solothurn',
-      url: 'mailto:niklauszumstein@gmail.com',
-      display: 'niklauszumstein@gmail.com',
-      spaceAfter: true
-    },
-    {
-      label: 'Shambhala Zentrum, Bern',
-      url: 'https://bern.shambhala.org/',
-      display: 'bern.shambhala.org'
-    }
-
+    { label:'Miguel Guldimann, Solothurn', url:'https://www.zenmeditation.ch', display:'www.zenmeditation.ch' },
+    { label:'Niklaus Zumstein, Solothurn', url:'mailto:niklauszumstein@gmail.com', display:'niklauszumstein@gmail.com', spaceAfter:true },
+    { label:'Shambhala Zentrum, Bern', url:'https://bern.shambhala.org/', display:'bern.shambhala.org' }
   ]
 };
