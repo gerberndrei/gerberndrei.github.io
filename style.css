@@ -2951,3 +2951,15 @@ html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
     -webkit-text-fill-color:#d0d0d0!important;
   }
 }
+
+/* v109: affected nav labels keep corrected weight but inherit the exact same
+   dark-mode paint as their navigation siblings. */
+@media (prefers-color-scheme:dark){
+  html body .fixed-head .primary-nav a[href="#start"],
+  html body .fixed-head > .secondary-nav a[href="#past"],
+  html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
+    font-weight:400!important;
+    color:inherit!important;
+    -webkit-text-fill-color:currentColor!important;
+  }
+}
