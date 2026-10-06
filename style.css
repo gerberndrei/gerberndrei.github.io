@@ -2810,3 +2810,21 @@ html,body{overflow-x:hidden;}
     min-height:28px!important;
   }
 }
+
+
+/* v101: open NETWORK desktop leading to 30px; PAST EVENTS remains 28px. */
+@media (min-width:651px){
+  .network-links,
+  .network-row,
+  .network-row .network-label,
+  .network-row .list-separator,
+  .network-row a{
+    line-height:30px!important;
+  }
+  .network-row{min-height:30px!important;}
+  .network-block-gap{
+    height:30px!important;
+    min-height:30px!important;
+    flex-basis:30px!important;
+  }
+}
