@@ -2774,3 +2774,21 @@ html,body{overflow-x:hidden;}
     margin-left:5px!important;
   }
 }
+
+
+/* v99: optical NETWORK leading only. Dot and all other geometry untouched. */
+@media (min-width:651px){
+  .network-links,
+  .network-row,
+  .network-row .network-label,
+  .network-row .list-separator,
+  .network-row a{
+    line-height:28px!important;
+  }
+  .network-row{min-height:28px!important;}
+  .network-block-gap{
+    height:28px!important;
+    min-height:28px!important;
+    flex-basis:28px!important;
+  }
+}
