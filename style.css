@@ -2792,3 +2792,21 @@ html,body{overflow-x:hidden;}
     flex-basis:28px!important;
   }
 }
+
+
+/* v100: PAST EVENTS uses the same 28px desktop baseline as NETWORK. */
+@media (min-width:651px){
+  #past-events,
+  #past-events .past-row,
+  #past-events .past-year{
+    line-height:28px!important;
+  }
+  #past-events .past-row,
+  #past-events .past-year{
+    min-height:28px!important;
+  }
+  #past-events .past-block-gap{
+    height:28px!important;
+    min-height:28px!important;
+  }
+}
