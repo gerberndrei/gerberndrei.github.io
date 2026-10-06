@@ -2706,3 +2706,42 @@ html,body{overflow-x:hidden;}
     margin-left:5px!important;
   }
 }
+
+
+/* v97: optical desktop rhythm + final portrait NETWORK marker.
+   NETWORK rows contain two inline text lines (name + URL), whereas each
+   PAST EVENTS row is one line. Give both sections the same 24.08px baseline
+   grid by making each NETWORK row's internal lines explicit block lines. */
+@media (min-width:651px){
+  .network-row{
+    display:grid!important;
+    grid-template-columns:max-content max-content minmax(0,1fr)!important;
+    column-gap:1.15em!important;
+    row-gap:0!important;
+    align-items:baseline!important;
+    line-height:24.08px!important;
+  }
+  .network-row .network-label,
+  .network-row .list-separator,
+  .network-row a{
+    line-height:24.08px!important;
+    margin-top:0!important;
+    margin-bottom:0!important;
+    padding-top:0!important;
+    padding-bottom:0!important;
+  }
+  .network-block-gap,
+  #past-events .past-block-gap{
+    height:24.08px!important;
+    min-height:24.08px!important;
+  }
+}
+
+/* The active dot was still optically too close on portrait phones. */
+@media (max-width:650px) and (orientation:portrait){
+  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+    left:100%!important;
+    right:auto!important;
+    margin-left:9px!important;
+  }
+}
