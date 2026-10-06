@@ -25,7 +25,7 @@
   };
   const NAV_LABELS = {
     de:{start:'START',about:'ABOUT',aktuell:'AKTUELL',solothurn:'SOLOTHURN',kontakt:'KONTAKT',past:'PAST EVENTS',netzwerk:'NETZWERK',misc:'MISC',imprint:'IMPRESSUM',privacy:'DATENSCHUTZ'},
-    en:{start:'START',about:'ABOUT',aktuell:'NOW',solothurn:'SOLOTHURN',kontakt:'CONTACT',past:'PAST EVENTS',netzwerk:'NETWORK',misc:'MISC',imprint:'LEGAL',privacy:'PRIVACY'}
+    en:{start:'HOME',about:'ABOUT',aktuell:'NOW',solothurn:'SOLOTHURN',kontakt:'CONTACT',past:'PAST EVENTS',netzwerk:'NETWORK',misc:'MISC',imprint:'LEGAL',privacy:'PRIVACY'}
   };
 
   function localized(obj, key) {
