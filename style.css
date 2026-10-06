@@ -2987,3 +2987,13 @@ html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
     opacity:1!important;
   }
 }
+
+
+/* v112: secondary navigation dark-mode optical match */
+@media (prefers-color-scheme:dark){
+  html body .fixed-head > .secondary-nav a[href="#past"],
+  html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
+    color:#f2f2f2!important;
+    -webkit-text-fill-color:#f2f2f2!important;
+  }
+}
