@@ -2846,3 +2846,16 @@ html,body{overflow-x:hidden;}
     flex-basis:29px!important;
   }
 }
+
+
+/* v103: desktop NETWORK optical alignment only.
+   Portrait/mobile remains untouched. */
+@media (min-width:651px){
+  .fixed-head > .secondary-nav a[href="#netzwerk"]{
+    transform:translateY(-1px)!important;
+  }
+  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+    left:calc(100% + 3px)!important;
+    right:auto!important;
+  }
+}
