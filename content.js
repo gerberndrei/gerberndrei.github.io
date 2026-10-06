@@ -19,19 +19,19 @@ window.SITE_CONTENT = {
   angebot: {
     title: 'ANGEBOT',
     title_en: 'WHAT I DO',
-    images: ['ig-a-side.jpg','ig-b-side.jpg']
+    images: ['../aktuell/ig-a-side.jpg','../aktuell/ig-b-side.jpg']
   },
 
   praktisches: {
     title: 'PRAKTISCHES',
     title_en: 'PRACTICALITIES',
-    images: ['krummturm.jpg','oelberg.jpg','felsenkapelle.jpg']
+    images: ['../solothurn/krummturm.jpg','../solothurn/oelberg.jpg','../solothurn/felsenkapelle.jpg']
   },
 
   gestalt: {
     title: 'GESTALT',
     title_en: 'GESTALT',
-    images: ['einsiedelei.jpg','verena.jpg','weissenstein.jpg','ruettenen.jpg']
+    images: ['../solothurn/einsiedelei.jpg','../solothurn/verena.jpg','../solothurn/weissenstein.jpg','../solothurn/ruettenen.jpg']
   },
 
   kontakt: {
