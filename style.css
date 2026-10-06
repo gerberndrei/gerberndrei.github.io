@@ -2657,3 +2657,52 @@ html,body{overflow-x:hidden;}
   }
   .network-links{gap:0!important;}
 }
+
+
+/* v96: desktop list rhythm is one literal line grid.
+   PAST EVENTS styling/columns stay untouched; NETWORK uses the same 24.08px
+   baseline step. Semantic blank rows are exactly one grid line. */
+@media (min-width:651px){
+  #past-events,
+  #past-events .past-row,
+  #past-events .past-year,
+  .network-links,
+  .network-row{
+    line-height:24.08px!important;
+  }
+  #past-events .past-row,
+  #past-events .past-year,
+  .network-row{
+    min-height:24.08px!important;
+  }
+  .network-links{
+    gap:0!important;
+  }
+  .network-block-gap,
+  #past-events .past-block-gap{
+    height:24.08px!important;
+    min-height:24.08px!important;
+  }
+  .network-block-gap{
+    flex:0 0 24.08px!important;
+  }
+}
+
+/* Portrait header optical fixes only: secondary labels match HOME paint;
+   active NETWORK marker gets 3px of air from the word. */
+@media (max-width:650px) and (orientation:portrait) and (prefers-color-scheme:dark){
+  html body .fixed-head > .secondary-nav a[href="#past"],
+  html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
+    color:#dedede!important;
+    -webkit-text-fill-color:#dedede!important;
+    font-weight:400!important;
+    opacity:1!important;
+  }
+}
+@media (max-width:650px) and (orientation:portrait){
+  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+    left:100%!important;
+    right:auto!important;
+    margin-left:5px!important;
+  }
+}
