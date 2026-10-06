@@ -2963,3 +2963,15 @@ html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
     -webkit-text-fill-color:currentColor!important;
   }
 }
+
+/* v110: secondary labels match the primary navigation's actual dark-mode white.
+   HOME/#start is intentionally untouched; DE remains muted. */
+@media (prefers-color-scheme:dark){
+  html body .fixed-head > .secondary-nav a[href="#past"],
+  html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
+    font-weight:400!important;
+    color:#fff!important;
+    -webkit-text-fill-color:#fff!important;
+    opacity:1!important;
+  }
+}
