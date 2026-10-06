@@ -3056,3 +3056,52 @@ html body .fixed-head .language-toggle{
     opacity:1!important;
   }
 }
+
+
+/* v114: canonical header typography.
+   All navigation labels and separators use one identical rendering pipeline.
+   Only the DE/EN language toggle remains muted. Geometry and dots untouched. */
+html body .fixed-head .primary-nav a,
+html body .fixed-head > .secondary-nav a,
+html body .fixed-head > .secondary-nav b,
+html body .fixed-head > .secondary-nav .language-separator{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:var(--type-size)!important;
+  font-style:normal!important;
+  font-weight:400!important;
+  color:#222!important;
+  -webkit-text-fill-color:#222!important;
+  opacity:1!important;
+  text-shadow:none!important;
+  font-synthesis:none!important;
+  -webkit-font-smoothing:antialiased!important;
+}
+html body .fixed-head .language-toggle{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:var(--type-size)!important;
+  font-style:normal!important;
+  font-weight:400!important;
+  color:#777!important;
+  -webkit-text-fill-color:#777!important;
+  opacity:1!important;
+  text-shadow:none!important;
+  font-synthesis:none!important;
+  -webkit-font-smoothing:antialiased!important;
+}
+@media (prefers-color-scheme:dark){
+  html body .fixed-head .primary-nav a,
+  html body .fixed-head > .secondary-nav a,
+  html body .fixed-head > .secondary-nav b,
+  html body .fixed-head > .secondary-nav .language-separator{
+    color:#d0d0d0!important;
+    -webkit-text-fill-color:#d0d0d0!important;
+    font-weight:400!important;
+    opacity:1!important;
+  }
+  html body .fixed-head .language-toggle{
+    color:#777!important;
+    -webkit-text-fill-color:#777!important;
+    font-weight:400!important;
+    opacity:1!important;
+  }
+}
