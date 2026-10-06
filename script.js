@@ -10,7 +10,7 @@
   // v76: German/original is the default. English is an optional overlay:
   // whenever a *_en value is missing, the original value stays visible.
   const urlLanguage = new URLSearchParams(window.location.search).get('lang');
-  let currentLanguage = urlLanguage === 'en' ? 'en' : (urlLanguage === 'de' ? 'de' : (localStorage.getItem('gerbern-drei-language') === 'en' ? 'en' : 'de'));
+  let currentLanguage = urlLanguage === 'en' ? 'en' : (urlLanguage === 'de' ? 'de' : (localStorage.getItem('gerberngestalt-language') === 'en' ? 'en' : 'de'));
 
   function syncLanguageUrl() {
     const url = new URL(window.location.href);
@@ -24,8 +24,8 @@
     SEPTEMBER:'SEPTEMBER', OKTOBER:'OCTOBER', NOVEMBER:'NOVEMBER', DEZEMBER:'DECEMBER'
   };
   const NAV_LABELS = {
-    de:{start:'START',about:'ABOUT',aktuell:'AKTUELL',solothurn:'SOLOTHURN',kontakt:'KONTAKT',past:'PAST EVENTS',netzwerk:'NETZWERK',misc:'MISC',imprint:'IMPRESSUM',privacy:'DATENSCHUTZ'},
-    en:{start:'HOME',about:'ABOUT',aktuell:'NOW',solothurn:'SOLOTHURN',kontakt:'CONTACT',past:'PAST EVENTS',netzwerk:'NETWORK',misc:'MISC',imprint:'LEGAL',privacy:'PRIVACY'}
+    de:{start:'START',about:'ÜBER MICH',angebot:'ANGEBOT',praktisches:'PRAKTISCHES',gestalt:'GESTALT',kontakt:'KONTAKT',netzwerk:'NETZWERK',imprint:'IMPRESSUM',privacy:'DATENSCHUTZ'},
+    en:{start:'HOME',about:'ABOUT ME',angebot:'WHAT I DO',praktisches:'PRACTICALITIES',gestalt:'GESTALT',kontakt:'CONTACT',netzwerk:'NETWORK',imprint:'LEGAL',privacy:'PRIVACY'}
   };
 
   function localized(obj, key) {
@@ -101,7 +101,7 @@
       chooseDifferentAccent();
       flashTouchLabel(colourDot);
       colourDot.blur();
-      scrollToElement(whatDot, '#what');
+      /* gerberngestalt: the stone changes the accent but stays in place. */
     });
   }
 
@@ -272,6 +272,7 @@
   }
 
   function renderPastEvents() {
+    if (!past) return;
     past.innerHTML = '';
     const source = currentLanguage === 'en' && content.pastEvents_en != null ? content.pastEvents_en : content.pastEvents;
     const pastLines = String(source || '').split(/\r?\n/);
@@ -363,20 +364,19 @@
   function applyLanguage() {
     const labels = NAV_LABELS[currentLanguage];
     document.documentElement.lang = currentLanguage;
-    localStorage.setItem('gerbern-drei-language', currentLanguage);
+    localStorage.setItem('gerberngestalt-language', currentLanguage);
     syncLanguageUrl();
 
-    ['start','about','aktuell','solothurn','kontakt'].forEach(function (id) {
+    ['start','about','angebot','praktisches','gestalt'].forEach(function (id) {
       setText('.primary-nav a[href="#' + id + '"]', labels[id]);
       const data = content[id] || {};
       const title = localized(data, 'title');
       setText('#' + id + ' .section-title', currentLanguage === 'en' && data.title_en == null ? labels[id] : title);
     });
-    setText('.secondary-nav a[href="#past"]', labels.past);
+    setText('.secondary-nav a[href="#kontakt"]', labels.kontakt);
     setText('.secondary-nav a[href="#netzwerk"]', labels.netzwerk);
-    setText('#past .section-title', labels.past);
+    setText('#kontakt .section-title', labels.kontakt);
     setText('#netzwerk .section-title', labels.netzwerk);
-    setText('#misc .section-title', currentLanguage === 'en' && content.misc && content.misc.title_en != null ? content.misc.title_en : labels.misc);
     setText('#legal-imprint-title', labels.imprint);
     setText('#legal-privacy-title', labels.privacy);
 
@@ -581,14 +581,14 @@
       // On phones the navigation remains fixed, so all anchor targets reserve
       // the actual current header height (portrait or compact landscape).
       const mobile = window.matchMedia('(max-width: 650px)').matches;
-      if (mobile && (target.classList.contains('section') || id === '#past' || id === '#netzwerk')) {
+      if (mobile && (target.classList.contains('section') || id === '#kontakt' || id === '#netzwerk')) {
         event.preventDefault();
         if (history.replaceState) history.replaceState(null, '', id);
         const head = document.querySelector('.fixed-head');
         const headH = head ? head.getBoundingClientRect().height : 0;
         const top = window.scrollY + target.getBoundingClientRect().top - headH - 22;
         window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
-        if (secondaryPast) secondaryPast.classList.toggle('active-secondary', id === '#past');
+        if (secondaryPast) secondaryPast.classList.toggle('active-secondary', id === '#kontakt');
         if (secondaryNetwork) secondaryNetwork.classList.toggle('active-secondary', id === '#netzwerk');
         return;
       }
@@ -596,7 +596,7 @@
       // Reading sections (PAST EVENTS / NETZWERK) need their title to remain
       // visibly below the fixed header + 9 mm white finish. Native anchor
       // scrolling would otherwise tuck the title underneath the header.
-      if (id === '#past' || id === '#netzwerk') {
+      if (id === '#kontakt' || id === '#netzwerk') {
         event.preventDefault();
         if (history.replaceState) history.replaceState(null, '', id);
         const head = document.querySelector('.fixed-head');
@@ -605,7 +605,7 @@
         const breathingRoom = 22;
         const top = window.scrollY + target.getBoundingClientRect().top - headH - underStrip - breathingRoom;
         window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
-        if (secondaryPast) secondaryPast.classList.toggle('active-secondary', id === '#past');
+        if (secondaryPast) secondaryPast.classList.toggle('active-secondary', id === '#kontakt');
         if (secondaryNetwork) secondaryNetwork.classList.toggle('active-secondary', id === '#netzwerk');
         return;
       }
@@ -652,11 +652,11 @@
   // Navigation marker: the yellow dot follows the section that actually
   // occupies the centre of the visible browser area. This prevents KONTAKT
   // from staying active once PAST EVENTS has reached the reading position.
-  const primaryIds = ['start', 'about', 'aktuell', 'solothurn', 'kontakt'];
+  const primaryIds = ['start', 'about', 'angebot', 'praktisches', 'gestalt'];
   const primaryLinks = Array.from(document.querySelectorAll('.primary-nav a'));
-  const secondaryPast = document.querySelector('.secondary-nav a[href="#past"]');
+  const secondaryPast = document.querySelector('.secondary-nav a[href="#kontakt"]');
   const secondaryNetwork = document.querySelector('.secondary-nav a[href="#netzwerk"]');
-  const navSectionIds = ['start', 'about', 'aktuell', 'solothurn', 'kontakt', 'past', 'netzwerk', 'misc'];
+  const navSectionIds = ['start', 'about', 'angebot', 'praktisches', 'gestalt', 'kontakt', 'netzwerk'];
 
   function currentNavSection() {
     const head = document.querySelector('.fixed-head');
@@ -667,13 +667,11 @@
     // navigation. This keeps NETZWERK active for its whole section instead of
     // letting a short section lose its dot immediately to the following gap.
     const readingY = headH + 34.02 + 24;
-    const pastSection = document.getElementById('past');
+    const pastSection = document.getElementById('kontakt');
     const networkSection = document.getElementById('netzwerk');
-    const miscSection = document.getElementById('misc');
-    if (networkSection && miscSection) {
+    if (networkSection) {
       const nr = networkSection.getBoundingClientRect();
-      const mr = miscSection.getBoundingClientRect();
-      if (nr.top <= readingY && mr.top > readingY) return 'netzwerk';
+      if (nr.top <= readingY && nr.bottom > readingY) return 'netzwerk';
     }
     if (pastSection && networkSection) {
       const pr = pastSection.getBoundingClientRect();
@@ -710,7 +708,7 @@
       link.classList.toggle('active-section', link.getAttribute('href') === '#' + activeId);
     });
 
-    if (secondaryPast) secondaryPast.classList.toggle('active-secondary', activeId === 'past');
+    if (secondaryPast) secondaryPast.classList.toggle('active-secondary', activeId === 'kontakt');
     if (secondaryNetwork) secondaryNetwork.classList.toggle('active-secondary', activeId === 'netzwerk');
   }
 
@@ -739,28 +737,3 @@
   updateNavDots();
 })();
 
-// v57: make the what! dot follow the *actual visible MISC viewport* axis.
-(function alignWhatDotToMiscWindow(){
-  const misc = document.getElementById('misc');
-  const viewport = misc && misc.querySelector('.window-group .viewport');
-  const axis = misc && misc.querySelector('.misc-dot-axis');
-  if (!misc || !viewport || !axis) return;
-
-  function align(){
-    const mr = misc.getBoundingClientRect();
-    const vr = viewport.getBoundingClientRect();
-    const cs = getComputedStyle(misc);
-    const padLeft = parseFloat(cs.paddingLeft) || 0;
-    axis.style.width = vr.width + 'px';
-    axis.style.marginLeft = (vr.left - mr.left - padLeft) + 'px';
-  }
-
-  align();
-  requestAnimationFrame(align);
-  window.addEventListener('load', align, {once:true});
-  window.addEventListener('resize', align, {passive:true});
-  if (!window.matchMedia('(max-width:900px), (pointer:coarse)').matches) {
-    if (window.visualViewport) window.visualViewport.addEventListener('resize', align, {passive:true});
-    if ('ResizeObserver' in window) new ResizeObserver(align).observe(viewport);
-  }
-})();
