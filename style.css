@@ -2859,3 +2859,11 @@ html,body{overflow-x:hidden;}
     right:auto!important;
   }
 }
+
+/* v104: desktop NETWORK active dot slightly farther right; mobile untouched. */
+@media (min-width:651px){
+  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+    left:calc(100% + 5px)!important;
+    right:auto!important;
+  }
+}
