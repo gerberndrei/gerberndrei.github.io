@@ -2828,3 +2828,21 @@ html,body{overflow-x:hidden;}
     flex-basis:30px!important;
   }
 }
+
+
+/* v102: fine-tune NETWORK desktop leading to 29px; PAST EVENTS remains 28px. */
+@media (min-width:651px){
+  .network-links,
+  .network-row,
+  .network-row .network-label,
+  .network-row .list-separator,
+  .network-row a{
+    line-height:29px!important;
+  }
+  .network-row{min-height:29px!important;}
+  .network-block-gap{
+    height:29px!important;
+    min-height:29px!important;
+    flex-basis:29px!important;
+  }
+}
