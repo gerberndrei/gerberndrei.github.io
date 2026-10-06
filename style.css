@@ -3105,3 +3105,46 @@ html body .fixed-head .language-toggle{
     opacity:1!important;
   }
 }
+
+
+/* =========================================================
+   GERBERNGESTALT — CI OVERRIDE v1
+   Kept deliberately at the end so the proven gerbern drei
+   layout/carousel mechanics remain untouched.
+   ========================================================= */
+:root{
+  --gg-ink:#6f665f;
+}
+
+/* Warm gerberngestalt type colour throughout. */
+html, body,
+.fixed-head, .fixed-head a, .fixed-head button,
+.section-title, .list-section, .network-links, .legal-links,
+.carousel, .slide, .slide.empty, .slide.missing{
+  color:var(--gg-ink)!important;
+  -webkit-text-fill-color:var(--gg-ink);
+}
+
+/* Language switch remains quieter, but in the same colour family. */
+.language-toggle{
+  color:var(--gg-ink)!important;
+  -webkit-text-fill-color:var(--gg-ink)!important;
+  opacity:.55!important;
+}
+
+/* CONTACT + NETWORK are the restrained secondary navigation. */
+.secondary-nav > a{
+  color:var(--gg-ink)!important;
+  -webkit-text-fill-color:var(--gg-ink)!important;
+}
+
+/* The old dot position becomes the gerberngestalt stone position.
+   Keep its proven click target and responsive positioning. */
+.mark-dot{
+  width:48px!important;
+  height:48px!important;
+  object-fit:contain!important;
+}
+
+/* MISC / PAST EVENTS no longer belong to gerberngestalt. */
+.misc-section, #past{display:none!important;}
