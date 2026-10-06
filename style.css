@@ -2742,6 +2742,6 @@ html,body{overflow-x:hidden;}
   .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
     left:100%!important;
     right:auto!important;
-    margin-left:9px!important;
+    margin-left:7px!important;
   }
 }
