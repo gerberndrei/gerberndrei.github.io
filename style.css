@@ -2594,3 +2594,66 @@ html,body{overflow-x:hidden;}
     font-synthesis:none!important;
   }
 }
+
+
+/* v95: user-verified optical corrections after Pages deployment recovery. */
+/* NETWORK marker: 3px total from the word (was 2px). */
+.fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+  left:100%!important;
+  right:auto!important;
+  margin-left:3px!important;
+}
+
+/* Portrait PAST EVENTS: one step less date/description air. */
+@media (max-width:650px) and (orientation:portrait){
+  #past-events .past-mobile-date{margin-right:1.35em!important;}
+}
+
+/* Dark navigation: force every primary/secondary link through exactly the
+   same final paint/weight rule, including PAST EVENTS and NETWORK. */
+@media (prefers-color-scheme:dark){
+  html body .fixed-head nav a,
+  html body .fixed-head nav a:link,
+  html body .fixed-head nav a:visited,
+  html body .fixed-head nav a:hover,
+  html body .fixed-head nav a:focus,
+  html body .fixed-head nav a:active,
+  html body .fixed-head > .secondary-nav a,
+  html body .fixed-head > .secondary-nav a:link,
+  html body .fixed-head > .secondary-nav a:visited,
+  html body .fixed-head > .secondary-nav a:hover,
+  html body .fixed-head > .secondary-nav a:focus,
+  html body .fixed-head > .secondary-nav a:active{
+    font-family:Arial,Helvetica,sans-serif!important;
+    font-weight:400!important;
+    color:#d0d0d0!important;
+    -webkit-text-fill-color:#d0d0d0!important;
+    opacity:1!important;
+    text-shadow:none!important;
+    font-synthesis:none!important;
+  }
+}
+
+/* Desktop reading lists: identical used line box; spacing comes only from
+   explicit semantic gap elements. */
+@media (min-width:651px){
+  #past-events,
+  #past-events .past-row,
+  #past-events .past-year,
+  .network-links,
+  .network-row{
+    font-size:var(--type-size)!important;
+    line-height:1.72!important;
+  }
+  #past-events .past-row,
+  #past-events .past-year,
+  .network-row{
+    min-height:1.72em!important;
+    height:auto!important;
+    margin-top:0!important;
+    margin-bottom:0!important;
+    padding-top:0!important;
+    padding-bottom:0!important;
+  }
+  .network-links{gap:0!important;}
+}
