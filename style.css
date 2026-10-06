@@ -2916,3 +2916,19 @@ html body .fixed-head > .secondary-nav a:active{
     -webkit-text-fill-color:#d0d0d0!important;
   }
 }
+
+/* v107: optical weight correction for labels that render lighter in Arial.
+   START/HOME is the same #start link in both languages; secondary labels share
+   the same correction. Geometry, dots and spacing remain untouched. */
+html body .fixed-head .primary-nav a[href="#start"],
+html body .fixed-head > .secondary-nav a[href="#past"],
+html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
+  font-weight:500!important;
+}
+@media (prefers-color-scheme:dark){
+  html body .fixed-head .primary-nav a[href="#start"],
+  html body .fixed-head > .secondary-nav a[href="#past"],
+  html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
+    font-weight:500!important;
+  }
+}
