@@ -2932,3 +2932,22 @@ html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
     font-weight:500!important;
   }
 }
+
+/* v108: undo v107's heavy 500 weight. Keep the three optically light labels
+   at the site's normal 400 weight and correct only their paint very slightly. */
+html body .fixed-head .primary-nav a[href="#start"],
+html body .fixed-head > .secondary-nav a[href="#past"],
+html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
+  font-weight:400!important;
+  color:#171717!important;
+  -webkit-text-fill-color:#171717!important;
+}
+@media (prefers-color-scheme:dark){
+  html body .fixed-head .primary-nav a[href="#start"],
+  html body .fixed-head > .secondary-nav a[href="#past"],
+  html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
+    font-weight:400!important;
+    color:#d0d0d0!important;
+    -webkit-text-fill-color:#d0d0d0!important;
+  }
+}
