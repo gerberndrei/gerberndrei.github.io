@@ -2745,3 +2745,32 @@ html,body{overflow-x:hidden;}
     margin-left:7px!important;
   }
 }
+
+
+/* v98: align NETWORK with the established navigation/list type rhythm;
+   move active marker 2px left from v97. */
+@media (min-width:651px){
+  .network-links,
+  .network-row,
+  .network-row .network-label,
+  .network-row .list-separator,
+  .network-row a{
+    font-size:var(--type-size)!important;
+    line-height:var(--type-leading)!important;
+  }
+  .network-row{
+    min-height:calc(1em * var(--type-leading))!important;
+  }
+  .network-block-gap{
+    height:calc(1em * var(--type-leading))!important;
+    min-height:calc(1em * var(--type-leading))!important;
+    flex-basis:calc(1em * var(--type-leading))!important;
+  }
+}
+@media (max-width:650px) and (orientation:portrait){
+  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+    left:100%!important;
+    right:auto!important;
+    margin-left:5px!important;
+  }
+}
