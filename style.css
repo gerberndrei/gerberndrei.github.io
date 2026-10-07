@@ -2760,3 +2760,7 @@ html body .fixed-head .language-toggle{
  main .section .window-group{margin-top:0!important;transform:none!important;width:min(calc(100vw - 44px),500px,calc(100dvh - 160px))!important;}
  main .section .carousel .dots{display:flex!important;visibility:visible!important;opacity:1!important;flex:0 0 24px!important;height:24px!important;min-height:24px!important;}
 }
+
+/* Footer after legal: MISC gallery then what! dot */
+.what-dot-footer{position:relative;min-height:140px;padding:30px 22px 50px;}
+.what-dot-footer .misc-dot-axis{position:relative!important;margin:0 auto!important;width:min(calc(100vw - 44px),500px)!important;display:flex;justify-content:center;}
