@@ -2737,3 +2737,19 @@ html body .fixed-head .language-toggle{
   }
   .window-group .section-title{margin-top:0!important;}
 }
+
+
+/* clean4: every desktop gallery uses the same 14 mm title anchor */
+@media (min-width:901px){
+  main .section{
+    justify-content:flex-start!important;
+    padding-top:14mm!important;
+  }
+  main .section .window-group{
+    margin-top:0!important;
+    transform:none!important;
+  }
+  main .section .window-group .section-title{
+    margin-top:0!important;
+  }
+}
