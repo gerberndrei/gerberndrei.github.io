@@ -2595,281 +2595,73 @@ html,body{overflow-x:hidden;}
   }
 }
 
+/* =========================================================
+   CURRENT FINAL REFINEMENTS
+   Consolidated from the former v95–v115 tuning passes.
+   ========================================================= */
 
-/* v95: user-verified optical corrections after Pages deployment recovery. */
-/* NETWORK marker: 3px total from the word (was 2px). */
-.fixed-head > .secondary-nav a[href="#netzwerk"]::after{
-  left:100%!important;
-  right:auto!important;
-  margin-left:3px!important;
-}
-
-/* Portrait PAST EVENTS: one step less date/description air. */
+/* Portrait PAST EVENTS: final date/description spacing. */
 @media (max-width:650px) and (orientation:portrait){
   #past-events .past-mobile-date{margin-right:1.35em!important;}
 }
 
-/* Dark navigation: force every primary/secondary link through exactly the
-   same final paint/weight rule, including PAST EVENTS and NETWORK. */
-@media (prefers-color-scheme:dark){
-  html body .fixed-head nav a,
-  html body .fixed-head nav a:link,
-  html body .fixed-head nav a:visited,
-  html body .fixed-head nav a:hover,
-  html body .fixed-head nav a:focus,
-  html body .fixed-head nav a:active,
-  html body .fixed-head > .secondary-nav a,
-  html body .fixed-head > .secondary-nav a:link,
-  html body .fixed-head > .secondary-nav a:visited,
-  html body .fixed-head > .secondary-nav a:hover,
-  html body .fixed-head > .secondary-nav a:focus,
-  html body .fixed-head > .secondary-nav a:active{
-    font-family:Arial,Helvetica,sans-serif!important;
-    font-weight:400!important;
-    color:#d0d0d0!important;
-    -webkit-text-fill-color:#d0d0d0!important;
-    opacity:1!important;
-    text-shadow:none!important;
-    font-synthesis:none!important;
-  }
-}
-
-/* Desktop reading lists: identical used line box; spacing comes only from
-   explicit semantic gap elements. */
+/* Desktop reading rhythm. */
 @media (min-width:651px){
   #past-events,
   #past-events .past-row,
-  #past-events .past-year,
-  .network-links,
-  .network-row{
+  #past-events .past-year{
     font-size:var(--type-size)!important;
-    line-height:1.72!important;
+    line-height:28px!important;
   }
   #past-events .past-row,
-  #past-events .past-year,
-  .network-row{
-    min-height:1.72em!important;
+  #past-events .past-year{
+    min-height:28px!important;
     height:auto!important;
     margin-top:0!important;
     margin-bottom:0!important;
     padding-top:0!important;
     padding-bottom:0!important;
   }
-  .network-links{gap:0!important;}
-}
-
-
-/* v96: desktop list rhythm is one literal line grid.
-   PAST EVENTS styling/columns stay untouched; NETWORK uses the same 24.08px
-   baseline step. Semantic blank rows are exactly one grid line. */
-@media (min-width:651px){
-  #past-events,
-  #past-events .past-row,
-  #past-events .past-year,
-  .network-links,
-  .network-row{
-    line-height:24.08px!important;
-  }
-  #past-events .past-row,
-  #past-events .past-year,
-  .network-row{
-    min-height:24.08px!important;
-  }
-  .network-links{
-    gap:0!important;
-  }
-  .network-block-gap,
   #past-events .past-block-gap{
-    height:24.08px!important;
-    min-height:24.08px!important;
+    height:28px!important;
+    min-height:28px!important;
   }
-  .network-block-gap{
-    flex:0 0 24.08px!important;
-  }
-}
 
-/* Portrait header optical fixes only: secondary labels match HOME paint;
-   active NETWORK marker gets 3px of air from the word. */
-@media (max-width:650px) and (orientation:portrait) and (prefers-color-scheme:dark){
-  html body .fixed-head > .secondary-nav a[href="#past"],
-  html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
-    color:#dedede!important;
-    -webkit-text-fill-color:#dedede!important;
-    font-weight:400!important;
-    opacity:1!important;
-  }
-}
-@media (max-width:650px) and (orientation:portrait){
-  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
-    left:100%!important;
-    right:auto!important;
-    margin-left:5px!important;
-  }
-}
-
-
-/* v97: optical desktop rhythm + final portrait NETWORK marker.
-   NETWORK rows contain two inline text lines (name + URL), whereas each
-   PAST EVENTS row is one line. Give both sections the same 24.08px baseline
-   grid by making each NETWORK row's internal lines explicit block lines. */
-@media (min-width:651px){
-  .network-row{
-    display:grid!important;
-    grid-template-columns:max-content max-content minmax(0,1fr)!important;
-    column-gap:1.15em!important;
-    row-gap:0!important;
-    align-items:baseline!important;
-    line-height:24.08px!important;
-  }
-  .network-row .network-label,
-  .network-row .list-separator,
-  .network-row a{
-    line-height:24.08px!important;
-    margin-top:0!important;
-    margin-bottom:0!important;
-    padding-top:0!important;
-    padding-bottom:0!important;
-  }
-  .network-block-gap,
-  #past-events .past-block-gap{
-    height:24.08px!important;
-    min-height:24.08px!important;
-  }
-}
-
-/* The active dot was still optically too close on portrait phones. */
-@media (max-width:650px) and (orientation:portrait){
-  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
-    left:100%!important;
-    right:auto!important;
-    margin-left:7px!important;
-  }
-}
-
-
-/* v98: align NETWORK with the established navigation/list type rhythm;
-   move active marker 2px left from v97. */
-@media (min-width:651px){
   .network-links,
   .network-row,
   .network-row .network-label,
   .network-row .list-separator,
   .network-row a{
     font-size:var(--type-size)!important;
-    line-height:var(--type-leading)!important;
-  }
-  .network-row{
-    min-height:calc(1em * var(--type-leading))!important;
-  }
-  .network-block-gap{
-    height:calc(1em * var(--type-leading))!important;
-    min-height:calc(1em * var(--type-leading))!important;
-    flex-basis:calc(1em * var(--type-leading))!important;
-  }
-}
-@media (max-width:650px) and (orientation:portrait){
-  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
-    left:100%!important;
-    right:auto!important;
-    margin-left:5px!important;
-  }
-}
-
-
-/* v99: optical NETWORK leading only. Dot and all other geometry untouched. */
-@media (min-width:651px){
-  .network-links,
-  .network-row,
-  .network-row .network-label,
-  .network-row .list-separator,
-  .network-row a{
-    line-height:28px!important;
-  }
-  .network-row{min-height:28px!important;}
-  .network-block-gap{
-    height:28px!important;
-    min-height:28px!important;
-    flex-basis:28px!important;
-  }
-}
-
-
-/* v100: PAST EVENTS uses the same 28px desktop baseline as NETWORK. */
-@media (min-width:651px){
-  #past-events,
-  #past-events .past-row,
-  #past-events .past-year{
-    line-height:28px!important;
-  }
-  #past-events .past-row,
-  #past-events .past-year{
-    min-height:28px!important;
-  }
-  #past-events .past-block-gap{
-    height:28px!important;
-    min-height:28px!important;
-  }
-}
-
-
-/* v101: open NETWORK desktop leading to 30px; PAST EVENTS remains 28px. */
-@media (min-width:651px){
-  .network-links,
-  .network-row,
-  .network-row .network-label,
-  .network-row .list-separator,
-  .network-row a{
-    line-height:30px!important;
-  }
-  .network-row{min-height:30px!important;}
-  .network-block-gap{
-    height:30px!important;
-    min-height:30px!important;
-    flex-basis:30px!important;
-  }
-}
-
-
-/* v102: fine-tune NETWORK desktop leading to 29px; PAST EVENTS remains 28px. */
-@media (min-width:651px){
-  .network-links,
-  .network-row,
-  .network-row .network-label,
-  .network-row .list-separator,
-  .network-row a{
     line-height:29px!important;
   }
-  .network-row{min-height:29px!important;}
+  .network-links{gap:0!important;}
+  .network-row{
+    display:grid!important;
+    grid-template-columns:max-content max-content minmax(0,1fr)!important;
+    column-gap:1.15em!important;
+    row-gap:0!important;
+    align-items:baseline!important;
+    min-height:29px!important;
+  }
+  .network-row .network-label,
+  .network-row .list-separator,
+  .network-row a{
+    margin-top:0!important;
+    margin-bottom:0!important;
+    padding-top:0!important;
+    padding-bottom:0!important;
+  }
   .network-block-gap{
     height:29px!important;
     min-height:29px!important;
-    flex-basis:29px!important;
+    flex:0 0 29px!important;
   }
-}
 
-
-/* v103: desktop NETWORK optical alignment only.
-   Portrait/mobile remains untouched. */
-@media (min-width:651px){
+  /* Final desktop NETWORK optical alignment and active-dot distance. */
   .fixed-head > .secondary-nav a[href="#netzwerk"]{
     transform:translateY(-1px)!important;
   }
-  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
-    left:calc(100% + 3px)!important;
-    right:auto!important;
-  }
-}
-
-/* v104: desktop NETWORK active dot slightly farther right; mobile untouched. */
-@media (min-width:651px){
-  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
-    left:calc(100% + 5px)!important;
-    right:auto!important;
-  }
-}
-
-/* v105: desktop NETWORK active dot visibly farther right; mobile untouched. */
-@media (min-width:651px){
   .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
     left:100%!important;
     right:auto!important;
@@ -2877,190 +2669,17 @@ html,body{overflow-x:hidden;}
   }
 }
 
-/* v106: one final paint/weight for every navigation link in DE + EN.
-   Geometry, active dots and list leading are intentionally untouched. */
-html body .fixed-head .primary-nav a,
-html body .fixed-head .primary-nav a:link,
-html body .fixed-head .primary-nav a:visited,
-html body .fixed-head .primary-nav a:hover,
-html body .fixed-head .primary-nav a:focus,
-html body .fixed-head .primary-nav a:active,
-html body .fixed-head > .secondary-nav a,
-html body .fixed-head > .secondary-nav a:link,
-html body .fixed-head > .secondary-nav a:visited,
-html body .fixed-head > .secondary-nav a:hover,
-html body .fixed-head > .secondary-nav a:focus,
-html body .fixed-head > .secondary-nav a:active{
-  font-family:Arial,Helvetica,sans-serif!important;
-  font-weight:400!important;
-  color:#222!important;
-  -webkit-text-fill-color:#222!important;
-  opacity:1!important;
-  text-shadow:none!important;
-  font-synthesis:none!important;
-}
-@media (prefers-color-scheme:dark){
-  html body .fixed-head .primary-nav a,
-  html body .fixed-head .primary-nav a:link,
-  html body .fixed-head .primary-nav a:visited,
-  html body .fixed-head .primary-nav a:hover,
-  html body .fixed-head .primary-nav a:focus,
-  html body .fixed-head .primary-nav a:active,
-  html body .fixed-head > .secondary-nav a,
-  html body .fixed-head > .secondary-nav a:link,
-  html body .fixed-head > .secondary-nav a:visited,
-  html body .fixed-head > .secondary-nav a:hover,
-  html body .fixed-head > .secondary-nav a:focus,
-  html body .fixed-head > .secondary-nav a:active{
-    color:#d0d0d0!important;
-    -webkit-text-fill-color:#d0d0d0!important;
+/* Portrait NETWORK active-dot distance. */
+@media (max-width:650px) and (orientation:portrait){
+  .fixed-head > .secondary-nav a[href="#netzwerk"]::after{
+    left:100%!important;
+    right:auto!important;
+    margin-left:5px!important;
   }
 }
 
-/* v107: optical weight correction for labels that render lighter in Arial.
-   START/HOME is the same #start link in both languages; secondary labels share
-   the same correction. Geometry, dots and spacing remain untouched. */
-html body .fixed-head .primary-nav a[href="#start"],
-html body .fixed-head > .secondary-nav a[href="#past"],
-html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
-  font-weight:500!important;
-}
-@media (prefers-color-scheme:dark){
-  html body .fixed-head .primary-nav a[href="#start"],
-  html body .fixed-head > .secondary-nav a[href="#past"],
-  html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
-    font-weight:500!important;
-  }
-}
-
-/* v108: undo v107's heavy 500 weight. Keep the three optically light labels
-   at the site's normal 400 weight and correct only their paint very slightly. */
-html body .fixed-head .primary-nav a[href="#start"],
-html body .fixed-head > .secondary-nav a[href="#past"],
-html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
-  font-weight:400!important;
-  color:#171717!important;
-  -webkit-text-fill-color:#171717!important;
-}
-@media (prefers-color-scheme:dark){
-  html body .fixed-head .primary-nav a[href="#start"],
-  html body .fixed-head > .secondary-nav a[href="#past"],
-  html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
-    font-weight:400!important;
-    color:#d0d0d0!important;
-    -webkit-text-fill-color:#d0d0d0!important;
-  }
-}
-
-/* v109: affected nav labels keep corrected weight but inherit the exact same
-   dark-mode paint as their navigation siblings. */
-@media (prefers-color-scheme:dark){
-  html body .fixed-head .primary-nav a[href="#start"],
-  html body .fixed-head > .secondary-nav a[href="#past"],
-  html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
-    font-weight:400!important;
-    color:inherit!important;
-    -webkit-text-fill-color:currentColor!important;
-  }
-}
-
-/* v110: secondary labels match the primary navigation's actual dark-mode white.
-   HOME/#start is intentionally untouched; DE remains muted. */
-@media (prefers-color-scheme:dark){
-  html body .fixed-head > .secondary-nav a[href="#past"],
-  html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
-    font-weight:400!important;
-    color:#fff!important;
-    -webkit-text-fill-color:#fff!important;
-    opacity:1!important;
-  }
-}
-
-/* v111: optical dark-mode match for secondary navigation labels.
-   HOME stays unchanged; language toggle remains muted. */
-@media (prefers-color-scheme:dark){
-  html body .fixed-head > .secondary-nav a[href="#past"],
-  html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
-    font-weight:400!important;
-    color:#e6e6e6!important;
-    -webkit-text-fill-color:#e6e6e6!important;
-    opacity:1!important;
-  }
-}
-
-
-/* v112: secondary navigation dark-mode optical match */
-@media (prefers-color-scheme:dark){
-  html body .fixed-head > .secondary-nav a[href="#past"],
-  html body .fixed-head > .secondary-nav a[href="#netzwerk"]{
-    color:#f2f2f2!important;
-    -webkit-text-fill-color:#f2f2f2!important;
-  }
-}
-
-
-/* v113: one canonical navigation rendering.
-   Every navigation label is identical; only the DE/EN language toggle stays muted.
-   No geometry, spacing or active-dot positioning is changed here. */
-html body .fixed-head .primary-nav a,
-html body .fixed-head .primary-nav a:link,
-html body .fixed-head .primary-nav a:visited,
-html body .fixed-head .primary-nav a:hover,
-html body .fixed-head .primary-nav a:focus,
-html body .fixed-head .primary-nav a:active,
-html body .fixed-head > .secondary-nav a:not(.language-toggle),
-html body .fixed-head > .secondary-nav a:not(.language-toggle):link,
-html body .fixed-head > .secondary-nav a:not(.language-toggle):visited,
-html body .fixed-head > .secondary-nav a:not(.language-toggle):hover,
-html body .fixed-head > .secondary-nav a:not(.language-toggle):focus,
-html body .fixed-head > .secondary-nav a:not(.language-toggle):active{
-  font-family:Arial,Helvetica,sans-serif!important;
-  font-weight:400!important;
-  color:#222!important;
-  -webkit-text-fill-color:#222!important;
-  opacity:1!important;
-  text-shadow:none!important;
-  font-synthesis:none!important;
-}
-html body .fixed-head .language-toggle{
-  font-family:Arial,Helvetica,sans-serif!important;
-  font-weight:400!important;
-  color:#777!important;
-  -webkit-text-fill-color:#777!important;
-  opacity:1!important;
-  text-shadow:none!important;
-  font-synthesis:none!important;
-}
-@media (prefers-color-scheme:dark){
-  html body .fixed-head .primary-nav a,
-  html body .fixed-head .primary-nav a:link,
-  html body .fixed-head .primary-nav a:visited,
-  html body .fixed-head .primary-nav a:hover,
-  html body .fixed-head .primary-nav a:focus,
-  html body .fixed-head .primary-nav a:active,
-  html body .fixed-head > .secondary-nav a:not(.language-toggle),
-  html body .fixed-head > .secondary-nav a:not(.language-toggle):link,
-  html body .fixed-head > .secondary-nav a:not(.language-toggle):visited,
-  html body .fixed-head > .secondary-nav a:not(.language-toggle):hover,
-  html body .fixed-head > .secondary-nav a:not(.language-toggle):focus,
-  html body .fixed-head > .secondary-nav a:not(.language-toggle):active{
-    font-weight:400!important;
-    color:#d0d0d0!important;
-    -webkit-text-fill-color:#d0d0d0!important;
-    opacity:1!important;
-  }
-  html body .fixed-head .language-toggle{
-    font-weight:400!important;
-    color:#777!important;
-    -webkit-text-fill-color:#777!important;
-    opacity:1!important;
-  }
-}
-
-
-/* v114: canonical header typography.
-   All navigation labels and separators use one identical rendering pipeline.
-   Only the DE/EN language toggle remains muted. Geometry and dots untouched. */
+/* Canonical header typography: one rendering for every navigation label;
+   only DE/EN remains muted. */
 html body .fixed-head .primary-nav a,
 html body .fixed-head > .secondary-nav a,
 html body .fixed-head > .secondary-nav b,
@@ -3106,8 +2725,7 @@ html body .fixed-head .language-toggle{
   }
 }
 
-
-/* v115: desktop gallery titles use the same high top anchor as gerberngestalt */
+/* Desktop gallery titles match gerberngestalt's top anchor. */
 @media (min-width:901px){
   .section{
     justify-content:flex-start!important;
@@ -3117,7 +2735,5 @@ html body .fixed-head .language-toggle{
     margin-top:0!important;
     transform:none!important;
   }
-  .window-group .section-title{
-    margin-top:0!important;
-  }
+  .window-group .section-title{margin-top:0!important;}
 }
