@@ -3105,3 +3105,19 @@ html body .fixed-head .language-toggle{
     opacity:1!important;
   }
 }
+
+
+/* v115: desktop gallery titles use the same high top anchor as gerberngestalt */
+@media (min-width:901px){
+  .section{
+    justify-content:flex-start!important;
+    padding-top:14mm!important;
+  }
+  .window-group{
+    margin-top:0!important;
+    transform:none!important;
+  }
+  .window-group .section-title{
+    margin-top:0!important;
+  }
+}
