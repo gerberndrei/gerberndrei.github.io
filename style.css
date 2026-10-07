@@ -2764,3 +2764,13 @@ html body .fixed-head .language-toggle{
 /* Footer after legal: MISC gallery then what! dot */
 .what-dot-footer{position:relative;min-height:140px;padding:30px 22px 50px;}
 .what-dot-footer .misc-dot-axis{position:relative!important;margin:0 auto!important;width:min(calc(100vw - 44px),500px)!important;display:flex;justify-content:center;}
+
+/* Mobile: reduce empty space between final NETWORK link and legal section. */
+@media (max-width:650px) and (orientation:portrait){
+  html body #netzwerk{margin-bottom:0!important;padding-bottom:0!important;min-height:0!important;}
+  html body .legal-links{margin-top:calc(-3 * var(--type-size) * var(--type-leading))!important;}
+}
+@media (max-height:650px) and (orientation:landscape){
+  html body #netzwerk{margin-bottom:0!important;padding-bottom:0!important;min-height:0!important;}
+  html body .legal-links{margin-top:calc(-2 * var(--type-size) * var(--type-leading))!important;}
+}
