@@ -461,11 +461,11 @@
   }
 
   function galleryLimits() {
-    const mobile = window.matchMedia('(max-width: 650px)').matches;
+    const mobile = window.matchMedia('(max-width: 650px), (orientation:landscape) and (max-height:650px)').matches;
     if (mobile) {
       const head = document.querySelector('.fixed-head');
       const headH = head ? head.getBoundingClientRect().height : 0;
-      return { top: headH + 22, bottom: window.innerHeight - 4 };
+      return { top: headH + (window.matchMedia('(orientation:landscape) and (max-height:650px)').matches ? 0 : 22), bottom: window.innerHeight - 4 };
     }
     const head = document.querySelector('.fixed-head');
     const headH = head ? head.getBoundingClientRect().height : 0;
@@ -507,7 +507,7 @@
     const available = limits.bottom - limits.top;
     const r = group.getBoundingClientRect();
     if (r.height > available) return;
-    const desiredTop = limits.top + (available - r.height) / 2;
+    const desiredTop = window.matchMedia('(orientation:landscape) and (max-height:650px)').matches ? limits.top : limits.top + (available - r.height) / 2;
     const absoluteTop = window.scrollY + r.top;
     const wantedScroll = Math.max(0, absoluteTop - desiredTop);
     window.scrollTo({ top: wantedScroll, left: 0, behavior: 'auto' });
@@ -580,13 +580,16 @@
 
       // On phones the navigation remains fixed, so all anchor targets reserve
       // the actual current header height (portrait or compact landscape).
-      const mobile = window.matchMedia('(max-width: 650px)').matches;
+      const mobile = window.matchMedia('(max-width: 650px), (orientation:landscape) and (max-height:650px)').matches;
       if (mobile && (target.classList.contains('section') || id === '#past' || id === '#netzwerk')) {
         event.preventDefault();
         if (history.replaceState) history.replaceState(null, '', id);
         const head = document.querySelector('.fixed-head');
         const headH = head ? head.getBoundingClientRect().height : 0;
-        const top = window.scrollY + target.getBoundingClientRect().top - headH - 22;
+        const landscapePhone = window.matchMedia('(orientation:landscape) and (max-height:650px)').matches;
+        const group = target.classList.contains('section') ? target.querySelector('.window-group') : null;
+        const anchor = landscapePhone && group ? group : target;
+        const top = window.scrollY + anchor.getBoundingClientRect().top - headH - (landscapePhone ? 0 : 22);
         window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
         if (secondaryPast) secondaryPast.classList.toggle('active-secondary', id === '#past');
         if (secondaryNetwork) secondaryNetwork.classList.toggle('active-secondary', id === '#netzwerk');
