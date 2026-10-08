@@ -240,21 +240,18 @@
       });
     }
 
-    // A finger gesture can advance at most one slide, even with strong momentum.
-    // Preserve native touch scrolling during the gesture; clamp its final target.
+    // One swipe = one neighbouring slide. Horizontal native momentum is disabled
+    // by touch-action:pan-y on the track, so fast swipes cannot skip slides.
     let touchOriginX = 0;
     let touchOriginY = 0;
     let touchStartIndex = 0;
     let touchActive = false;
-    let touchSettling = false;
-    let touchSettleTimer = 0;
     track.addEventListener('touchstart', function (event) {
-      if (!event.touches.length || touchSettling) return;
+      if (!event.touches.length) return;
       touchOriginX = event.touches[0].clientX;
       touchOriginY = event.touches[0].clientY;
       touchStartIndex = Math.round(track.scrollLeft / slideWidth());
       touchActive = true;
-      window.clearTimeout(touchSettleTimer);
     }, { passive:true });
     track.addEventListener('touchend', function (event) {
       if (!touchActive) return;
@@ -262,22 +259,8 @@
       const finger = event.changedTouches[0];
       const dx = finger ? finger.clientX - touchOriginX : 0;
       const dy = finger ? finger.clientY - touchOriginY : 0;
-      if (Math.abs(dx) < 24 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
-      const destination = Math.max(0, Math.min(images.length - 1, touchStartIndex + (dx < 0 ? 1 : -1)));
-      touchSettling = true;
-      // Interrupt the browser's inertial scroll and settle on one adjacent image.
-      window.requestAnimationFrame(function () {
-        track.scrollTo({left:destination * slideWidth(),behavior:'instant'});
-        index = destination;
-        update();
-        window.clearTimeout(touchSettleTimer);
-        touchSettleTimer = window.setTimeout(function () {
-          track.scrollTo({left:destination * slideWidth(),behavior:'instant'});
-          index = destination;
-          update();
-          touchSettling = false;
-        }, 180);
-      });
+      if (Math.abs(dx) < 36 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+      goTo(touchStartIndex + (dx < 0 ? 1 : -1));
     }, { passive:true });
     track.addEventListener('touchcancel', function () { touchActive = false; }, { passive:true });
 
