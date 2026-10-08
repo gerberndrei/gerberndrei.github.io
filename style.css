@@ -2899,5 +2899,5 @@ html body main .what-dot-footer{
   padding-top:0!important;
 }
 html body main .what-dot-footer .misc-dot-axis{
-  margin-top:36px!important;
+  margin-top:calc(36px + var(--type-size) * 1.72)!important;
 }
