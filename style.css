@@ -2874,3 +2874,10 @@ html body .carousel .arrow::after{display:none!important;}
     margin-top:calc(1 * var(--type-size) * 1.72)!important;
   }
 }
+
+/* Shared phone-portrait title axis: gallery and list headings. */
+@media (max-width:650px) and (orientation:portrait){
+  main .section{justify-content:flex-start!important;padding-top:7mm!important;}
+  main #past.list-section,
+  main #netzwerk.list-section{padding-top:7mm!important;scroll-margin-top:var(--head)!important;}
+}
