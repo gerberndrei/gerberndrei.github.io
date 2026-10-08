@@ -43,8 +43,15 @@
     return { base:entry || '', en:enList[index] || '', alt:altList[index] || '' };
   }
 
-  function desiredImageName(spec) {
+  function normalImageName(spec) {
     return currentLanguage === 'en' && spec.en ? spec.en : spec.base;
+  }
+
+  function desiredImageName(spec) {
+    const normal = normalImageName(spec);
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? normal.replace(/(\.[^./?#]+)([?#].*)?$/, '_dark$1$2')
+      : normal;
   }
 
   // v52: one random saturated-pastel original dot image per page load.
@@ -173,20 +180,28 @@
       img.dataset.imageIndex = String(index);
       img.dataset.baseName = spec.base;
       img.dataset.enName = spec.en;
+      img.dataset.darkName = desiredImageName(spec) !== normalImageName(spec) ? desiredImageName(spec) : '';
       img.src = 'images/' + key + '/' + desiredImageName(spec);
       img.loading = 'lazy';
       img.decoding = 'async';
       img.alt = spec.alt;
       img.onerror = function () {
-        // An optional image_en may already be written in content.js before the
-        // actual file is uploaded. In that case silently use the DE/base image.
+        if (img.dataset.darkName && img.src.endsWith('/' + img.dataset.darkName) && !img.dataset.darkFellBack) {
+          img.dataset.darkFellBack = '1';
+          img.src = 'images/' + key + '/' + normalImageName(spec);
+          return;
+        }
         if (currentLanguage === 'en' && img.dataset.enName && !img.dataset.fellBack) {
           img.dataset.fellBack = '1';
           img.src = 'images/' + key + '/' + img.dataset.baseName;
           return;
         }
         slide.classList.add('missing');
-        slide.textContent = 'DATEI NICHT GEFUNDEN\n' + img.dataset.baseName;
+        img.style.visibility = 'hidden';
+      };
+      img.onload = function () {
+        slide.classList.remove('missing');
+        img.style.visibility = '';
       };
       slide.appendChild(img);
       track.appendChild(slide);
@@ -370,14 +385,19 @@
         const slide = img.closest('.slide');
         if (slide) slide.classList.remove('missing');
         delete img.dataset.fellBack;
+        delete img.dataset.darkFellBack;
         img.dataset.baseName = spec.base;
         img.dataset.enName = spec.en;
+        img.dataset.darkName = desiredImageName(spec) !== normalImageName(spec) ? desiredImageName(spec) : '';
         img.alt = spec.alt;
         const wanted = desiredImageName(spec);
         if (wanted) img.src = 'images/' + key + '/' + wanted;
       });
     });
   }
+
+  // React to system light/dark changes without rebuilding the galleries.
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateGalleryLanguage);
 
   function setText(selector, value) {
     const el = document.querySelector(selector);
