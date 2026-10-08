@@ -15,8 +15,8 @@ window.SITE_CONTENT = {
   start: {
     title: 'START',
     images: [
-      'stempel.jpg',
-      'hall.jpg'
+      'hall.jpg',
+      'stempel.jpg'
 ]
   },
 
