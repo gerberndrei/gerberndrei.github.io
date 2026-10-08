@@ -2881,3 +2881,9 @@ html body .carousel .arrow::after{display:none!important;}
   main #past.list-section,
   main #netzwerk.list-section{padding-top:7mm!important;scroll-margin-top:var(--head)!important;}
 }
+
+/* Bring the what! dot closer to MISC by roughly four reading lines.
+   Keep the dot aligned with the MISC gallery axis. */
+.what-dot-footer .misc-dot-axis{
+  margin-top:calc(var(--misc-epilogue-gap) - 4 * var(--type-size) * 1.72)!important;
+}
