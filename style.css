@@ -2823,3 +2823,41 @@ html body .fixed-head .language-toggle{
 @media (prefers-color-scheme:dark){
   html body .carousel .arrow::before,html body .carousel .arrow::after{background:#ded5ce!important;}
 }
+
+
+/* Gallery arrows: optically identical chevrons, symmetric to image edges. */
+html body .carousel .arrow:not([hidden]){
+  display:block!important;
+  opacity:.65!important;
+  width:44px!important;
+  height:56px!important;
+  top:50%!important;
+  transform:translateY(-50%)!important;
+}
+html body .carousel .prev{left:-62px!important;right:auto!important;}
+html body .carousel .next{right:-62px!important;left:auto!important;}
+html body .carousel .arrow::before{
+  content:""!important;
+  position:absolute!important;
+  width:13px!important;
+  height:13px!important;
+  top:50%!important;
+  left:50%!important;
+  background:transparent!important;
+  border-top:1px solid rgba(0,0,0,.38)!important;
+  border-right:1px solid rgba(0,0,0,.38)!important;
+  transform-origin:center!important;
+}
+html body .carousel .prev::before{transform:translate(-50%,-50%) rotate(-135deg)!important;}
+html body .carousel .next::before{transform:translate(-50%,-50%) rotate(45deg)!important;}
+html body .carousel .arrow::after{display:none!important;}
+@media(max-width:650px){
+  html body .carousel .prev{left:-40px!important;}
+  html body .carousel .next{right:-40px!important;}
+}
+@media(prefers-color-scheme:dark){
+  html body .carousel .arrow::before{
+    border-top-color:#ded5ce!important;
+    border-right-color:#ded5ce!important;
+  }
+}
