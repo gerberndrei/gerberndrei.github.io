@@ -2778,3 +2778,31 @@ html body .fixed-head .language-toggle{
 /* Controlled gallery swipes: no native horizontal fling across multiple slides. */
 .carousel .track{touch-action:pan-y;overscroll-behavior-x:contain;}
 .carousel .slide{scroll-snap-stop:always;}
+
+/* NETWORK epilogue: legal information follows Shambhala in the same column,
+   with approximately three blank reading lines between each heading. */
+#netzwerk.network-section{
+  min-height:0!important;
+  height:auto!important;
+  padding-bottom:0!important;
+}
+#netzwerk .legal-links{
+  box-sizing:border-box;
+  width:100%!important;
+  max-width:none!important;
+  margin:calc(4 * 1.72em) 0 0!important;
+  padding:0!important;
+  text-align:left!important;
+  font-size:var(--type-size)!important;
+  line-height:1.72!important;
+}
+#netzwerk .legal-links details{
+  margin:0!important;
+}
+#netzwerk .legal-links details + details{
+  margin-top:calc(4 * 1.72em)!important;
+}
+@media (min-width:651px){
+  #netzwerk .legal-links{margin-top:116px!important;}
+  #netzwerk .legal-links details + details{margin-top:116px!important;}
+}
