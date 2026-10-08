@@ -16,7 +16,6 @@ window.SITE_CONTENT = {
     title: 'START',
     images: [
       'stempel.jpg',
-      'ig-a-side.jpg',
       'hall.jpg'
 ]
   },
@@ -24,7 +23,6 @@ window.SITE_CONTENT = {
   about: {
     title: 'ABOUT',
     images: [
-      'ig-b-side.jpg',
       'fenster.jpg',
       'eingang-skizze.jpg',
       'dach-skizze.jpg',
