@@ -2887,3 +2887,17 @@ html body .carousel .arrow::after{display:none!important;}
 .what-dot-footer .misc-dot-axis{
   margin-top:calc(var(--misc-epilogue-gap) - 4 * var(--type-size) * 1.72)!important;
 }
+
+/* MISC-to-what! spacing: remove the full-screen section's empty tail.
+   Previous margin-only adjustment could not affect that reserved height. */
+html body main #misc.misc-section{
+  min-height:0!important;
+  height:auto!important;
+  padding-bottom:0!important;
+}
+html body main .what-dot-footer{
+  padding-top:0!important;
+}
+html body main .what-dot-footer .misc-dot-axis{
+  margin-top:36px!important;
+}
