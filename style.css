@@ -2774,3 +2774,7 @@ html body .fixed-head .language-toggle{
   html body #netzwerk{margin-bottom:0!important;padding-bottom:0!important;min-height:0!important;}
   html body .legal-links{margin-top:calc(-2 * var(--type-size) * var(--type-leading))!important;}
 }
+
+/* Controlled gallery swipes: no native horizontal fling across multiple slides. */
+.carousel .track{touch-action:pan-y;overscroll-behavior-x:contain;}
+.carousel .slide{scroll-snap-stop:always;}
