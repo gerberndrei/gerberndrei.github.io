@@ -2806,3 +2806,20 @@ html body .fixed-head .language-toggle{
   #netzwerk .legal-links{margin-top:116px!important;}
   #netzwerk .legal-links details + details{margin-top:116px!important;}
 }
+
+
+/* Gallery navigation: permanently visible outside each image, symmetric spacing. */
+@media (min-width:651px){
+  html body .carousel .arrow:not([hidden]){display:block!important;opacity:.65!important;}
+  html body .carousel .prev{left:-62px!important;right:auto!important;}
+  html body .carousel .next{right:-62px!important;left:auto!important;}
+  html body .carousel .arrow:hover:not([hidden]){opacity:1!important;}
+}
+@media (max-width:650px){
+  html body .carousel .arrow:not([hidden]){display:block!important;opacity:.65!important;}
+  html body .carousel .prev{left:-34px!important;right:auto!important;}
+  html body .carousel .next{right:-34px!important;left:auto!important;}
+}
+@media (prefers-color-scheme:dark){
+  html body .carousel .arrow::before,html body .carousel .arrow::after{background:#ded5ce!important;}
+}
