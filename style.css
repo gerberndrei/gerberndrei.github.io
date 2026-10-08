@@ -2861,3 +2861,16 @@ html body .carousel .arrow::after{display:none!important;}
     border-right-color:#ded5ce!important;
   }
 }
+
+
+/* Legal -> Privacy: independently reduce the gap by the requested reading lines. */
+@media (min-width:901px){
+  html body #netzwerk .legal-links details + details{
+    margin-top:calc(116px - 2 * var(--type-size) * 1.72)!important;
+  }
+}
+@media (max-width:900px){
+  html body #netzwerk .legal-links details + details{
+    margin-top:calc(1 * var(--type-size) * 1.72)!important;
+  }
+}
