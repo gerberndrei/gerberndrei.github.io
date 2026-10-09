@@ -23,6 +23,7 @@ window.SITE_CONTENT = {
   about: {
     title: 'ABOUT',
     images: [
+      'wenn-die-leute.jpg',
       'fenster.jpg',
       'eingang-skizze.jpg',
       'dach-skizze.jpg',
