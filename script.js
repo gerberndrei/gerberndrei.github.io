@@ -674,6 +674,9 @@
         const underStrip = 34.02; // 9 mm
         const breathingRoom = 22;
         const top = window.scrollY + target.getBoundingClientRect().top - headH - underStrip - breathingRoom;
+        readingNavLock = id.slice(1);
+        window.clearTimeout(readingNavLockTimer);
+        readingNavLockTimer = window.setTimeout(function () { readingNavLock = null; updateNavDots(); }, 1250);
         window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
         if (secondaryPast) secondaryPast.classList.toggle('active-secondary', id === '#past');
         if (secondaryNetwork) secondaryNetwork.classList.toggle('active-secondary', id === '#netzwerk');
@@ -722,6 +725,8 @@
   // Navigation marker: the yellow dot follows the section that actually
   // occupies the centre of the visible browser area. This prevents KONTAKT
   // from staying active once PAST EVENTS has reached the reading position.
+  let readingNavLock = null;
+  let readingNavLockTimer = 0;
   const primaryIds = ['start', 'about', 'aktuell', 'solothurn', 'kontakt'];
   const primaryLinks = Array.from(document.querySelectorAll('.primary-nav a'));
   const secondaryPast = document.querySelector('.secondary-nav a[href="#past"]');
@@ -774,7 +779,7 @@
   }
 
   function updateNavDots() {
-    const activeId = currentNavSection();
+    const activeId = readingNavLock || currentNavSection();
 
     primaryLinks.forEach(function (link) {
       link.classList.toggle('active-section', link.getAttribute('href') === '#' + activeId);
