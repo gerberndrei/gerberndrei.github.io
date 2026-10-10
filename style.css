@@ -2965,3 +2965,12 @@ html body main .what-dot-footer .misc-dot-axis{
     transform:translateY(-50%)!important;
   }
 }
+
+/* Portrait phone: match PAST EVENTS active-dot offset to NETWORK (5px). */
+@media (max-width:650px) and (orientation:portrait){
+  html body .fixed-head > .secondary-nav a[href="#past"].active-secondary::after{
+    left:100%!important;
+    right:auto!important;
+    margin-left:5px!important;
+  }
+}
