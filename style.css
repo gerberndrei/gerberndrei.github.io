@@ -2934,3 +2934,13 @@ html body main .what-dot-footer .misc-dot-axis{
     display:none!important;
   }
 }
+
+/* Portrait phone: move gallery and list content up by another quarter
+   of a text line; preserve horizontal layout and all other viewports. */
+@media (max-width:650px) and (orientation:portrait){
+  html body main .section,
+  html body main .list-section,
+  html body main #netzwerk.list-section{
+    padding-top:calc(7mm - 0.25 * var(--type-size) * var(--type-leading))!important;
+  }
+}
