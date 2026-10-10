@@ -2944,3 +2944,24 @@ html body main .what-dot-footer .misc-dot-axis{
     padding-top:calc(7mm + 0.5 * var(--type-size) * var(--type-leading))!important;
   }
 }
+
+/* Portrait phone: PAST EVENTS active dot sits on the right, like NETWORK.
+   Override the touch rule that hides its right-hand pseudo-element. */
+@media (max-width:650px) and (orientation:portrait){
+  html body .secondary-nav a[href="#past"].active-secondary::before{
+    display:none!important;
+    content:none!important;
+  }
+  html body .secondary-nav a[href="#past"].active-secondary::after{
+    display:block!important;
+    content:""!important;
+    opacity:1!important;
+    background:var(--accent)!important;
+    width:var(--secondary-active-dot)!important;
+    height:var(--secondary-active-dot)!important;
+    left:calc(100% + var(--secondary-active-gap))!important;
+    right:auto!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+  }
+}
