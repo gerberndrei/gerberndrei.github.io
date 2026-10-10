@@ -2998,3 +2998,10 @@ html body main .what-dot-footer .misc-dot-axis{
     margin-left:0!important;
   }
 }
+
+/* Phone portrait: tighten only the gap before the language divider by 2px. */
+@media (max-width:650px) and (orientation:portrait){
+  html body .fixed-head > .secondary-nav > .language-separator{
+    margin-left:calc(1.75em - 2px)!important;
+  }
+}
