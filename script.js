@@ -48,16 +48,26 @@
     const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const phone = window.matchMedia('(max-width:650px) and (orientation:portrait)').matches;
     const suffix = (name, extra) => name.replace(/(\.[^./?#]+)([?#].*)?$/, extra + '$1$2');
+    const englishImage = spec.en || suffix(spec.base, '_en');
     const list = [];
-    const add = (name) => {
+    const add = (name, usePhone) => {
       if (!name) return;
-      if (phone && dark) list.push(suffix(name, '_dark_phone'));
-      if (phone) list.push(suffix(name, '_phone'));
+      if (usePhone && dark) list.push(suffix(name, '_dark_phone'));
+      if (usePhone) list.push(suffix(name, '_phone'));
       if (dark) list.push(suffix(name, '_dark'));
       list.push(name);
     };
-    if (english) add(spec.en || suffix(spec.base, '_en'));
-    add(spec.base);
+    if (english) {
+      add(englishImage, phone);
+      add(spec.base, phone);
+      add(englishImage, !phone);
+      add(spec.base, !phone);
+    } else {
+      add(spec.base, phone);
+      add(englishImage, phone);
+      add(spec.base, !phone);
+      add(englishImage, !phone);
+    }
     return [...new Set(list.filter(Boolean))];
   }
 
