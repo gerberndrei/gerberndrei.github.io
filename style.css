@@ -2941,6 +2941,6 @@ html body main .what-dot-footer .misc-dot-axis{
   html body main .section,
   html body main .list-section,
   html body main #netzwerk.list-section{
-    padding-top:calc(7mm - 0.25 * var(--type-size) * var(--type-leading))!important;
+    padding-top:calc(7mm + 0.5 * var(--type-size) * var(--type-leading))!important;
   }
 }
