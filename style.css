@@ -2983,3 +2983,18 @@ html body main .what-dot-footer .misc-dot-axis{
     left:8px!important;
   }
 }
+
+/* Portrait phone: visually center both yellow dots between their
+   respective label and the following separator stroke. */
+@media (max-width:650px) and (orientation:portrait){
+  html body .fixed-head > .secondary-nav a[href="#past"].active-secondary::after{
+    left:calc(100% + (1.15em + 8px) / 2 - var(--secondary-active-dot) / 2)!important;
+    right:auto!important;
+    margin-left:0!important;
+  }
+  html body .fixed-head > .secondary-nav a[href="#netzwerk"].active-secondary::after{
+    left:calc(100% + 1.15em / 2 - var(--secondary-active-dot) / 2)!important;
+    right:auto!important;
+    margin-left:0!important;
+  }
+}
