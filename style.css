@@ -2974,3 +2974,12 @@ html body main .what-dot-footer .misc-dot-axis{
     margin-left:5px!important;
   }
 }
+
+/* Portrait phone: the PAST EVENTS dot already matches NETWORK's 5px
+   label gap. Recenter the divider in the remaining visual space. */
+@media (max-width:650px) and (orientation:portrait){
+  html body .fixed-head > .secondary-nav > b:not(.language-separator){
+    position:relative!important;
+    left:8px!important;
+  }
+}
