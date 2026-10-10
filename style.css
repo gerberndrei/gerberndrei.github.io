@@ -2901,3 +2901,36 @@ html body main .what-dot-footer{
 html body main .what-dot-footer .misc-dot-axis{
   margin-top:36px!important;
 }
+
+/* Phone portrait only: gallery titles and square slides span the same
+   22px left/right navigation inset. Hide arrows; retain swipe and dots. */
+@media (max-width:650px) and (orientation:portrait){
+  html body main .section{
+    padding-left:22px!important;
+    padding-right:22px!important;
+    box-sizing:border-box!important;
+    align-items:flex-start!important;
+  }
+  html body main .section > .window-group{
+    width:calc(100vw - 44px)!important;
+    max-width:calc(100vw - 44px)!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    align-self:flex-start!important;
+    transform:none!important;
+  }
+  html body main .section > .window-group > .section-title{
+    margin-left:0!important;
+    left:auto!important;
+    transform:none!important;
+  }
+  html body main .section > .window-group .carousel,
+  html body main .section > .window-group .viewport{
+    width:100%!important;
+    max-width:100%!important;
+  }
+  html body main .section > .window-group .carousel .arrow,
+  html body main .section > .window-group .carousel .arrow:not([hidden]){
+    display:none!important;
+  }
+}
