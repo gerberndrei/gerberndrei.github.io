@@ -43,15 +43,29 @@
     return { base:entry || '', en:enList[index] || '', alt:altList[index] || '' };
   }
 
-  function normalImageName(spec) {
-    return currentLanguage === 'en' && spec.en ? spec.en : spec.base;
+  function galleryImageCandidates(spec) {
+    const english = currentLanguage === 'en';
+    const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const phone = window.matchMedia('(max-width:650px) and (orientation:portrait)').matches;
+    const suffix = (name, extra) => name.replace(/(\.[^./?#]+)([?#].*)?$/, extra + '$1$2');
+    const list = [];
+    const add = (name) => {
+      if (!name) return;
+      if (phone && dark) list.push(suffix(name, '_dark_phone'));
+      if (phone) list.push(suffix(name, '_phone'));
+      if (dark) list.push(suffix(name, '_dark'));
+      list.push(name);
+    };
+    if (english) add(spec.en || suffix(spec.base, '_en'));
+    add(spec.base);
+    return [...new Set(list.filter(Boolean))];
   }
 
-  function desiredImageName(spec) {
-    const normal = normalImageName(spec);
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? normal.replace(/(\.[^./?#]+)([?#].*)?$/, '_dark$1$2')
-      : normal;
+  function setGalleryImage(img, spec, key) {
+    const list = galleryImageCandidates(spec).map(name => 'images/' + key + '/' + name);
+    img.dataset.imageCandidates = JSON.stringify(list);
+    img.dataset.imageAttempt = '0';
+    img.src = list[0];
   }
 
   // v52: one random saturated-pastel original dot image per page load.
@@ -180,20 +194,16 @@
       img.dataset.imageIndex = String(index);
       img.dataset.baseName = spec.base;
       img.dataset.enName = spec.en;
-      img.dataset.darkName = desiredImageName(spec) !== normalImageName(spec) ? desiredImageName(spec) : '';
-      img.src = 'images/' + key + '/' + desiredImageName(spec);
+      setGalleryImage(img, spec, key);
       img.loading = 'lazy';
       img.decoding = 'async';
       img.alt = spec.alt;
       img.onerror = function () {
-        if (img.dataset.darkName && img.src.endsWith('/' + img.dataset.darkName) && !img.dataset.darkFellBack) {
-          img.dataset.darkFellBack = '1';
-          img.src = 'images/' + key + '/' + normalImageName(spec);
-          return;
-        }
-        if (currentLanguage === 'en' && img.dataset.enName && !img.dataset.fellBack) {
-          img.dataset.fellBack = '1';
-          img.src = 'images/' + key + '/' + img.dataset.baseName;
+        const candidates = JSON.parse(img.dataset.imageCandidates || '[]');
+        const next = Number(img.dataset.imageAttempt || '0') + 1;
+        if (next < candidates.length) {
+          img.dataset.imageAttempt = String(next);
+          img.src = candidates[next];
           return;
         }
         slide.classList.add('missing');
@@ -384,14 +394,10 @@
         const spec = galleryImageSpec(data, entries[index], index);
         const slide = img.closest('.slide');
         if (slide) slide.classList.remove('missing');
-        delete img.dataset.fellBack;
-        delete img.dataset.darkFellBack;
         img.dataset.baseName = spec.base;
         img.dataset.enName = spec.en;
-        img.dataset.darkName = desiredImageName(spec) !== normalImageName(spec) ? desiredImageName(spec) : '';
         img.alt = spec.alt;
-        const wanted = desiredImageName(spec);
-        if (wanted) img.src = 'images/' + key + '/' + wanted;
+        setGalleryImage(img, spec, key);
       });
     });
   }
