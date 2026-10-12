@@ -80,15 +80,7 @@ window.SITE_CONTENT = {
 
   pastEvents: `2027
 
-MÄRZ 15: Once upon a time there will neither this nor that
-OKTOBER 11: Gestern war heute  noch morgen
-NOVEMBER 01: Glory to Ukraine
-
-2028
-
-JANUAR 02: TBA
-
-…`,
+MÄRZ 04: Eröffnung`, 
 
 
   legal: {
