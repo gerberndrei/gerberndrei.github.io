@@ -96,7 +96,7 @@ MARCH 04: Opening`,
   network: [
     {"label":"Lapis Dharma Centre, Mullumbimby Creek, Australien","label_en":"Lapis Dharma Centre, Mullumbimby Creek, Australia","url":"https://www.lapisdharma.com/","display":"www.lapisdharma.com"},
     {"label":"Miguel Guldimann, Solothurn","url":"https://www.zenmeditation.ch/","display":"www.zenmeditation.ch"},
-    {"label":"Seminar für Gestalttherapie SfGT, Gestaltberatung und Gestaltphänomenologie","autoWrap":true,"url":"https://www.sfgt.ch/","display":"www.sfgt.ch"},
+    {"label":"Seminar für Gestalttherapie SfGT, Winterthur","autoWrap":true,"url":"https://www.sfgt.ch/","display":"www.sfgt.ch"},
     {"label":"Shambhala Zentrum, Bern","label_en":"Shambhala Centre, Bern","url_en":"https://bern.shambhala.org/?lang=en","url":"https://bern.shambhala.org/","display":"bern.shambhala.org"},
     {"label":"Shambhala Zentrum, Köln","label_en":"Shambhala Centre, Cologne","url_en":"https://cologne.shambhala.org/?lang=en","url":"https://cologne.shambhala.org/","display":"cologne.shambhala.org"},
     {"label":"Shambhala Zentrum, Wien","label_en":"Shambhala Centre, Vienna","url_en":"https://wien.shambhala.info/?lang=en","url":"https://wien.shambhala.info/","display":"wien.shambhala.info"},
