@@ -101,20 +101,23 @@ JANUAR 02: TBA
   network: [
     {
       label: 'Miguel Guldimann, Solothurn',
-      url: 'https://www.zenmeditation.ch',
-      display: 'www.zenmeditation.ch'
-    },
-    {
-      label: 'Niklaus Zumstein, Solothurn',
-      url: 'mailto:niklauszumstein@gmail.com',
-      display: 'niklauszumstein@gmail.com',
+      url: 'https://www.zenmeditation.ch/',
+      display: 'www.zenmeditation.ch',
       spaceAfter: true
     },
     {
       label: 'Shambhala Zentrum, Bern',
       url: 'https://bern.shambhala.org/',
       display: 'bern.shambhala.org'
+    },
+    {
+      label: 'Shambhala Zentrum, Wien',
+      url: 'https://wien.shambhala.info/',
+      display: 'wien.shambhala.info'
+    },
+    {
+      label: 'Shambhala Zentrum, Zürich',
+      url: 'https://zuerich.shambhala.org/',
+      display: 'zuerich.shambhala.org'
     }
-
-  ]
-};
+  ]};
