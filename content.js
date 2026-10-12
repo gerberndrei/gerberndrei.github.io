@@ -99,25 +99,12 @@ JANUAR 02: TBA
   },
 
   network: [
-    {
-      label: 'Miguel Guldimann, Solothurn',
-      url: 'https://www.zenmeditation.ch/',
-      display: 'www.zenmeditation.ch',
-      spaceAfter: true
-    },
-    {
-      label: 'Shambhala Zentrum, Bern',
-      url: 'https://bern.shambhala.org/',
-      display: 'bern.shambhala.org'
-    },
-    {
-      label: 'Shambhala Zentrum, Wien',
-      url: 'https://wien.shambhala.info/',
-      display: 'wien.shambhala.info'
-    },
-    {
-      label: 'Shambhala Zentrum, Zürich',
-      url: 'https://zuerich.shambhala.org/',
-      display: 'zuerich.shambhala.org'
-    }
-  ]};
+    {"label":"Miguel Guldimann, Solothurn","url":"https://www.zenmeditation.ch/","display":"www.zenmeditation.ch","spaceAfter":true},
+    {"label":"Lapis Dharma Centre, Mullumbimby Creek, Australien","url":"https://www.lapisdharma.com/","display":"www.lapisdharma.com"},
+    {"label":"Shambhala Zentrum, Bern","url":"https://bern.shambhala.org/","display":"bern.shambhala.org"},
+    {"label":"Shambhala Zentrum, Köln","url":"https://cologne.shambhala.org/","display":"cologne.shambhala.org"},
+    {"label":"Shambhala Zentrum, Wien","url":"https://wien.shambhala.info/","display":"wien.shambhala.info"},
+    {"label":"Shambhala Zentrum, Zürich","url":"https://zuerich.shambhala.org/","display":"zuerich.shambhala.org"},
+    {"label":"Siddhartha's Intent, Dzongsar Khyentse Rinpoche","url":"https://siddharthasintent.org/","display":"siddharthasintent.org"},
+    {"label":"Songtsen, Pema Wangyal Rinpoche","url":"https://www.songtsen.org/","display":"www.songtsen.org"}
+  ];
