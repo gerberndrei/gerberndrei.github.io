@@ -107,4 +107,5 @@ JANUAR 02: TBA
     {"label":"Shambhala Zentrum, Zürich","label_en":"Shambhala Centre, Zurich","url_en":"https://zuerich.shambhala.org/?lang=en","url":"https://zuerich.shambhala.org/","display":"zuerich.shambhala.org"},
     {"label":"Siddhartha's Intent, Dzongsar Khyentse Rinpoche","url":"https://siddharthasintent.org/","display":"siddharthasintent.org"},
     {"label":"Songtsen, Pema Wangyal Rinpoche","url":"https://www.songtsen.org/","display":"www.songtsen.org"}
-  ];
+  ]
+};
