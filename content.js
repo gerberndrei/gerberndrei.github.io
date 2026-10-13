@@ -66,8 +66,10 @@ window.SITE_CONTENT = {
   kontakt: {
     title: 'KONTAKT',
     images: [
+      { image: '02_kroki.jpg', image_en: '02_kroki_en.jpg' },
+      { image: '03_kroki.jpg', image_en: '03_kroki_en.jpg' },
       'trungpa.jpg'
-]
+    ]
   },
 
   misc: {
