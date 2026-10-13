@@ -3007,92 +3007,27 @@ html body main .what-dot-footer .misc-dot-axis{
 }
 
 
-/* Portrait phone NETWORK: left-aligned entries with desktop-style | separators.
-   Allow long names and URLs to wrap without indenting or clipping them. */
+/* Portrait phone NETWORK: one normal inline text flow, aligned with title.
+   The first line starts at the left edge; wrapped lines get a small hanging indent.
+   NBSP after | is supplied by script.js to keep separator with following link. */
 @media (max-width:650px) and (orientation:portrait){
   html body #netzwerk .list-inner,
   html body #netzwerk .section-title,
+  html body #netzwerk .network-links{ text-align:left!important; }
   html body #netzwerk .network-links{
-    text-align:left!important;
-  }
-  html body #netzwerk .network-links{
-    align-items:stretch!important;
+    display:block!important;
+    box-sizing:border-box!important;
     width:100%!important;
-  }
-  html body #netzwerk .network-row{
-    display:flex!important;
-    flex-flow:row wrap!important;
-    justify-content:flex-start!important;
-    align-items:baseline!important;
-    width:100%!important;
-    min-width:0!important;
-    column-gap:1.15em!important;
-    row-gap:0!important;
-    text-align:left!important;
-    padding:0!important;
-    margin-left:0!important;
-  }
-  html body #netzwerk .network-row .network-label{
-    display:inline!important;
-    flex:0 1 auto!important;
-    min-width:0!important;
-    max-width:100%!important;
-    margin:0!important;
-    padding:0!important;
-    text-align:left!important;
-    overflow-wrap:break-word!important;
-  }
-  html body #netzwerk .network-row .list-separator{
-    display:inline-block!important;
-    flex:0 0 auto!important;
-    margin:0!important;
-    padding:0!important;
-  }
-  html body #netzwerk .network-row a{
-    display:inline!important;
-    flex:0 1 auto!important;
-    min-width:0!important;
-    max-width:100%!important;
-    width:auto!important;
-    margin:0!important;
-    padding:0!important;
-    text-align:left!important;
-    overflow-wrap:anywhere!important;
-  }
-}
-
-/* NETWORK on portrait phones: each entry starts at the title's left edge.
-   Keep label, | and link on one flex line; only long text may wrap inside itself. */
-@media (max-width:650px) and (orientation:portrait){
-  html body #netzwerk .network-row{
-    flex-wrap:nowrap!important;
-    column-gap:.4em!important;
-    align-items:baseline!important;
-    margin-left:0!important;
     padding-left:0!important;
+    padding-right:0!important;
+    margin-left:0!important;
+    align-items:initial!important;
   }
-  html body #netzwerk .network-row .network-label{
-    flex:0 1 auto!important;
-    overflow-wrap:normal!important;
-  }
-  html body #netzwerk .network-row .list-separator{
-    flex:0 0 auto!important;
-    white-space:nowrap!important;
-  }
-  html body #netzwerk .network-row a{
-    flex:1 1 auto!important;
-    min-width:0!important;
-    overflow-wrap:anywhere!important;
-  }
-}
-
-/* NETWORK portrait: natural inline text wrapping, hanging indent only on continuation lines. */
-@media (max-width:650px) and (orientation:portrait){
-  html body #netzwerk .network-links{display:block!important;text-align:left!important;}
   html body #netzwerk .network-row{
     display:block!important;
-    width:100%!important;
     box-sizing:border-box!important;
+    width:100%!important;
+    min-width:0!important;
     padding:0 0 0 .8em!important;
     margin:0!important;
     text-indent:-.8em!important;
@@ -3108,12 +3043,18 @@ html body main .what-dot-footer .misc-dot-axis{
     width:auto!important;
     max-width:none!important;
     min-width:0!important;
-    margin:0!important;
     padding:0!important;
     text-indent:0!important;
     white-space:normal!important;
     vertical-align:baseline!important;
   }
-  html body #netzwerk .network-row .list-separator{margin:0 .35em!important;}
-  html body #netzwerk .network-row a{overflow-wrap:anywhere!important;}
+  html body #netzwerk .network-row .network-label{overflow-wrap:normal!important;}
+  html body #netzwerk .network-row .list-separator{
+    margin:0 0 0 .35em!important;
+    white-space:nowrap!important;
+  }
+  html body #netzwerk .network-row a{
+    margin:0!important;
+    overflow-wrap:anywhere!important;
+  }
 }
