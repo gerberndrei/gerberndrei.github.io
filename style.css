@@ -3272,7 +3272,7 @@ html body main #past.list-section > .list-inner > .section-title{
    columns formerly stayed 500px wide, leaving their titles too far left.
    The legal links already fill the NETWORK .list-inner, so they follow it.
    Do not modify narrow portrait layouts, the title y-position or list gaps. */
-@media (min-width:651px) {
+@media (min-width:651px), (orientation:landscape) {
   html body main #past.list-section > .list-inner,
   html body main #netzwerk.list-section > .list-inner {
     box-sizing:border-box!important;
@@ -3291,7 +3291,7 @@ html body main #past.list-section > .list-inner > .section-title{
   }
 }
 /* The existing compact landscape gallery uses a smaller height allowance. */
-@media (min-width:651px) and (orientation:landscape) and (max-height:650px) {
+@media (orientation:landscape) and (max-height:650px) {
   html body main #past.list-section > .list-inner,
   html body main #netzwerk.list-section > .list-inner {
     width:min(calc(100vw - 44px),500px,calc(100dvh - 160px))!important;
