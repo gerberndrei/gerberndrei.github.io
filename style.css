@@ -3060,3 +3060,28 @@ html body main .what-dot-footer .misc-dot-axis{
     overflow-wrap:anywhere!important;
   }
 }
+
+/* NETWORK on portrait phones: each entry starts at the title's left edge.
+   Keep label, | and link on one flex line; only long text may wrap inside itself. */
+@media (max-width:650px) and (orientation:portrait){
+  html body #netzwerk .network-row{
+    flex-wrap:nowrap!important;
+    column-gap:.4em!important;
+    align-items:baseline!important;
+    margin-left:0!important;
+    padding-left:0!important;
+  }
+  html body #netzwerk .network-row .network-label{
+    flex:0 1 auto!important;
+    overflow-wrap:normal!important;
+  }
+  html body #netzwerk .network-row .list-separator{
+    flex:0 0 auto!important;
+    white-space:nowrap!important;
+  }
+  html body #netzwerk .network-row a{
+    flex:1 1 auto!important;
+    min-width:0!important;
+    overflow-wrap:anywhere!important;
+  }
+}
