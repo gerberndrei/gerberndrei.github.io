@@ -172,6 +172,12 @@
     const dots = carousel.querySelector('.dots');
     const prev = carousel.querySelector('.prev');
     const next = carousel.querySelector('.next');
+    // KONTAKT: second Kroki opens the address, third Kroki opens walking
+    // directions. Other galleries keep their normal click-to-next behavior.
+    const contactMapLinks = [null, "https://www.google.com/maps/place/Gerberngasse+3,+4500+Solothurn/@47.2063136,7.5151305,14z/data=!3m1!4b1!4m6!3m5!1s0x4791d7f8cca7ac59:0x75b4c51bc31c6aef!8m2!3d47.2063154!4d7.5356871!16s%2Fg%2F11c1x0930c?entry=ttu&g_ep=EgoyMDI2MTAxMS4wIKXMDSoASAFQAw%3D%3D", "https://www.google.com/maps/dir/Solothurn,+4500+Solothurn/Gerberngasse+3,+4500+Solothurn/@47.2063461,7.5235645,14.57z/data=!4m19!4m18!1m10!1m1!1s0x4791d7fcf3f5ef73:0xeba6a741959576c4!2m2!1d7.543276!2d47.204582!3m4!1m2!1d7.5356445!2d47.2059499!3s0x4791d7ff32718d2d:0x1253bffbb5ded8d2!1m5!1m1!1s0x4791d7f8cca7ac59:0x75b4c51bc31c6aef!2m2!1d7.5356871!2d47.2063154!3e2?entry=ttu&g_ep=EgoyMDI2MTAxMS4wIKXMDSoASAFQAw%3D%3D"];
+    function openContactMap(url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
 
     track.innerHTML = '';
     dots.innerHTML = '';
@@ -223,6 +229,21 @@
         slide.classList.remove('missing');
         img.style.visibility = '';
       };
+      if (key === 'kontakt' && contactMapLinks[index]) {
+        img.setAttribute('role', 'link');
+        img.setAttribute('tabindex', '0');
+        img.setAttribute('aria-label', index === 1
+          ? 'Google Maps: Gerberngasse 3, Solothurn'
+          : 'Google Maps: Fussweg zur Gerberngasse 3');
+        img.title = img.getAttribute('aria-label');
+        img.style.cursor = 'pointer';
+        img.addEventListener('keydown', function (event) {
+          if (event.key !== 'Enter' && event.key !== ' ') return;
+          event.preventDefault();
+          event.stopPropagation();
+          openContactMap(contactMapLinks[index]);
+        });
+      }
       slide.appendChild(img);
       // First KONTAKT image: make its IG and email text independently clickable.
       // Keep the original slide/image intact and preserve swipe navigation.
@@ -292,6 +313,13 @@
     track.addEventListener('click', function (event) {
       if (event.target.tagName !== 'IMG') return;
       if (suppressSwipeClick) { suppressSwipeClick = false; return; }
+      const mapUrl = key === 'kontakt'
+        ? contactMapLinks[Number(event.target.dataset.imageIndex)]
+        : null;
+      if (mapUrl) {
+        openContactMap(mapUrl);
+        return;
+      }
       if (index < images.length - 1) goTo(index + 1);
     });
 
