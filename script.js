@@ -376,7 +376,7 @@
       const display = localized(item, 'display') || item.display;
       const email = localized(item, 'email') || item.email;
       const label = document.createElement('span'); label.className = 'network-label'; label.textContent = labelText || ''; row.appendChild(label);
-      if (labelText) { const sep = document.createElement('span'); sep.className = 'list-separator'; sep.textContent = '|'; row.appendChild(sep); }
+      if (labelText) { const sep = document.createElement('span'); sep.className = 'list-separator'; sep.textContent = '|\u00A0'; row.appendChild(sep); }
       if (url) {
         const a = document.createElement('a'); a.href = url; a.textContent = display || url.replace(/^https?:\/\//i, '').replace(/\/$/, '');
         if (/^https?:\/\//i.test(a.href)) { a.target = '_blank'; a.rel = 'noopener noreferrer'; } row.appendChild(a);
