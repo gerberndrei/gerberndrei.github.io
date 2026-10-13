@@ -3254,3 +3254,13 @@ html body main #netzwerk .network-link-break{
     display:inline!important;
   }
 }
+
+
+/* PAST EVENTS: match the heading-to-list gap of NETZWERK.
+   The first semantic blank line is inside #past-events; unlike NETZWERK's
+   top margin it adds to the heading's bottom margin rather than collapsing
+   with it. Deduct exactly that one reading line only from this heading.
+   Keep the blank above 2027 and the year-to-event spacing unchanged. */
+html body main #past.list-section > .list-inner > .section-title{
+  margin-bottom:var(--reading-line)!important;
+}
