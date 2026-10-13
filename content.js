@@ -18,7 +18,7 @@ window.SITE_CONTENT = {
       'hall.jpg',
       'stempel.jpg',
       'slide3_start.png'
-]
+    ]
   },
 
   about: {
@@ -35,8 +35,7 @@ window.SITE_CONTENT = {
       'Hier kommt der ALT-Text für b-side.jpg hin',
       'Hier kommt der ALT-Text für eingang.jpg hin',
       'Hier kommt der ALT-Text für roof.jpg hin',
-      'Hier kommt der ALT-Text für room.jpg hin',
-      'Hier kommt der ALT-Text für trungpa.jpg hin'
+      'Hier kommt der ALT-Text für room.jpg hin'
     ]
   },
 
@@ -45,7 +44,7 @@ window.SITE_CONTENT = {
     images: [
       'ig-a-side.jpg',
       'ig-b-side.jpg'
-]
+    ]
   },
 
   solothurn: {
@@ -60,7 +59,7 @@ window.SITE_CONTENT = {
       'ruettenen.jpg',
       'jesuiten.jpg',
       'aare.jpg'
-]
+    ]
   },
 
   kontakt: {
@@ -79,7 +78,7 @@ window.SITE_CONTENT = {
       'ukies.jpg',
       'plastik.jpg',
       'peace.jpg'
-]
+    ]
   },
 
   pastEvents: `
@@ -98,14 +97,60 @@ MARCH 04: Opening`,
   },
 
   network: [
-    {"label":"Lapis Dharma Centre, Mullumbimby Creek, Australien","label_en":"Lapis Dharma Centre, Mullumbimby Creek, Australia","url":"https://www.lapisdharma.com/","display":"www.lapisdharma.com"},
-    {"label":"Miguel Guldimann, Solothurn","url":"https://www.zenmeditation.ch/","display":"www.zenmeditation.ch"},
-    {"label":"Seminar für Gestalttherapie SfGT, Winterthur","autoWrap":true,"url":"https://www.sfgt.ch/","display":"www.sfgt.ch"},
-    {"label":"Shambhala Zentrum, Bern","label_en":"Shambhala Centre, Bern","url_en":"https://bern.shambhala.org/?lang=en","url":"https://bern.shambhala.org/","display":"bern.shambhala.org"},
-    {"label":"Shambhala Zentrum, Köln","label_en":"Shambhala Centre, Cologne","url_en":"https://cologne.shambhala.org/?lang=en","url":"https://cologne.shambhala.org/","display":"cologne.shambhala.org"},
-    {"label":"Shambhala Zentrum, Wien","label_en":"Shambhala Centre, Vienna","url_en":"https://wien.shambhala.info/?lang=en","url":"https://wien.shambhala.info/","display":"wien.shambhala.info"},
-    {"label":"Shambhala Zentrum, Zürich","label_en":"Shambhala Centre, Zurich","url_en":"https://zuerich.shambhala.org/?lang=en","url":"https://zuerich.shambhala.org/","display":"zuerich.shambhala.org"},
-    {"label":"Siddhartha's Intent, Dzongsar Khyentse Rinpoche","url":"https://siddharthasintent.org/","display":"siddharthasintent.org"},
-    {"label":"Songtsen, Pema Wangyal Rinpoche","url":"https://www.songtsen.org/","display":"www.songtsen.org"}
+    {
+      label: "Lapis Dharma Centre, Mullumbimby Creek, Australien",
+      label_en: "Lapis Dharma Centre, Mullumbimby Creek, Australia",
+      url: "https://www.lapisdharma.com/",
+      display: "www.lapisdharma.com"
+    },
+    {
+      label: "Miguel Guldimann, Solothurn",
+      url: "https://www.zenmeditation.ch/",
+      display: "www.zenmeditation.ch"
+    },
+    {
+      label: "Seminar für Gestalttherapie SfGT, Winterthur",
+      autoWrap: true,
+      url: "https://www.sfgt.ch/",
+      display: "www.sfgt.ch"
+    },
+    {
+      label: "Shambhala Zentrum, Bern",
+      label_en: "Shambhala Centre, Bern",
+      url_en: "https://bern.shambhala.org/?lang=en",
+      url: "https://bern.shambhala.org/",
+      display: "bern.shambhala.org"
+    },
+    {
+      label: "Shambhala Zentrum, Köln",
+      label_en: "Shambhala Centre, Cologne",
+      url_en: "https://cologne.shambhala.org/?lang=en",
+      url: "https://cologne.shambhala.org/",
+      display: "cologne.shambhala.org"
+    },
+    {
+      label: "Shambhala Zentrum, Wien",
+      label_en: "Shambhala Centre, Vienna",
+      url_en: "https://wien.shambhala.info/?lang=en",
+      url: "https://wien.shambhala.info/",
+      display: "wien.shambhala.info"
+    },
+    {
+      label: "Shambhala Zentrum, Zürich",
+      label_en: "Shambhala Centre, Zurich",
+      url_en: "https://zuerich.shambhala.org/?lang=en",
+      url: "https://zuerich.shambhala.org/",
+      display: "zuerich.shambhala.org"
+    },
+    {
+      label: "Siddhartha's Intent, Dzongsar Khyentse Rinpoche",
+      url: "https://siddharthasintent.org/",
+      display: "siddharthasintent.org"
+    },
+    {
+      label: "Songtsen, Pema Wangyal Rinpoche",
+      url: "https://www.songtsen.org/",
+      display: "www.songtsen.org"
+    }
   ]
 };
