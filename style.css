@@ -3005,3 +3005,58 @@ html body main .what-dot-footer .misc-dot-axis{
     margin-left:calc(1.75em - 2px)!important;
   }
 }
+
+
+/* Portrait phone NETWORK: left-aligned entries with desktop-style | separators.
+   Allow long names and URLs to wrap without indenting or clipping them. */
+@media (max-width:650px) and (orientation:portrait){
+  html body #netzwerk .list-inner,
+  html body #netzwerk .section-title,
+  html body #netzwerk .network-links{
+    text-align:left!important;
+  }
+  html body #netzwerk .network-links{
+    align-items:stretch!important;
+    width:100%!important;
+  }
+  html body #netzwerk .network-row{
+    display:flex!important;
+    flex-flow:row wrap!important;
+    justify-content:flex-start!important;
+    align-items:baseline!important;
+    width:100%!important;
+    min-width:0!important;
+    column-gap:1.15em!important;
+    row-gap:0!important;
+    text-align:left!important;
+    padding:0!important;
+    margin-left:0!important;
+  }
+  html body #netzwerk .network-row .network-label{
+    display:inline!important;
+    flex:0 1 auto!important;
+    min-width:0!important;
+    max-width:100%!important;
+    margin:0!important;
+    padding:0!important;
+    text-align:left!important;
+    overflow-wrap:break-word!important;
+  }
+  html body #netzwerk .network-row .list-separator{
+    display:inline-block!important;
+    flex:0 0 auto!important;
+    margin:0!important;
+    padding:0!important;
+  }
+  html body #netzwerk .network-row a{
+    display:inline!important;
+    flex:0 1 auto!important;
+    min-width:0!important;
+    max-width:100%!important;
+    width:auto!important;
+    margin:0!important;
+    padding:0!important;
+    text-align:left!important;
+    overflow-wrap:anywhere!important;
+  }
+}
