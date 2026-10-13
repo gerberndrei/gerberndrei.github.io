@@ -82,11 +82,11 @@ window.SITE_CONTENT = {
 ]
   },
 
-  pastEvents: `2027
-
+  pastEvents: `
+2027
 MÄRZ 04: Eröffnung`,
-  pastEvents_en: `2027
-
+  pastEvents_en: `
+2027
 MARCH 04: Opening`, 
 
 
