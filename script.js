@@ -352,20 +352,18 @@
     past.innerHTML = '';
     const source = currentLanguage === 'en' && content.pastEvents_en != null ? content.pastEvents_en : content.pastEvents;
     const pastLines = String(source || '').split(/\r?\n/);
-    let previousWasYear = false;
     pastLines.forEach((raw, i) => {
       const line = raw.trim();
       if (!line) {
-        if (!previousWasYear && i < pastLines.length - 1) {
+        if (i < pastLines.length - 1) {
           const gap = document.createElement('div'); gap.className = 'past-block-gap'; past.appendChild(gap);
         }
-        previousWasYear = false; return;
+        return;
       }
       if (/^\d{4}$/.test(line)) {
         const year = document.createElement('div'); year.className = 'past-year'; year.textContent = '\u00A0\u00A0' + line; past.appendChild(year);
-        previousWasYear = true; return;
+        return;
       }
-      previousWasYear = false;
       const m = line.match(/^([^:]+):\s*(.*)$/);
       if (m) {
         const dateText = translateMonth(m[1]);
