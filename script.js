@@ -224,6 +224,24 @@
         img.style.visibility = '';
       };
       slide.appendChild(img);
+      // First KONTAKT image: make its IG and email text independently clickable.
+      // Keep the original slide/image intact and preserve swipe navigation.
+      if (key === 'kontakt' && index === 0) {
+        slide.classList.add('contact-hotspot-slide');
+        [
+          { label:'Instagram: gerbern.drei', href:'https://www.instagram.com/gerbern.drei/', cls:'contact-instagram-hotspot' },
+          { label:'E-Mail an gerbern.drei@gmail.com', href:'mailto:gerbern.drei@gmail.com', cls:'contact-email-hotspot' }
+        ].forEach(function (item) {
+          const link = document.createElement('a');
+          link.className = 'contact-image-hotspot ' + item.cls;
+          link.href = item.href;
+          link.setAttribute('aria-label', item.label);
+          link.title = item.label;
+          if (item.href.startsWith('https://')) { link.target = '_blank'; link.rel = 'noopener noreferrer'; }
+          link.addEventListener('click', function (event) { event.stopPropagation(); });
+          slide.appendChild(link);
+        });
+      }
       track.appendChild(slide);
 
       const dot = document.createElement('button');
