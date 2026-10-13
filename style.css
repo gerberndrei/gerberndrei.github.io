@@ -3085,3 +3085,35 @@ html body main .what-dot-footer .misc-dot-axis{
     overflow-wrap:anywhere!important;
   }
 }
+
+/* NETWORK portrait: natural inline text wrapping, hanging indent only on continuation lines. */
+@media (max-width:650px) and (orientation:portrait){
+  html body #netzwerk .network-links{display:block!important;text-align:left!important;}
+  html body #netzwerk .network-row{
+    display:block!important;
+    width:100%!important;
+    box-sizing:border-box!important;
+    padding:0 0 0 .8em!important;
+    margin:0!important;
+    text-indent:-.8em!important;
+    text-align:left!important;
+    white-space:normal!important;
+  }
+  html body #netzwerk .network-row .network-label,
+  html body #netzwerk .network-row .list-separator,
+  html body #netzwerk .network-row a{
+    display:inline!important;
+    position:static!important;
+    float:none!important;
+    width:auto!important;
+    max-width:none!important;
+    min-width:0!important;
+    margin:0!important;
+    padding:0!important;
+    text-indent:0!important;
+    white-space:normal!important;
+    vertical-align:baseline!important;
+  }
+  html body #netzwerk .network-row .list-separator{margin:0 .35em!important;}
+  html body #netzwerk .network-row a{overflow-wrap:anywhere!important;}
+}
