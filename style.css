@@ -3264,3 +3264,36 @@ html body main #netzwerk .network-link-break{
 html body main #past.list-section > .list-inner > .section-title{
   margin-bottom:var(--reading-line)!important;
 }
+
+
+/* Roomy desktop + phone landscape: PAST EVENTS, NETZWERK, IMPRESSUM and
+   DATENSCHUTZ share the *left* axis of the existing gallery titles.
+   Gallery frames shrink with viewport HEIGHT as well as width. The reading
+   columns formerly stayed 500px wide, leaving their titles too far left.
+   The legal links already fill the NETWORK .list-inner, so they follow it.
+   Do not modify narrow portrait layouts, the title y-position or list gaps. */
+@media (min-width:651px), (orientation:landscape) {
+  html body main #past.list-section > .list-inner,
+  html body main #netzwerk.list-section > .list-inner {
+    box-sizing:border-box!important;
+    width:min(50vw,500px,calc(100vw - (2 * var(--edge))),calc(100dvh - var(--head) - 92px))!important;
+    max-width:calc(100vw - (2 * var(--edge)))!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+}
+/* Below 901px, the gallery uses the stable small viewport height. */
+@media (min-width:651px) and (max-width:900px),
+       (min-width:901px) and (pointer:coarse) {
+  html body main #past.list-section > .list-inner,
+  html body main #netzwerk.list-section > .list-inner {
+    width:min(calc(100vw - 44px),500px,calc(100svh - var(--head) - var(--bottom-mask) - var(--gallery-reserve)))!important;
+  }
+}
+/* The existing compact landscape gallery uses a smaller height allowance. */
+@media (orientation:landscape) and (max-height:650px) {
+  html body main #past.list-section > .list-inner,
+  html body main #netzwerk.list-section > .list-inner {
+    width:min(calc(100vw - 44px),500px,calc(100dvh - 160px))!important;
+  }
+}
