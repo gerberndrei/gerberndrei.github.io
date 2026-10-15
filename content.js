@@ -98,21 +98,9 @@ MARCH 04: Opening`,
 
   network: [
     {
-      label: "Lapis Dharma Centre, Mullumbimby Creek, Australien",
-      label_en: "Lapis Dharma Centre, Mullumbimby Creek, Australia",
-      url: "https://www.lapisdharma.com/",
-      display: "www.lapisdharma.com"
-    },
-    {
       label: "Miguel Guldimann, Solothurn",
       url: "https://www.zenmeditation.ch/",
       display: "www.zenmeditation.ch"
-    },
-    {
-      label: "Seminar für Gestalttherapie SfGT, Winterthur",
-      autoWrap: true,
-      url: "https://www.sfgt.ch/",
-      display: "www.sfgt.ch"
     },
     {
       label: "Shambhala Zentrum, Bern",
@@ -120,6 +108,26 @@ MARCH 04: Opening`,
       url_en: "https://bern.shambhala.org/?lang=en",
       url: "https://bern.shambhala.org/",
       display: "bern.shambhala.org"
+    },
+    {
+      label: "Shambhala Zentrum, Zürich",
+      label_en: "Shambhala Centre, Zurich",
+      url_en: "https://zuerich.shambhala.org/?lang=en",
+      url: "https://zuerich.shambhala.org/",
+      display: "zuerich.shambhala.org",
+      spaceAfter: true
+    },
+    {
+      label: "Lapis Dharma Centre, Mullumbimby Creek, Australien",
+      label_en: "Lapis Dharma Centre, Mullumbimby Creek, Australia",
+      url: "https://www.lapisdharma.com/",
+      display: "www.lapisdharma.com"
+    },
+    {
+      label: "Seminar für Gestalttherapie SfGT, Winterthur",
+      autoWrap: true,
+      url: "https://www.sfgt.ch/",
+      display: "www.sfgt.ch"
     },
     {
       label: "Shambhala Zentrum, Köln",
@@ -136,13 +144,6 @@ MARCH 04: Opening`,
       display: "wien.shambhala.info"
     },
     {
-      label: "Shambhala Zentrum, Zürich",
-      label_en: "Shambhala Centre, Zurich",
-      url_en: "https://zuerich.shambhala.org/?lang=en",
-      url: "https://zuerich.shambhala.org/",
-      display: "zuerich.shambhala.org"
-    },
-    {
       label: "Siddhartha's Intent, Dzongsar Khyentse Rinpoche",
       url: "https://siddharthasintent.org/",
       display: "siddharthasintent.org"
@@ -152,5 +153,4 @@ MARCH 04: Opening`,
       url: "https://www.songtsen.org/",
       display: "www.songtsen.org"
     }
-  ]
-};
+  ]};
