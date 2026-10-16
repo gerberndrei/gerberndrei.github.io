@@ -13,25 +13,21 @@ Live-Website: https://gerberndrei.github.io/
 | `script.js` | Klicks, Touch, Wischen, Maps-Karten, Sprachwechsel, Scrollen | Nur für Interaktionen |
 | `.nojekyll` | Konfigurationsdatei für GitHub Pages | **Nicht ändern** |
 
-> Für neue Texte und Bilddateien **zuerst `content.js`** öffnen; nicht im langen `script.js` suchen.
+> Neue Bilder werden **automatisch aus den sechs `images/`-Ordnern übernommen**. Für Texte, PAST EVENTS, NETZWERK und rechtliche Angaben weiterhin `content.js` bearbeiten.
 
 ## Bilder in einer Galerie ändern
 
-In `content.js` ist jede Galerie ein eigenes Objekt. Die Galerien heissen:
+Die Bildlisten der sechs Galerien `start`, `about`, `aktuell`, `solothurn`, `kontakt` und `misc` werden von der GitHub Action **Sync numbered gallery images** automatisch gepflegt.
 
-`start, about, aktuell, solothurn, kontakt, misc`
+1. Bilder im passenden Ordner unter `images/` auf GitHub hinzufügen, umbenennen, ersetzen oder löschen und die Änderung committen.
+2. Die Action startet durch den Upload/Commit automatisch und aktualisiert die `images`-Arrays in `content.js`. Sie sortiert numerisch nach den Präfixen `01_`, `02_`, … `12_` und übernimmt die echte Endung (`.jpg`, `.jpeg`, `.png`, `.webp`, `.gif`, `.avif`).
+3. Der Verweis auf `content.js` in `index.html` wird zur Vermeidung alter Browser-Caches aktualisiert. Danach wird der GitHub-Pages-Neuaufbau ausdrücklich angefordert. Dies kann einige Minuten dauern.
 
-Im Feld `images: [ ... ]` die entsprechenden Dateinamen ändern oder einen weiteren Eintrag ergänzen. Beispiel für einen Bild-Eintrag:
+Die Dateien `01_foto_en.jpg`, `01_foto_dark.jpg`, `01_foto_phone.jpg` oder kombinierte Varianten gehören automatisch zum Grundbild `01_foto.jpg` und sind **keine zusätzlichen Slides**. Die genaue Endung einer normalen Bilddatei wird automatisch übernommen. Varianten verwenden am besten dieselbe Dateiendung wie das Grundbild. Wenn die englische Einzelvariante eine andere Endung hat, wird sie als `image_en` eingetragen.
 
-```js
-images: [
-  'krummturm.jpg'
-]
-```
+**Höchstens 12 Slides** pro Galerie sind möglich. Bei mehr als zwölf Slides oder widersprüchlichen Basis-Dateiformaten stoppt die Action mit einer Fehlermeldung, damit kein Bild unbemerkt verschwindet. Doppelte Nummern werden gemeldet und vorerst in alphabetischer Reihenfolge angezeigt; am besten jeder Slide-Nummer genau ein Grundmotiv zuordnen.
 
-Bei **gerbern drei** stehen in `content.js` nur die Bildnamen. Beispiel: Unter `solothurn.images` bedeutet `'krummturm.jpg'` die Datei `images/solothurn/krummturm.jpg`. Eine englische Variante kann als `{ image: '02_kroki.jpg', image_en: '02_kroki_en.jpg' }` angegeben werden.
-
-Die Galerie-Logik unterstützt **höchstens 11 Slides** je Galerie. Nach dem Hinzufügen einer Bilddatei prüfen, dass die Schreibweise und die Dateiendung exakt stimmen. Englische Varianten sind optional; wenn keine verfügbar ist, bleibt das Standardbild sichtbar.
+Der Workflow ist in `.github/workflows/sync-gallery-images.yml`, das Node-Skript in `scripts/sync-gallery-images.mjs`. Unter **Actions → Sync numbered gallery images** kann der letzte Lauf kontrolliert oder bei Bedarf manuell gestartet werden (`Run workflow`). Die anderen Inhalte in `content.js` bleiben unverändert.
 
 ## NETZWERK pflegen
 
