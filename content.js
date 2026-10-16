@@ -61,8 +61,8 @@ window.SITE_CONTENT = {
       '04_weissenstein.jpg',
       '05_aare.jpg',
       '06_this-post-is.webp',
-      '07_kreuz.jpg',
-      '08_chutz.jpg',
+      '07_chutz.jpg',
+      '08_kreuz.jpg',
       '09_nest.jpg',
       '10_postplatz.jpg',
       '11_gerberngasse.jpg'
