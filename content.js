@@ -19,7 +19,7 @@ window.SITE_CONTENT = {
       '02_stempel.jpg',
       '03_wenn-die-leute.png',
       '04_es-ist-leer.webp',
-      '05_avoid-aggression.png'
+      '05_vermeide-aggression.png'
     ]
   },
 
@@ -30,8 +30,8 @@ window.SITE_CONTENT = {
       '02_fenster.jpg',
       '03_eingang-skizze.jpg',
       '04_dach-foto.jpg',
-      '05_can-i-use.webp',
-      '06_dont-believe-something.png'
+      '05_darf-ich-emails.webp',
+      '05_glaube-nichts.png'
     ],
     alt: [
       'Hier kommt der ALT-Text für a-side.jpg hin',
@@ -47,8 +47,8 @@ window.SITE_CONTENT = {
     images: [
       '01_flyer-front.png',
       '02_flyer-back.png',
-      '03_nothing-makes-sense.webp',
-      '04_love-and-compassion.png'
+      '03_nichts-ergibt-sinn.webp',
+      '04_sei-freundlich-wann.png'
     ]
   },
 
@@ -60,33 +60,35 @@ window.SITE_CONTENT = {
       '03_einsiedelei.jpg',
       '04_weissenstein.jpg',
       '05_aare.jpg',
-      '06_this-post-is.webp',
+      '06_dieser-pfosten-steht.webp',
       '07_chutz.jpg',
       '08_kreuz.jpg',
       '09_nest.jpg',
       '10_postplatz.jpg',
-      '11_gerberngasse.jpg'
+      '11_gerberngasse.jpg',
+      '12_im-anfaengergeist.png'
     ]
   },
 
   kontakt: {
     title: 'KONTAKT',
     images: [
-      'gerbern-drei.png',
-      { image: '02_kroki.jpg', image_en: '02_kroki_en.jpg' },
-      { image: '03_kroki.jpg', image_en: '03_kroki_en.jpg' },
-      'trungpa.jpg',
-      'before-enlightenment.webp'
+      '01_gerbern-drei.png',
+      '02_kroki.jpg',
+      '03_kroki.jpg',
+      '04_vor-der-erleuchtung.webp',
+      '05_ego-muss-man.png'
     ]
   },
 
   misc: {
     title: 'MISC',
     images: [
-      'ukies.jpg',
-      'plastik.jpg',
-      'peace.jpg',
-      'my-mind-wont.webp'
+      '01_plastik.jpg',
+      '02_peace.jpg',
+      '03_ukies.jpg',
+      '04_ich-habe-losgelassen.webp',
+      '05_wir-sind-wie.png'
     ]
   },
 
