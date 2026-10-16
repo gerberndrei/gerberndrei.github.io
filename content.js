@@ -19,7 +19,8 @@ window.SITE_CONTENT = {
       '02_stempel.jpg',
       '03_wenn-die-leute.png',
       '04_es-ist-leer.webp',
-      '05_vermeide-aggression.png'
+      '05_vermeide-aggression.png',
+      '06_fenster.jpg'
     ]
   },
 
