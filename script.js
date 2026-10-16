@@ -912,6 +912,24 @@
 
   window.addEventListener('resize', settleResize, { passive:true });
 
+  // Wide desktop: NETZWERK should scroll to the same title baseline as
+  // the gallery sections (their groups are centered in galleryLimits()).
+  function alignWideDesktopNetworkHeading(behavior) {
+    if (!window.matchMedia('(min-width:1201px) and (min-height:651px) and (hover:hover) and (pointer:fine)').matches) return false;
+    const heading = document.querySelector('#netzwerk .list-inner > .section-title');
+    const gallery = document.querySelector('#kontakt .window-group');
+    const galleryTitle = gallery && gallery.querySelector('.section-title');
+    if (!heading || !gallery || !galleryTitle) return false;
+    const limits = galleryLimits();
+    const available = Math.max(0, limits.bottom - limits.top);
+    const galleryRect = gallery.getBoundingClientRect();
+    const titleOffset = galleryTitle.getBoundingClientRect().top - galleryRect.top;
+    const desiredTop = limits.top + Math.max(0, (available - galleryRect.height) / 2) + titleOffset;
+    const targetTop = window.scrollY + heading.getBoundingClientRect().top - desiredTop;
+    window.scrollTo({top:Math.max(0,targetTop),behavior:behavior || 'auto'});
+    return true;
+  }
+
   document.querySelectorAll('a[href^="#"]').forEach(function (link) {
     link.addEventListener('click', function (event) {
       const id = link.getAttribute('href');
@@ -944,6 +962,14 @@
       if (id === '#past' || id === '#netzwerk') {
         event.preventDefault();
         if (history.replaceState) history.replaceState(null, '', id);
+        if (id === '#netzwerk' && alignWideDesktopNetworkHeading('smooth')) {
+          readingNavLock = 'netzwerk';
+          window.clearTimeout(readingNavLockTimer);
+          readingNavLockTimer = window.setTimeout(function () { readingNavLock = null; updateNavDots(); }, 1250);
+          if (secondaryPast) secondaryPast.classList.toggle('active-secondary', false);
+          if (secondaryNetwork) secondaryNetwork.classList.toggle('active-secondary', true);
+          return;
+        }
         const head = document.querySelector('.fixed-head');
         const headH = head ? head.getBoundingClientRect().height : 0;
         const underStrip = 34.02; // 9 mm
@@ -983,6 +1009,12 @@
       }
     });
   });
+  // Direct NETWORK URLs/reloads use the same wide-desktop title position.
+  window.addEventListener('load', function () {
+    if (location.hash === '#netzwerk') {
+      window.requestAnimationFrame(function () { alignWideDesktopNetworkHeading('auto'); });
+    }
+  }, {once:true});
   activeGallery = galleryFromHash() || chooseActiveGallery();
   if (!location.hash || location.hash === '#start') {
     // START is a fitted first screen, never a remembered scroll position.
@@ -1143,4 +1175,40 @@
   align();
   window.addEventListener('resize', align, {passive:true});
   window.addEventListener('pageshow', align);
+})();
+
+/* Wide desktop: cap the NETWORK link column at the end of the word PAST in
+   the right-hand navigation. Only actual text bounds are used, not the
+   width of the full PAST EVENTS link or the browser window. */
+(function capWideDesktopNetworkColumn(){
+  const links = document.querySelector('#netzwerk #network-links');
+  const pastNav = document.querySelector('.fixed-head .secondary-nav a[href="#past"]');
+  if (!links || !pastNav) return;
+  const wide = window.matchMedia('(min-width:1201px) and (min-height:651px) and (hover:hover) and (pointer:fine)');
+  function align(){
+    if (!wide.matches) {
+      links.style.removeProperty('--gg-wide-network-reading-width');
+      return;
+    }
+    let right = pastNav.getBoundingClientRect().right;
+    const node = pastNav.firstChild;
+    if (node && node.nodeType === 3 && node.textContent.length >= 4) {
+      const range = document.createRange();
+      range.setStart(node,0);
+      range.setEnd(node,4);
+      const rect = range.getBoundingClientRect();
+      if (rect.width > 0) right = rect.right;
+    }
+    const left = links.getBoundingClientRect().left;
+    const width = Math.floor(Math.min(right,window.innerWidth - 22) - left);
+    if (width > 0) links.style.setProperty('--gg-wide-network-reading-width',width+'px');
+    else links.style.removeProperty('--gg-wide-network-reading-width');
+  }
+  align();
+  window.addEventListener('resize',align,{passive:true});
+  window.addEventListener('pageshow',align);
+  window.addEventListener('load',align,{once:true});
+  if (typeof MutationObserver !== 'undefined') {
+    new MutationObserver(align).observe(pastNav,{childList:true,characterData:true,subtree:true});
+  }
 })();
