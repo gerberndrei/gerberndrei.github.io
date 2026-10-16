@@ -637,14 +637,13 @@
       });
       if (visibleGroup) setPortraitGalleryHeight(visibleGroup);
     } else {
-      // The existing landscape behaviour works: retain global viewport sizing.
+      // Phone landscape uses stable CSS 100svh. Updating a global viewport
+      // height here on browser-toolbar changes resized every preceding slide,
+      // which moved the page under the user's scroll position.
       phoneGalleryGroups.forEach(function (group) {
         group.style.removeProperty('--gg-gallery-visible-height');
       });
-      const pixels = Math.round(height) + 'px';
-      if (rootStyle.getPropertyValue('--gg-gallery-visible-height') !== pixels) {
-        rootStyle.setProperty('--gg-gallery-visible-height', pixels);
-      }
+      rootStyle.removeProperty('--gg-gallery-visible-height');
     }
   }
 
