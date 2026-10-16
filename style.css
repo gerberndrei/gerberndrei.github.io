@@ -4146,3 +4146,33 @@ html body main #past.list-section > .list-inner > .section-title {
     padding-left:0!important;
   }
 }
+
+/* Phone gallery viewport fit: reclaim hidden-title space in portrait and
+   the unnecessary 78px landscape bottom reserve. Slides remain square;
+   pagination remains inside the visible viewport. */
+@media (max-width:650px) and (orientation:portrait) {
+  html body main .section {
+    /* About one quarter line less top padding, plus the obsolete 18px
+       heading margin removed below: together approximately one text line. */
+    padding-top:calc(7mm + .25 * var(--type-size) * var(--type-leading))!important;
+  }
+  html body main .section > .window-group > .section-title {
+    margin-bottom:0!important;
+  }
+  html body main .section > .window-group {
+    /* 24px title line + 24px dots + 4px footer + ~6px safety air. */
+    width:min(calc(100vw - 44px),500px,calc(var(--gg-gallery-visible-height, 100svh) - var(--head) - 7mm - 64px))!important;
+    max-width:min(calc(100vw - 44px),500px,calc(var(--gg-gallery-visible-height, 100svh) - var(--head) - 7mm - 64px))!important;
+  }
+}
+@media (orientation:landscape) and (max-height:650px) and (pointer:coarse) {
+  html body main .section {
+    padding-bottom:4px!important;
+  }
+  html body main .section > .window-group {
+    /* Only the 24px pagination row, 4px lower mask and 4px safety gap
+       need reserving; titles are already display:none in this orientation. */
+    width:min(calc(100vw - 44px),500px,calc(var(--gg-gallery-visible-height, 100dvh) - var(--head) - 32px))!important;
+    max-width:min(calc(100vw - 44px),500px,calc(var(--gg-gallery-visible-height, 100dvh) - var(--head) - 32px))!important;
+  }
+}
