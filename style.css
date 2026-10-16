@@ -4197,3 +4197,13 @@ html body main #past.list-section > .list-inner > .section-title {
     margin-top:0!important;
   }
 }
+
+/* Portrait phone: the template-literal newline before the first PAST EVENTS
+   year creates one rendered .past-block-gap. Hide only that initial gap so
+   the year starts at the same vertical level as the NETWORK first entry.
+   All semantic gaps between event blocks remain unchanged. */
+@media (max-width:650px) and (orientation:portrait) {
+  html body main #past #past-events > .past-block-gap:first-child {
+    display:none!important;
+  }
+}
