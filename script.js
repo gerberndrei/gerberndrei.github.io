@@ -83,11 +83,18 @@
     return [...new Set(list.filter(Boolean))];
   }
 
+  // Missing optional variants are remembered during this visit; changing
+  // the system colour scheme must not retry them or reload an unchanged image.
+  const missingGalleryImages = new Set();
   function setGalleryImage(img, spec, key) {
-    const list = galleryImageCandidates(spec).map(name => 'images/' + key + '/' + name);
-    img.dataset.imageCandidates = JSON.stringify(list);
+    const proposed = galleryImageCandidates(spec).map(name => 'images/' + key + '/' + name);
+    const list = proposed.filter(name => !missingGalleryImages.has(name));
+    const candidates = list.length ? list : proposed;
+    img.dataset.imageCandidates = JSON.stringify(candidates);
     img.dataset.imageAttempt = '0';
-    img.src = list[0];
+    // Retain the already displayed bitmap and gallery/scroll position when
+    // the selected picture is identical in light and dark mode.
+    if (img.getAttribute('src') !== candidates[0]) img.src = candidates[0];
   }
 
   // v52: one random saturated-pastel original dot image per page load.
@@ -227,6 +234,9 @@
       img.decoding = 'async';
       img.alt = spec.alt;
       img.onerror = function () {
+        // Skip this absent variant the next time the theme changes.
+        const failedSource = img.getAttribute('src');
+        if (failedSource) missingGalleryImages.add(failedSource);
         const candidates = JSON.parse(img.dataset.imageCandidates || '[]');
         const next = Number(img.dataset.imageAttempt || '0') + 1;
         if (next < candidates.length) {
@@ -511,7 +521,6 @@
       carousel.querySelectorAll('.slide img').forEach(function (img, index) {
         const spec = galleryImageSpec(data, entries[index], index);
         const slide = img.closest('.slide');
-        if (slide) slide.classList.remove('missing');
         img.dataset.baseName = spec.base;
         img.dataset.enName = spec.en;
         img.alt = spec.alt;
