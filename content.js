@@ -1,7 +1,7 @@
 /*
   GERBERN DREI — INHALTE
   Hier pflegst du Bilder, ALT-Texte, PAST EVENTS und NETZWERK.
-  Pro Galerie maximal 11 Bilder.
+  Pro Galerie maximal 12 Bilder.
 
   ENGLISCH IST IMMER OPTIONAL:
   - Text: title_en, pastEvents_en, label_en, display_en usw.
