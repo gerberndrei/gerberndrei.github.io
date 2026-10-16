@@ -4045,3 +4045,12 @@ html body main #past.list-section > .list-inner > .section-title {
     width:min(calc(100vw - 44px),500px,calc(100dvh - 160px))!important;
   }
 }
+
+/* Phone portrait and landscape: keep the heading's one-line space but hide
+   its lettering. Navigation labels and the desktop layout are unchanged. */
+@media (max-width:650px) and (orientation:portrait),
+       (orientation:landscape) and (max-height:650px) and (pointer:coarse) {
+  html body main .section-title {
+    visibility:hidden!important;
+  }
+}
