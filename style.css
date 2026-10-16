@@ -4216,3 +4216,12 @@ html body main #past.list-section > .list-inner > .section-title {
     margin-top:calc(-1 * var(--type-size) * var(--type-leading))!important;
   }
 }
+
+/* Phone landscape: restore the breathing room immediately BEFORE the
+   vertical divider in NETWORK entries. Earlier inline reset rules set
+   its margin to zero; keep desktop and phone portrait as they are. */
+@media (orientation:landscape) and (max-height:650px) and (pointer:coarse) {
+  html body main #netzwerk .network-row .list-separator {
+    margin-left:.5em!important;
+  }
+}
