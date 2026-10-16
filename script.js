@@ -55,17 +55,33 @@
     return { base:entry || '', en:enList[index] || '', alt:altList[index] || '' };
   }
 
+  // =====================================================================
+  // BILDVARIANTEN: zurzeit deaktiviert, alle Funktionen bleiben erhalten.
+  //
+  // HIER KANN DIE UNTERSTÜTZUNG VON DARK-MODE-SLIDES WIEDER AKTIVIERT WERDEN:
+  // Den folgenden Wert von false auf true setzen. Dies betrifft ausschliesslich
+  // _dark-Bilddateien, NICHT die normalen Dark-Mode-Farben der Website.
+  const ENABLE_DARK_SLIDE_VARIANTS = false;
+
+  // HIER KANN DIE UNTERSTÜTZUNG VON PHONE-MODE-SLIDES WIEDER AKTIVIERT WERDEN:
+  // Den folgenden Wert von false auf true setzen (Handy-Hochformat).
+  // Sind beide Schalter true, werden auch _dark_phone-Bilder gesucht.
+  const ENABLE_PHONE_SLIDE_VARIANTS = false;
+  // =====================================================================
+
   function galleryImageCandidates(spec) {
     const english = currentLanguage === 'en';
-    const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const phone = window.matchMedia('(max-width:650px) and (orientation:portrait)').matches;
+    const dark = ENABLE_DARK_SLIDE_VARIANTS &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const phone = ENABLE_PHONE_SLIDE_VARIANTS &&
+      window.matchMedia('(max-width:650px) and (orientation:portrait)').matches;
     const suffix = (name, extra) => name.replace(/(\.[^./?#]+)([?#].*)?$/, extra + '$1$2');
     const englishImage = spec.en || suffix(spec.base, '_en');
     const list = [];
     const add = (name, usePhone) => {
       if (!name) return;
-      if (usePhone && dark) list.push(suffix(name, '_dark_phone'));
-      if (usePhone) list.push(suffix(name, '_phone'));
+      if (usePhone && ENABLE_PHONE_SLIDE_VARIANTS && dark) list.push(suffix(name, '_dark_phone'));
+      if (usePhone && ENABLE_PHONE_SLIDE_VARIANTS) list.push(suffix(name, '_phone'));
       if (dark) list.push(suffix(name, '_dark'));
       list.push(name);
     };
@@ -529,8 +545,11 @@
     });
   }
 
-  // React to system light/dark changes without rebuilding the galleries.
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateGalleryLanguage);
+  // Nur bei aktivierten Dark-Mode-Slides Bilder nach einem Systemwechsel pruefen.
+  // Das Dark-Mode-CSS arbeitet unabhaengig davon automatisch weiter.
+  if (ENABLE_DARK_SLIDE_VARIANTS) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateGalleryLanguage);
+  }
 
   function setText(selector, value) {
     const el = document.querySelector(selector);
