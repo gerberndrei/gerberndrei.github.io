@@ -457,7 +457,9 @@
         const mobileLine = document.createElement('span'); mobileLine.className = 'past-mobile-line';
         const mobileDate = document.createElement('span'); mobileDate.className = 'past-mobile-date'; mobileDate.textContent = dateText;
         const mobileDesc = document.createElement('span'); mobileDesc.className = 'past-mobile-desc'; mobileDesc.textContent = m[2];
-        mobileLine.append(mobileDate, mobileDesc);
+        // Wie NETZWERK im Hochformat: zwischen Datum und Beschreibung umbrechen.
+        const mobileBreak = document.createElement('br'); mobileBreak.className = 'past-mobile-break';
+        mobileLine.append(mobileDate, mobileBreak, mobileDesc);
         row.append(date, sep, desc, mobileLine); past.appendChild(row);
       } else {
         const row = document.createElement('div'); row.textContent = line; past.appendChild(row);
