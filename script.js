@@ -1225,11 +1225,12 @@
   window.addEventListener('pageshow', align);
 })();
 
-/* Desktop: cap the NETWORK link column at the end of the word PAST in
-   the right-hand navigation. Only actual text bounds are used, not the
-   width of the full PAST EVENTS link or the browser window. */
+/* Desktop: NETWORK and PAST EVENTS share exactly the same right text edge.
+   Measure the edge once (wide: end of 'PAST' in navigation; medium: 22px
+   from viewport right). Keep each section's original left reading axis. */
 (function capWideDesktopNetworkColumn(){
   const links = document.querySelector('#netzwerk #network-links');
+  const pastEvents = document.querySelector('#past #past-events');
   const pastNav = document.querySelector('.fixed-head .secondary-nav a[href="#past"]');
   if (!links || !pastNav) return;
   const desktop = window.matchMedia('(min-width:861px) and (min-height:651px) and (hover:hover) and (pointer:fine)');
@@ -1237,6 +1238,7 @@
   function align(){
     if (!desktop.matches) {
       links.style.removeProperty('--gg-wide-network-reading-width');
+      if (pastEvents) pastEvents.style.removeProperty('--gg-wide-past-reading-width');
       return;
     }
     // Medium desktop: use the full reading area with 22px right gutter.
@@ -1259,6 +1261,15 @@
     const width = Math.floor(right - left);
     if (width > 0) links.style.setProperty('--gg-wide-network-reading-width',width+'px');
     else links.style.removeProperty('--gg-wide-network-reading-width');
+
+    // Match the right edge, not the width: PAST rows begin farther right
+    // than the heading, while NETWORK links use their own left anchor.
+    if (pastEvents) {
+      const firstRow = pastEvents.querySelector('.past-row');
+      const pastWidth = firstRow ? Math.floor(right - firstRow.getBoundingClientRect().left) : 0;
+      if (pastWidth > 0) pastEvents.style.setProperty('--gg-wide-past-reading-width', pastWidth+'px');
+      else pastEvents.style.removeProperty('--gg-wide-past-reading-width');
+    }
   }
   align();
   window.addEventListener('resize',align,{passive:true});
