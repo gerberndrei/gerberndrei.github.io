@@ -17,7 +17,7 @@ window.SITE_CONTENT = {
     images: [
       '01_hall.jpg',
       '02_stempel.jpg',
-      '03_wenn-die-leute.jpg',
+      '03_wenn-die-leute.png',
       '04_its-empty.webp',
       '05_avoid-aggression.png'
     ]
