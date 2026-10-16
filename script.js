@@ -1125,3 +1125,22 @@
     if ('ResizeObserver' in window) new ResizeObserver(align).observe(viewport);
   }
 })();
+
+/* Symmetrical landscape-phone reading margins, aligned a little past the
+   right edge of SOLOTHURN in the fixed navigation. */
+(function alignLandscapeReadingColumns(){
+  const solothurn = document.querySelector('.fixed-head .primary-nav a[href="#solothurn"]');
+  if (!solothurn) return;
+  const landscapePhone = window.matchMedia('(orientation:landscape) and (max-height:650px) and (pointer:coarse)');
+  function align(){
+    if (!landscapePhone.matches) {
+      document.documentElement.style.removeProperty('--gg-landscape-reading-inset');
+      return;
+    }
+    const inset = Math.ceil(solothurn.getBoundingClientRect().right + 16);
+    document.documentElement.style.setProperty('--gg-landscape-reading-inset', inset + 'px');
+  }
+  align();
+  window.addEventListener('resize', align, {passive:true});
+  window.addEventListener('pageshow', align);
+})();
