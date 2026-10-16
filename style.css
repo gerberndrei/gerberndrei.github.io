@@ -4423,3 +4423,39 @@ html body main .legal-links details > p {
     display:inline!important;
   }
 }
+
+/* PAST EVENTS: wie NETZWERK innerhalb der Lesespalte umbrechen.
+   Die fruehere offene PAST-Breite und unbegrenzte Beschreibung duerfen
+   lange Eintraege nicht ueber den rechten Rand der Lesespalte schieben.
+   Datums-/Jahresachsen, Leerzeilen und die bestehenden Umbrueche bleiben. */
+html body main #past.list-section #past-events {
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  white-space:normal!important;
+}
+html body main #past #past-events .past-row {
+  box-sizing:border-box!important;
+  width:auto!important;
+  max-width:calc(100% - 3em)!important;
+  min-width:0!important;
+  white-space:normal!important;
+  overflow-wrap:break-word!important;
+  word-break:normal!important;
+}
+html body main #past #past-events .past-row > span {
+  white-space:normal!important;
+  overflow-wrap:break-word!important;
+  word-break:normal!important;
+}
+@media (max-width:650px) {
+  html body main #past #past-events .past-row {
+    max-width:calc(100% - 2em)!important;
+  }
+}
+@media (max-width:650px) and (orientation:portrait) {
+  html body main #past #past-events .past-row {
+    max-width:calc(100% - 1.25em)!important;
+  }
+}
