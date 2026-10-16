@@ -15,10 +15,11 @@ window.SITE_CONTENT = {
   start: {
     title: 'START',
     images: [
-      'hall.jpg',
-      'stempel.jpg',
-      'slide3_start.png',
-      'its-empty.webp'
+      '01_hall.jpg',
+      '02_stempel.jpg',
+      '03_wenn-die-leute.jpg',
+      '04_its-empty.webp',
+      '05_avoid-aggression.png'
     ]
   },
 
