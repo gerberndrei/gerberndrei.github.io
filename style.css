@@ -4152,9 +4152,9 @@ html body main #past.list-section > .list-inner > .section-title {
    pagination remains inside the visible viewport. */
 @media (max-width:650px) and (orientation:portrait) {
   html body main .section {
-    /* About one quarter line less top padding, plus the obsolete 18px
-       heading margin removed below: together approximately one text line. */
-    padding-top:calc(7mm + .25 * var(--type-size) * var(--type-leading))!important;
+    /* Move only the gallery slides another half text line upward.
+       PAST EVENTS and NETZWERK retain their existing position. */
+    padding-top:calc(7mm - .25 * var(--type-size) * var(--type-leading))!important;
   }
   html body main .section > .window-group > .section-title {
     margin-bottom:0!important;
