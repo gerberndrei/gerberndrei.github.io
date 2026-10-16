@@ -4302,3 +4302,43 @@ html body main #past.list-section > .list-inner > .section-title {
     word-break:normal!important;
   }
 }
+
+/* Phone landscape: browser navigation bars appearing/disappearing must not
+   resize all gallery sections and shift the current scroll position. Use
+   stable svh instead of dynamic visualViewport/dvh; reserve the 24px dots,
+   4px bottom mask and 4px safety gap just as before. */
+@media (orientation:landscape) and (max-height:650px) and (pointer:coarse) {
+  html body main .section > .window-group {
+    width:min(calc(100vw - 44px),500px,calc(100svh - var(--head) - 32px))!important;
+    max-width:min(calc(100vw - 44px),500px,calc(100svh - var(--head) - 32px))!important;
+  }
+  /* An actual empty reading line before the first NETWORK entry. */
+  html body main #netzwerk #network-links.network-links::before {
+    content:""!important;
+    display:block!important;
+    box-sizing:border-box!important;
+    flex:0 0 1lh!important;
+    width:100%!important;
+    height:1lh!important;
+    min-height:1lh!important;
+  }
+}
+
+/* Gerbern Drei: keep landscape gallery section height stable as well; it
+   formerly depended on 100dvh while the browser bars animated. */
+@media (orientation:landscape) and (max-height:650px) and (pointer:coarse) {
+  html body main .section {
+    height:auto!important;
+    min-height:calc(100svh - var(--head) - var(--bottom-mask))!important;
+  }
+  /* One blank PAST EVENTS reading line, despite its hidden leading
+     template-string gap in landscape. All later gaps remain unchanged. */
+  html body main #past #past-events::before {
+    content:""!important;
+    display:block!important;
+    box-sizing:border-box!important;
+    width:100%!important;
+    height:1lh!important;
+    min-height:1lh!important;
+  }
+}
