@@ -4226,10 +4226,10 @@ html body main #past.list-section > .list-inner > .section-title {
   }
 }
 
-/* Wide desktop NETWORK reading-column right edge follows the end of
+/* Desktop NETWORK reading-column right edge follows the end of
    PAST in the fixed navigation. The heading and legal text keep their own
-   established 500px axis; only the link list may expand up to that limit. */
-@media (min-width:1201px) and (min-height:651px) and (hover:hover) and (pointer:fine) {
+   established 500px axis; only the link list expands: medium widths reach the viewport edge, wide ones the nav limit. */
+@media (min-width:861px) and (min-height:651px) and (hover:hover) and (pointer:fine) {
   html body main #netzwerk #network-links.network-links {
     box-sizing:border-box!important;
     width:var(--gg-wide-network-reading-width,500px)!important;
@@ -4246,11 +4246,11 @@ html body main #past.list-section > .list-inner > .section-title {
   }
 }
 
-/* Wide desktop NETWORK: use a true inline text flow rather than the older
+/* Desktop NETWORK: use a true inline text flow rather than the older
    max-content three-column grid. A long label must wrap at word boundaries
-   inside the navigation-defined right limit; its URL must never be squeezed
+   inside the calculated right limit; its URL must never be squeezed
    to a one-character column. Short entries still remain on one line. */
-@media (min-width:1201px) and (min-height:651px) and (hover:hover) and (pointer:fine) {
+@media (min-width:861px) and (min-height:651px) and (hover:hover) and (pointer:fine) {
   html body main #netzwerk #network-links.network-links > .network-row,
   html body main #netzwerk #network-links.network-links > .network-row.network-row--auto-wrap {
     display:block!important;
