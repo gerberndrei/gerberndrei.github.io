@@ -26,12 +26,12 @@ window.SITE_CONTENT = {
   about: {
     title: 'ABOUT',
     images: [
-      'wenn-die-leute.jpg',
-      'fenster.jpg',
-      'eingang-skizze.jpg',
-      'dach-skizze.jpg',
-      'dach-foto.jpg',
-      'can-i-use.webp'
+      '01_wenn-die-leute.png',
+      '02_fenster.jpg',
+      '03_eingang-skizze.jpg',
+      '04_dach-foto.jpg',
+      '05_can-i-use.webp',
+      '06_dont-believe-something.png'
     ],
     alt: [
       'Hier kommt der ALT-Text für a-side.jpg hin',
