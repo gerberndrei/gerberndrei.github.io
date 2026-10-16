@@ -1177,30 +1177,38 @@
   window.addEventListener('pageshow', align);
 })();
 
-/* Wide desktop: cap the NETWORK link column at the end of the word PAST in
+/* Desktop: cap the NETWORK link column at the end of the word PAST in
    the right-hand navigation. Only actual text bounds are used, not the
    width of the full PAST EVENTS link or the browser window. */
 (function capWideDesktopNetworkColumn(){
   const links = document.querySelector('#netzwerk #network-links');
   const pastNav = document.querySelector('.fixed-head .secondary-nav a[href="#past"]');
   if (!links || !pastNav) return;
+  const desktop = window.matchMedia('(min-width:861px) and (min-height:651px) and (hover:hover) and (pointer:fine)');
   const wide = window.matchMedia('(min-width:1201px) and (min-height:651px) and (hover:hover) and (pointer:fine)');
   function align(){
-    if (!wide.matches) {
+    if (!desktop.matches) {
       links.style.removeProperty('--gg-wide-network-reading-width');
       return;
     }
-    let right = pastNav.getBoundingClientRect().right;
-    const node = pastNav.firstChild;
-    if (node && node.nodeType === 3 && node.textContent.length >= 4) {
-      const range = document.createRange();
-      range.setStart(node,0);
-      range.setEnd(node,4);
-      const rect = range.getBoundingClientRect();
-      if (rect.width > 0) right = rect.right;
+    // Medium desktop: use the full reading area with 22px right gutter.
+    // Wide desktop: retain the end of the word PAST as the right limit.
+    const viewportRight = document.documentElement.clientWidth - 22;
+    let right = viewportRight;
+    if (wide.matches) {
+      right = pastNav.getBoundingClientRect().right;
+      const node = pastNav.firstChild;
+      if (node && node.nodeType === 3 && node.textContent.length >= 4) {
+        const range = document.createRange();
+        range.setStart(node,0);
+        range.setEnd(node,4);
+        const rect = range.getBoundingClientRect();
+        if (rect.width > 0) right = rect.right;
+      }
+      right = Math.min(right, viewportRight);
     }
     const left = links.getBoundingClientRect().left;
-    const width = Math.floor(Math.min(right,window.innerWidth - 22) - left);
+    const width = Math.floor(right - left);
     if (width > 0) links.style.setProperty('--gg-wide-network-reading-width',width+'px');
     else links.style.removeProperty('--gg-wide-network-reading-width');
   }
