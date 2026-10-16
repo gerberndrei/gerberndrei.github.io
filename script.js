@@ -669,40 +669,24 @@
 
     const height = phoneVisibleHeight();
     if (!Number.isFinite(height) || height <= 0) return;
-    if (portraitGalleryQuery.matches) {
-      rootStyle.removeProperty('--gg-gallery-visible-height');
-      const head = document.querySelector('.fixed-head');
-      const headHeight = head ? head.getBoundingClientRect().height : 0;
-      let visibleGroup = null;
-      let greatestOverlap = 0;
-      phoneGalleryGroups.forEach(function (group) {
-        const rect = group.getBoundingClientRect();
-        const overlap = Math.max(0, Math.min(rect.bottom, height) - Math.max(rect.top, headHeight));
-        if (overlap > greatestOverlap) {
-          greatestOverlap = overlap;
-          visibleGroup = group;
-        }
-      });
-      if (visibleGroup) setPhoneGalleryHeight(visibleGroup);
-    } else {
-      // Use the full currently visible height only for the foremost gallery.
-      // 100svh remains the fallback for unseen sections; existing sizes in
-      // sections above the viewport are never changed on toolbar resize.
-      rootStyle.removeProperty('--gg-gallery-visible-height');
-      const head = document.querySelector('.fixed-head');
-      const headHeight = head ? head.getBoundingClientRect().height : 0;
-      let visibleGroup = null;
-      let greatestOverlap = 0;
-      phoneGalleryGroups.forEach(function (group) {
-        const rect = group.getBoundingClientRect();
-        const overlap = Math.max(0, Math.min(rect.bottom, height) - Math.max(rect.top, headHeight));
-        if (overlap > greatestOverlap) {
-          greatestOverlap = overlap;
-          visibleGroup = group;
-        }
-      });
-      if (visibleGroup) setPhoneGalleryHeight(visibleGroup);
-    }
+    // Hoch- und Querformat verwenden dieselbe Berechnung. Nur die aktuell
+    // sichtbare Galerie wird an die sichtbare Viewport-Hoehe angepasst.
+    rootStyle.removeProperty('--gg-gallery-visible-height');
+    const head = document.querySelector('.fixed-head');
+    const headHeight = head ? head.getBoundingClientRect().height : 0;
+    let visibleGroup = null;
+    let greatestOverlap = 0;
+    phoneGalleryGroups.forEach(function (group) {
+      const rect = group.getBoundingClientRect();
+      const overlap = Math.max(0, Math.min(rect.bottom, height) - Math.max(rect.top, headHeight));
+      if (overlap > greatestOverlap) {
+        greatestOverlap = overlap;
+        visibleGroup = group;
+      }
+    });
+    if (visibleGroup) setPhoneGalleryHeight(visibleGroup);
+
+
   }
 
   function scheduleGalleryVisibleHeight() {
@@ -951,7 +935,7 @@
   function restorePhoneSectionAfterRotation() {
     if (!window.matchMedia('(pointer: coarse), (max-width: 650px)').matches) return;
     const id = location.hash;
-    if (!/^#(?:start|about|aktuell|angebot|praktisches|solothurn|kontakt|past|netzwerk|misc)$/.test(id)) return;
+    if (!/^#(?:start|about|aktuell|solothurn|kontakt|past|netzwerk|misc)$/.test(id)) return;
     const target = document.getElementById(id.slice(1));
     if (!target) return;
     [120, 360, 650].forEach(function (delay) {
