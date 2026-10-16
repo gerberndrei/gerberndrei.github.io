@@ -45,9 +45,10 @@ window.SITE_CONTENT = {
   aktuell: {
     title: 'AKTUELL',
     images: [
-      'ig-a-side.jpg',
-      'ig-b-side.jpg',
-      'nothing-makes-sense.webp'
+      '01_flyer-front.png',
+      '02_flyer-back.png',
+      '03_nothing-makes-sense.webp',
+      '04_love-and-compassion.png'
     ]
   },
 
