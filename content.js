@@ -62,8 +62,8 @@ window.SITE_CONTENT = {
       '05_aare.jpg',
       '06_dieser-pfosten-steht.webp',
       '07_chutz.jpg',
-      '08_kreuz.jpg',
-      '09_nest.jpg',
+      '08_nest.jpg',
+      '09_kreuz.jpg',
       '10_postplatz.jpg',
       '11_gerberngasse.jpg',
       '12_im-anfaengergeist.png'
