@@ -17,7 +17,8 @@ window.SITE_CONTENT = {
     images: [
       'hall.jpg',
       'stempel.jpg',
-      'slide3_start.png'
+      'slide3_start.png',
+      'its-empty.webp'
     ]
   },
 
@@ -28,7 +29,8 @@ window.SITE_CONTENT = {
       'fenster.jpg',
       'eingang-skizze.jpg',
       'dach-skizze.jpg',
-      'dach-foto.jpg'
+      'dach-foto.jpg',
+      'can-i-use.webp'
     ],
     alt: [
       'Hier kommt der ALT-Text für a-side.jpg hin',
@@ -43,7 +45,8 @@ window.SITE_CONTENT = {
     title: 'AKTUELL',
     images: [
       'ig-a-side.jpg',
-      'ig-b-side.jpg'
+      'ig-b-side.jpg',
+      'nothing-makes-sense.webp'
     ]
   },
 
@@ -58,7 +61,8 @@ window.SITE_CONTENT = {
       'weissenstein.jpg',
       'ruettenen.jpg',
       'jesuiten.jpg',
-      'aare.jpg'
+      'aare.jpg',
+      'this-post-is.webp'
     ]
   },
 
@@ -68,7 +72,8 @@ window.SITE_CONTENT = {
       'gerbern-drei.png',
       { image: '02_kroki.jpg', image_en: '02_kroki_en.jpg' },
       { image: '03_kroki.jpg', image_en: '03_kroki_en.jpg' },
-      'trungpa.jpg'
+      'trungpa.jpg',
+      'before-enlightenment.webp'
     ]
   },
 
@@ -77,7 +82,8 @@ window.SITE_CONTENT = {
     images: [
       'ukies.jpg',
       'plastik.jpg',
-      'peace.jpg'
+      'peace.jpg',
+      'my-mind-wont.webp'
     ]
   },
 
