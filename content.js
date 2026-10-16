@@ -150,7 +150,7 @@ MARCH 04: Opening`,
       display: "wien.shambhala.info"
     },
     {
-      label: "Siddhartha's Intent, Dzongsar Khyentse Rinpoche Siddhartha's Intent, Dzongsar Khyentse Rinpoche",
+      label: "Siddhartha's Intent, Dzongsar Khyentse Rinpoche",
       url: "https://siddharthasintent.org/",
       display: "siddharthasintent.org"
     },
