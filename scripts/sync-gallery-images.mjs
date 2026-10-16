@@ -117,12 +117,13 @@ function replaceImages(source, gallery, entries) {
     ':\\s*\\{[\\s\\S]*?\\bimages:\\s*\\[)([\\s\\S]*?)(\\n[ \\t]*\\])');
   const match = source.match(regexp);
   if (!match) throw new Error('Cannot locate images list for ' + gallery + ' in content.js');
+  const quoted = value => "'" + value.replace(/\\/g, '\\\\').replace(/'/g, "\\'") + "'";
   const rendered = '\n' + entries.map(item =>
     '      ' + (typeof item === 'string'
-      ? JSON.stringify(item)
-      : '{ image: ' + JSON.stringify(item.image) +
-        ', image_en: ' + JSON.stringify(item.image_en) + ' }')
-  ).join(',\n') + '\n    ';
+      ? quoted(item)
+      : '{ image: ' + quoted(item.image) +
+        ', image_en: ' + quoted(item.image_en) + ' }')
+  ).join(',\n');
   return source.replace(regexp, (_, before, unused, after) => before + rendered + after);
 }
 
