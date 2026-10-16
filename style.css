@@ -4126,3 +4126,23 @@ html body main #past.list-section > .list-inner > .section-title {
     vertical-align:baseline!important;
   }
 }
+
+/* Phone landscape reading margins: begin just beyond the SOLOTHURN nav item.
+   The script measures the actual rendered label so font/zoom/device width
+   changes do not upset the symmetry. The right inset mirrors the left. */
+@media (orientation:landscape) and (max-height:650px) and (pointer:coarse) {
+  html body main #past.list-section > .list-inner,
+  html body main #netzwerk.list-section > .list-inner {
+    width:calc(100vw - 2 * var(--gg-landscape-reading-inset, 145px))!important;
+    max-width:calc(100vw - 2 * var(--gg-landscape-reading-inset, 145px))!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+  }
+  /* The year and the network names start on the same reading axis. */
+  html body main #past #past-events .past-year {
+    margin-left:0!important;
+  }
+  html body main #netzwerk .network-links {
+    padding-left:0!important;
+  }
+}
