@@ -81,15 +81,7 @@ body {
   top:0;
   left:23px
 }
-.arches {
-  position:absolute;
-  top:15px;
-  right:0;
-  font-family:Georgia,serif;
-  font-size:34px;
-  letter-spacing:-12px;
-  transform:scaleX(1.05)
-}
+
 main {
   padding-top:var(--head);
   padding-bottom:var(--foot)
@@ -1313,9 +1305,7 @@ main {
   column-gap:1.15em;
   align-items:baseline
 }
-.network-separator {
-  display:inline-block
-}
+
 @media(max-width:650px) {
   .network-row {
     grid-template-columns:max-content max-content minmax(0,1fr)
@@ -1367,9 +1357,7 @@ main {
 .past-year {
   line-height:var(--type-leading)
 }
-.past-year-gap {
-  height:calc(1em * var(--type-leading))
-}
+
 .past-row {
   display:grid;
   grid-template-columns:max-content max-content minmax(0,1fr);
@@ -1909,30 +1897,15 @@ main {
 .misc-section {
   position:relative;
 }
-.zen-brush {
-  position:absolute;
-  left:var(--edge);
-  bottom:clamp(12px,2.2vh,28px);
-  width:clamp(150px,18vw,280px);
-  height:auto;
-  z-index:16;
-  pointer-events:none;
-}
-.zen-brush img {
-  display:block;
-  width:100%;
-  height:auto;
-}
+
+
 @media(max-width:650px) {
   /* On a phone, keep the hierarchy but reclaim horizontal space. */
     .past-year,
     .past-row {
     margin-left:1em;
   }
-  .zen-brush {
-    left:22px;
-    width:clamp(120px,38vw,190px);
-  }
+  
 }
 :root {
   --secondary-active-dot:5px;
@@ -1973,16 +1946,9 @@ main {
   margin-bottom:clamp(218px,calc(37.18vh - 18.9px),420px);
 }
 /* Larger diagonal brush gesture: heavy at upper left, fading toward lower right. */
-.zen-brush {
-  left:var(--edge);
-  bottom:clamp(8px,1.5vh,20px);
-  width:clamp(250px,31vw,500px);
-}
+
 @media(max-width:650px) {
-  .zen-brush {
-    left:18px;
-    width:clamp(190px,55vw,300px);
-  }
+  
 }
 .fixed-head {
   box-shadow:0 9mm 0 #fff
@@ -2008,9 +1974,7 @@ main {
 .secondary-nav a[href="#past"]::before {
   right:calc(100% + 1.15em);
 }
-.zen-brush {
-  display:none!important;
-}
+
 :root {
   --inter-section-gap:clamp(85px,15.3vh,204px);
 }
@@ -2962,8 +2926,7 @@ html,body {
 }
 /* A semantic blank line is exactly one full text line high. */
 .network-block-gap,
-#past-events .past-block-gap,
-#past-events .past-year-gap {
+    #past-events .past-block-gap {
   display:block!important;
   height:var(--reading-line)!important;
   min-height:var(--reading-line)!important;
@@ -3033,11 +2996,7 @@ html,body {
   margin-top:1lh!important;
 }
 /* Year hierarchy stays compact; only an actual blank line in content creates a gap. */
-#past-events .past-year-gap {
-  display:none!important;
-  height:0!important;
-  min-height:0!important;
-}
+
 /* Portrait phone: center the active NETWORK dot in the existing text-to-divider pocket. */
 @media (max-width:650px) and (orientation:portrait) {
   .fixed-head > .secondary-nav a[href="#netzwerk"]::after {
@@ -3943,8 +3902,7 @@ html body .carousel[data-gallery="kontakt"] .contact-image-hotspot:focus-visible
     padding-right:0!important;
     text-align:left!important;
   }
-  html body main #netzwerk .network-row,
-    html body main #netzwerk .network-row.network-row--auto-wrap {
+  html body main #netzwerk .network-row {
     display:block!important;
     box-sizing:border-box!important;
     width:100%!important;
@@ -3962,9 +3920,7 @@ html body .carousel[data-gallery="kontakt"] .contact-image-hotspot:focus-visible
   }
   html body main #netzwerk .network-row .network-label,
     html body main #netzwerk .network-row .list-separator,
-    html body main #netzwerk .network-row a,
-    html body main #netzwerk .network-row .network-paragraph,
-    html body main #netzwerk .network-row .network-paragraph a {
+    html body main #netzwerk .network-row a {
     display:inline!important;
     position:static!important;
     float:none!important;
@@ -3988,8 +3944,7 @@ html body .carousel[data-gallery="kontakt"] .contact-image-hotspot:focus-visible
   html body main #netzwerk .network-row .network-label.network-label--keep {
     white-space:nowrap!important;
   }
-  html body main #netzwerk .network-row a,
-    html body main #netzwerk .network-row .network-paragraph a {
+  html body main #netzwerk .network-row a {
     margin:0!important;
     overflow-wrap:anywhere!important;
     word-break:normal!important;
@@ -4251,8 +4206,7 @@ html body main #past.list-section > .list-inner > .section-title {
    inside the calculated right limit; its URL must never be squeezed
    to a one-character column. Short entries still remain on one line. */
 @media (min-width:861px) and (min-height:651px) and (hover:hover) and (pointer:fine) {
-  html body main #netzwerk #network-links.network-links > .network-row,
-  html body main #netzwerk #network-links.network-links > .network-row.network-row--auto-wrap {
+  html body main #netzwerk #network-links.network-links > .network-row {
     display:block!important;
     grid-template-columns:none!important;
     box-sizing:border-box!important;
@@ -4267,16 +4221,7 @@ html body main #past.list-section > .list-inner > .section-title {
   html body main #netzwerk #network-links.network-links > .network-row .network-link-break {
     display:none!important;
   }
-  html body main #netzwerk #network-links.network-links > .network-row .network-paragraph {
-    display:block!important;
-    box-sizing:border-box!important;
-    width:100%!important;
-    max-width:100%!important;
-    margin:0!important;
-    padding:0!important;
-    text-indent:0!important;
-    white-space:normal!important;
-  }
+  
   html body main #netzwerk #network-links.network-links > .network-row .network-label,
   html body main #netzwerk #network-links.network-links > .network-row .list-separator,
   html body main #netzwerk #network-links.network-links > .network-row a {
