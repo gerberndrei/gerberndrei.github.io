@@ -4342,3 +4342,21 @@ html body main #past.list-section > .list-inner > .section-title {
     min-height:1lh!important;
   }
 }
+
+/* Wide desktop NETWORK: match the balanced spaces around | already used
+   by the medium-width three-column reading layout. Both sides of the
+   separator receive room; phone and medium-width rules are unchanged. */
+@media (min-width:1201px) and (min-height:651px) and (hover:hover) and (pointer:fine) {
+  html body main #netzwerk #network-links.network-links > .network-row .list-separator {
+    margin-left:1.15em!important;
+    margin-right:.9em!important;
+  }
+}
+
+/* Desktop Gerbern Drei legal headings: match Gerberngestalt's one blank
+   reading line (22px) between IMPRESSUM and DATENSCHUTZ. */
+@media (min-width:901px) and (min-height:651px) and (hover:hover) and (pointer:fine) {
+  html body main #netzwerk .legal-links details + details {
+    margin-top:22px!important;
+  }
+}
