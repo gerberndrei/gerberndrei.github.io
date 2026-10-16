@@ -4176,3 +4176,11 @@ html body main #past.list-section > .list-inner > .section-title {
     max-width:min(calc(100vw - 44px),500px,calc(var(--gg-gallery-visible-height, 100dvh) - var(--head) - 32px))!important;
   }
 }
+
+/* All phone-portrait sections: halve the shared minimum white spacer between
+   sections. Keep content start positions, gallery sizing and lists untouched. */
+@media (max-width:650px) and (orientation:portrait) {
+  :root {
+    --inter-section-gap:clamp(23px,4.25vh,42.5px);
+  }
+}
