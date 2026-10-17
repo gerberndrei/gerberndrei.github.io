@@ -89,9 +89,7 @@ window.SITE_CONTENT = {
     // Diese Liste wird nach Bild-Uploads automatisch durch GitHub Actions gepflegt.
     // Ordner: images/meditation/. Optional: _en vor der Dateiendung.
     images: [
-      '01_Entspanne-strecke.png',
-      '02_wenn-leute-anfangen.png',
-      '03_indem-man.png'
+
     ]
   },
 
