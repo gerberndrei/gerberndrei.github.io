@@ -4486,10 +4486,10 @@ html body main #past #past-events .past-row > span {
 
 /* MEDITATION – independent flex rows, with an identical pocket of air on
    BOTH sides of every visible divider.  No orphan grid columns or strokes.
-   The 6px hover and active dots fit inside their adjacent 20–23px pockets.
+   The 6px hover and active dots fit inside their adjacent 30px pockets.
    This block replaces (does not stack on) the previous MEDITATION grid. */
 html body .fixed-head > .secondary-nav {
-  --gg-divider-side:23px;
+  --gg-divider-side:30px;
   --gg-nav-pitch:calc(var(--type-size) * var(--type-leading) + var(--nav-gap));
   position:absolute!important;
   display:flex!important;
@@ -4575,7 +4575,7 @@ html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
 @media (max-width:1199px) and (min-height:651px),
        (max-width:650px) and (orientation:portrait) {
   html body .fixed-head > .secondary-nav {
-    --gg-divider-side:20px;
+    --gg-divider-side:30px;
     flex-direction:column!important;
     align-items:flex-start!important;
     left:var(--edge)!important;
@@ -4612,7 +4612,7 @@ html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
 
 /* Very narrow phones get the language switch on its own seventh line,
    keeping all real separator pockets unchanged. */
-@media (max-width:374px) and (orientation:portrait) {
+@media (max-width:385px) and (orientation:portrait) {
   html body .fixed-head > .secondary-nav .nav-more-row {
     position:relative!important;
   }
@@ -4631,7 +4631,7 @@ html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
    PAST EVENTS | NETWORK | DE/EN, as two separate flex lines. */
 @media (orientation:landscape) and (max-height:650px) and (max-width:1199px) {
   html body .fixed-head > .secondary-nav {
-    --gg-divider-side:20px;
+    --gg-divider-side:30px;
     flex-direction:column!important;
     align-items:flex-end!important;
     left:auto!important;
