@@ -4807,3 +4807,40 @@ html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle:hover::a
     left:calc(61vw - 263px)!important;
   }
 }
+
+/* Phone DE/EN switch: the same text paint as the navigation links, with
+   only a deliberately softer grey. Remove native button text differences.
+   Keep the existing position, separators, hit area and all menu dots. */
+@media (max-width:650px) and (orientation:portrait),
+       (orientation:landscape) and (max-height:650px) and (max-width:1199px) {
+  html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
+    appearance:none!important;
+    -webkit-appearance:none!important;
+    font-family:Arial,Helvetica,sans-serif!important;
+    font-size:var(--type-size)!important;
+    font-weight:400!important;
+    font-style:normal!important;
+    font-variant:normal!important;
+    font-synthesis:none!important;
+    letter-spacing:inherit!important;
+    line-height:var(--type-leading)!important;
+    text-transform:none!important;
+    text-decoration:none!important;
+    -webkit-font-smoothing:antialiased!important;
+    -moz-osx-font-smoothing:grayscale!important;
+    -webkit-text-stroke-width:0!important;
+    text-shadow:none!important;
+    opacity:1!important;
+    color:#888!important;
+    -webkit-text-fill-color:#888!important;
+    background:transparent!important;
+    border:0!important;
+  }
+}
+@media (prefers-color-scheme:dark) and (max-width:650px) and (orientation:portrait),
+       (prefers-color-scheme:dark) and (orientation:landscape) and (max-height:650px) and (max-width:1199px) {
+  html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
+    color:#a5a5a5!important;
+    -webkit-text-fill-color:#a5a5a5!important;
+  }
+}
