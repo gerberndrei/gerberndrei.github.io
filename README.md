@@ -13,11 +13,11 @@ Live-Website: https://gerberndrei.github.io/
 | `script.js` | Klicks, Touch, Wischen, Maps-Karten, Sprachwechsel, Scrollen | Nur für Interaktionen |
 | `.nojekyll` | Konfigurationsdatei für GitHub Pages | **Nicht ändern** |
 
-> Neue Bilder werden **automatisch aus den sechs `images/`-Ordnern übernommen**. Für Texte, PAST EVENTS, NETZWERK und rechtliche Angaben weiterhin `content.js` bearbeiten.
+> Neue Bilder werden **automatisch aus den sieben `images/`-Ordnern übernommen**. Für Texte, PAST EVENTS, NETZWERK und rechtliche Angaben weiterhin `content.js` bearbeiten.
 
 ## Bilder in einer Galerie ändern
 
-Die Bildlisten der sechs Galerien `start`, `about`, `aktuell`, `solothurn`, `kontakt` und `misc` werden von der GitHub Action **Sync numbered gallery images** automatisch gepflegt.
+Die Bildlisten der sieben Galerien `start`, `about`, `aktuell`, `solothurn`, `kontakt`, `meditation` und `misc` werden von der GitHub Action **Sync numbered gallery images** automatisch gepflegt.
 
 1. Bilder im passenden Ordner unter `images/` auf GitHub hinzufügen, umbenennen, ersetzen oder löschen und die Änderung committen.
 2. Die Action startet durch den Upload/Commit automatisch und aktualisiert die `images`-Arrays in `content.js`. Sie sortiert numerisch nach den Präfixen `01_`, `02_`, … `12_` und übernimmt die echte Endung (`.jpg`, `.jpeg`, `.png`, `.webp`, `.gif`, `.avif`).
