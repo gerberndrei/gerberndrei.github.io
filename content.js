@@ -83,6 +83,14 @@ window.SITE_CONTENT = {
     ]
   },
 
+  meditation: {
+    title: 'MEDITATION',
+    // Nach dem Upload hier die exakten drei Bilddateinamen eintragen.
+    // Die Dateien liegen unter images/meditation/.
+    // Optionaler EN-Name: gleiche Datei mit _en vor der Endung.
+    images: []
+  },
+
   misc: {
     title: 'MISC',
     images: [
