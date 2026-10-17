@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Synchronise the six numbered image folders with the images arrays in content.js.
+// Synchronise the seven numbered image folders with the images arrays in content.js.
 // No external dependencies. Run from anywhere: node scripts/sync-gallery-images.mjs
 // Use --check to verify without writing (exit 1 if updates are needed).
 import fs from 'node:fs';
@@ -8,7 +8,7 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const galleries = ['start', 'about', 'aktuell', 'solothurn', 'kontakt', 'misc'];
+const galleries = ['start', 'about', 'aktuell', 'solothurn', 'kontakt', 'meditation', 'misc'];
 const supported = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif']);
 const variants = new Set(['en', 'dark', 'phone']);
 const maxSlides = 12;
