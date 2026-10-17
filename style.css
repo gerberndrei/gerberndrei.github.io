@@ -4610,9 +4610,18 @@ html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
   }
 }
 
-/* Very narrow phones get the language switch on its own seventh line,
-   keeping all real separator pockets unchanged. */
-@media (max-width:385px) and (orientation:portrait) {
+/* Phone portrait: no hover markers are needed on touch.
+   Smaller, symmetric divider pockets retain room for 6px active dots,
+   and keep the NETWORK | language selector on the same line. */
+@media (max-width:650px) and (orientation:portrait) {
+  html body .fixed-head > .secondary-nav {
+    --gg-divider-side:clamp(13px,3.8vw,18px);
+  }
+}
+
+/* Very narrow phones (320–359px) keep readable labels by placing only
+   the language switch on a seventh line; no dangling divider. */
+@media (max-width:359px) and (orientation:portrait) {
   html body .fixed-head > .secondary-nav .nav-more-row {
     position:relative!important;
   }
@@ -4627,13 +4636,14 @@ html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
   }
 }
 
-/* Short landscape: one right-aligned MEDITATION line, then
-   PAST EVENTS | NETWORK | DE/EN, as two separate flex lines. */
+/* Short landscape: MEDITATION | PAST EVENTS | NETWORK on row one;
+   DE/EN alone at the right end of row two. No trailing divider.
+   The accent mark sits well to the LEFT of the first navigation link. */
 @media (orientation:landscape) and (max-height:650px) and (max-width:1199px) {
   html body .fixed-head > .secondary-nav {
-    --gg-divider-side:30px;
-    flex-direction:column!important;
-    align-items:flex-end!important;
+    --gg-divider-side:24px;
+    flex-direction:row!important;
+    align-items:baseline!important;
     left:auto!important;
     right:22px!important;
     top:var(--head-pad-top)!important;
@@ -4644,19 +4654,36 @@ html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
     min-height:var(--gg-nav-pitch)!important;
     padding:0!important;
   }
-  html body .fixed-head > .secondary-nav .nav-meditation-row > .contact-meditation-separator,
-  html body .fixed-head > .secondary-nav .nav-meditation-row > .meditation-past-separator {
+  html body .fixed-head > .secondary-nav .nav-meditation-row > .contact-meditation-separator {
     display:none!important;
   }
-  html body .fixed-head > .secondary-nav .nav-more-row > .language-separator {
+  html body .fixed-head > .secondary-nav .nav-meditation-row > .meditation-past-separator {
     display:block!important;
   }
+  html body .fixed-head > .secondary-nav .nav-more-row > .language-separator {
+    display:none!important;
+  }
   html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
-    position:relative!important;
-    inset:auto!important;
-    top:auto!important;
+    position:absolute!important;
+    top:var(--gg-nav-pitch)!important;
+    right:0!important;
     left:auto!important;
-    right:auto!important;
+    margin:0!important;
+  }
+  html body .fixed-head > .mark {
+    left:27vw!important;
+  }
+}
+/* Short, exceptionally narrow landscape phones need more compact spacing. */
+@media (orientation:landscape) and (max-height:650px) and (max-width:700px) {
+  html body .fixed-head > .secondary-nav {
+    --gg-divider-side:16px;
+  }
+}
+@media (orientation:landscape) and (max-height:650px) and (max-width:600px) {
+  html body .fixed-head > .secondary-nav {
+    font-size:13px!important;
+    letter-spacing:.12em!important;
   }
 }
 
@@ -4737,6 +4764,19 @@ html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle:hover::a
 @media (prefers-color-scheme:dark) {
   html body .fixed-head > .secondary-nav :is(.nav-meditation-row,.nav-more-row) > a::before {
     background:#D0D0D0!important;
+  }
+}
+
+/* Phone portrait active markers fit into the deliberately smaller
+   separator pockets: 6px from text + 6px diameter leaves free space. */
+@media (max-width:650px) and (orientation:portrait) {
+  html body .fixed-head > .secondary-nav :is(.nav-meditation-row,.nav-more-row) > a::before {
+    right:calc(100% + 6px)!important;
+  }
+  html body .fixed-head > .secondary-nav :is(.nav-meditation-row,.nav-more-row) > a::after,
+  html body .fixed-head > .secondary-nav .nav-more-row > a.active-secondary::after {
+    left:calc(100% + 6px)!important;
+    margin-left:0!important;
   }
 }
 
