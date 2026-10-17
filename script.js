@@ -985,6 +985,35 @@
     return true;
   }
 
+
+  // On a freshly loaded phone page, galleries passed during a menu jump
+  // can change height as the browser bars retract or images settle.
+  // Correct the selected destination after smooth scrolling has settled.
+  // A new tap/scroll or another navigation click cancels older corrections.
+  let phoneNavSequence = 0;
+  document.addEventListener('touchstart', function () { phoneNavSequence++; }, { passive:true });
+  document.addEventListener('wheel', function () { phoneNavSequence++; }, { passive:true });
+  document.addEventListener('keydown', function (event) {
+    if (/^(ArrowUp|ArrowDown|PageUp|PageDown|Home|End| )$/.test(event.key)) phoneNavSequence++;
+  });
+  function settlePhoneNav(id, target, measureTop) {
+    const sequence = ++phoneNavSequence;
+    [900, 1600].forEach(function (delay) {
+      window.setTimeout(function () {
+        if (sequence !== phoneNavSequence || location.hash !== id || !target.isConnected ||
+            !window.matchMedia('(max-width: 650px), (orientation:landscape) and (max-height:650px)').matches) return;
+        const top = measureTop();
+        if (!Number.isFinite(top) || Math.abs(top - window.scrollY) < 3) return;
+        // Force an immediate, one-time correction despite CSS smooth scrolling.
+        const root = document.documentElement;
+        const previousBehavior = root.style.scrollBehavior;
+        root.style.scrollBehavior = 'auto';
+        window.scrollTo({ top:top, left:0, behavior:'instant' });
+        root.style.scrollBehavior = previousBehavior;
+      }, delay);
+    });
+  }
+
   document.querySelectorAll('a[href^="#"]').forEach(function (link) {
     link.addEventListener('click', function (event) {
       const id = link.getAttribute('href');
@@ -998,15 +1027,18 @@
       if (mobile && (target.classList.contains('section') || id === '#past' || id === '#netzwerk')) {
         event.preventDefault();
         if (history.replaceState) history.replaceState(null, '', id);
-        const head = document.querySelector('.fixed-head');
-        const headH = head ? head.getBoundingClientRect().height : 0;
-        const landscapePhone = window.matchMedia('(orientation:landscape) and (max-height:650px)').matches;
-        const group = target.classList.contains('section') ? target.querySelector('.window-group') : null;
-        if (group) setPhoneGalleryHeight(group);
-        const bottomFitGallery = group && portraitGalleryQuery.matches && window.matchMedia('(pointer:coarse)').matches;
-        const anchor = bottomFitGallery ? target : (group || target);
-        const top = window.scrollY + anchor.getBoundingClientRect().top - headH - (landscapePhone || bottomFitGallery ? 0 : 22);
-        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+        function phoneNavTop() {
+          const head = document.querySelector('.fixed-head');
+          const headH = head ? head.getBoundingClientRect().height : 0;
+          const landscapePhone = window.matchMedia('(orientation:landscape) and (max-height:650px)').matches;
+          const group = target.classList.contains('section') ? target.querySelector('.window-group') : null;
+          if (group) setPhoneGalleryHeight(group);
+          const bottomFitGallery = group && portraitGalleryQuery.matches && window.matchMedia('(pointer:coarse)').matches;
+          const anchor = bottomFitGallery ? target : (group || target);
+          return Math.max(0, window.scrollY + anchor.getBoundingClientRect().top - headH - (landscapePhone || bottomFitGallery ? 0 : 22) );
+        }
+        window.scrollTo({ top:phoneNavTop(), behavior:'smooth' });
+        settlePhoneNav(id, target, phoneNavTop);
         if (secondaryMeditation) secondaryMeditation.classList.toggle('active-secondary', id === '#meditation');
         if (secondaryPast) secondaryPast.classList.toggle('active-secondary', id === '#past');
         if (secondaryNetwork) secondaryNetwork.classList.toggle('active-secondary', id === '#netzwerk');
