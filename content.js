@@ -89,6 +89,9 @@ window.SITE_CONTENT = {
     // Die Dateien liegen unter images/meditation/.
     // Optionaler EN-Name: gleiche Datei mit _en vor der Endung.
     images: [
+      '01_Entspanne-strecke.png',
+      '02_wenn-menschen-anfangen.png',
+      '03_indem-man.png'
     ]
   },
 
