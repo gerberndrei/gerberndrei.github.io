@@ -4853,6 +4853,7 @@ html body main #kontakt .carousel .contact-map-slide {
 }
 html body main #kontakt .carousel .contact-map-slide > .contact-map-overlay-link {
   display:flex!important;
+  text-transform:none!important;
   position:absolute!important;
   z-index:2;
   top:clamp(5px,1.6%,9px);
