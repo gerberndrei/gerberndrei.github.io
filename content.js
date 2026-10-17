@@ -85,9 +85,8 @@ window.SITE_CONTENT = {
 
   meditation: {
     title: 'MEDITATION',
-    // Nach dem Upload hier die exakten drei Bilddateinamen eintragen.
-    // Die Dateien liegen unter images/meditation/.
-    // Optionaler EN-Name: gleiche Datei mit _en vor der Endung.
+    // Diese Liste wird nach Bild-Uploads automatisch durch GitHub Actions gepflegt.
+    // Ordner: images/meditation/. Optional: _en vor der Dateiendung.
     images: [
       '01_Entspanne-strecke.png',
       '02_wenn-menschen-anfangen.png',
