@@ -36,8 +36,8 @@
     SEPTEMBER:'SEPTEMBER', OKTOBER:'OCTOBER', NOVEMBER:'NOVEMBER', DEZEMBER:'DECEMBER'
   };
   const NAV_LABELS = {
-    de:{start:'START',about:'ABOUT',aktuell:'AKTUELL',solothurn:'SOLOTHURN',kontakt:'KONTAKT',past:'PAST EVENTS',netzwerk:'NETZWERK',misc:'MISC',imprint:'IMPRESSUM',privacy:'DATENSCHUTZ'},
-    en:{start:'HOME',about:'ABOUT',aktuell:'NOW',solothurn:'SOLOTHURN',kontakt:'CONTACT',past:'PAST EVENTS',netzwerk:'NETWORK',misc:'MISC',imprint:'LEGAL',privacy:'PRIVACY'}
+    de:{start:'START',about:'ABOUT',aktuell:'AKTUELL',solothurn:'SOLOTHURN',kontakt:'KONTAKT',meditation:'MEDITATION',past:'PAST EVENTS',netzwerk:'NETZWERK',misc:'MISC',imprint:'IMPRESSUM',privacy:'DATENSCHUTZ'},
+    en:{start:'HOME',about:'ABOUT',aktuell:'NOW',solothurn:'SOLOTHURN',kontakt:'CONTACT',meditation:'MEDITATION',past:'PAST EVENTS',netzwerk:'NETWORK',misc:'MISC',imprint:'LEGAL',privacy:'PRIVACY'}
   };
 
   function localized(obj, key) {
@@ -570,6 +570,8 @@
       const title = localized(data, 'title');
       setText('#' + id + ' .section-title', currentLanguage === 'en' && data.title_en == null ? labels[id] : title);
     });
+    setText('.secondary-nav a[href="#meditation"]', labels.meditation);
+    setText('#meditation .section-title', labels.meditation);
     setText('.secondary-nav a[href="#past"]', labels.past);
     setText('.secondary-nav a[href="#netzwerk"]', labels.netzwerk);
     setText('#past .section-title', labels.past);
@@ -937,7 +939,7 @@
   function restorePhoneSectionAfterRotation() {
     if (!window.matchMedia('(pointer: coarse), (max-width: 650px)').matches) return;
     const id = location.hash;
-    if (!/^#(?:start|about|aktuell|solothurn|kontakt|past|netzwerk|misc)$/.test(id)) return;
+    if (!/^#(?:start|about|aktuell|solothurn|kontakt|meditation|past|netzwerk|misc)$/.test(id)) return;
     const target = document.getElementById(id.slice(1));
     if (!target) return;
     [120, 360, 650].forEach(function (delay) {
@@ -999,6 +1001,7 @@
         const anchor = bottomFitGallery ? target : (group || target);
         const top = window.scrollY + anchor.getBoundingClientRect().top - headH - (landscapePhone || bottomFitGallery ? 0 : 22);
         window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+        if (secondaryMeditation) secondaryMeditation.classList.toggle('active-secondary', id === '#meditation');
         if (secondaryPast) secondaryPast.classList.toggle('active-secondary', id === '#past');
         if (secondaryNetwork) secondaryNetwork.classList.toggle('active-secondary', id === '#netzwerk');
         return;
@@ -1027,6 +1030,7 @@
         window.clearTimeout(readingNavLockTimer);
         readingNavLockTimer = window.setTimeout(function () { readingNavLock = null; updateNavDots(); }, 1250);
         window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+        if (secondaryMeditation) secondaryMeditation.classList.toggle('active-secondary', id === '#meditation');
         if (secondaryPast) secondaryPast.classList.toggle('active-secondary', id === '#past');
         if (secondaryNetwork) secondaryNetwork.classList.toggle('active-secondary', id === '#netzwerk');
         return;
@@ -1095,9 +1099,10 @@
   let readingNavLockTimer = 0;
   const primaryIds = ['start', 'about', 'aktuell', 'solothurn', 'kontakt'];
   const primaryLinks = Array.from(document.querySelectorAll('.primary-nav a'));
+  const secondaryMeditation = document.querySelector('.secondary-nav a[href="#meditation"]');
   const secondaryPast = document.querySelector('.secondary-nav a[href="#past"]');
   const secondaryNetwork = document.querySelector('.secondary-nav a[href="#netzwerk"]');
-  const navSectionIds = ['start', 'about', 'aktuell', 'solothurn', 'kontakt', 'past', 'netzwerk', 'misc'];
+  const navSectionIds = ['start', 'about', 'aktuell', 'solothurn', 'kontakt', 'meditation', 'past', 'netzwerk', 'misc'];
 
   function currentNavSection() {
     const head = document.querySelector('.fixed-head');
@@ -1151,6 +1156,7 @@
       link.classList.toggle('active-section', link.getAttribute('href') === '#' + activeId);
     });
 
+    if (secondaryMeditation) secondaryMeditation.classList.toggle('active-secondary', activeId === 'meditation');
     if (secondaryPast) secondaryPast.classList.toggle('active-secondary', activeId === 'past');
     if (secondaryNetwork) secondaryNetwork.classList.toggle('active-secondary', activeId === 'netzwerk');
   }
