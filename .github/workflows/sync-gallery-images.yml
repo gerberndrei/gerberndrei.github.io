@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'images/**'
+      - 'scripts/sync-gallery-images.mjs'
   workflow_dispatch:
 
 permissions:
