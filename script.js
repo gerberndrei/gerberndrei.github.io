@@ -213,6 +213,28 @@
     function openContactMap(url) {
       window.open(url, '_blank', 'noopener,noreferrer');
     }
+    // On real phone layouts the Krokis navigate like every other slide;
+    // a separate, always-visible Google Maps link sits above each Kroki.
+    const phoneContactMapQuery = window.matchMedia('(max-width:650px) and (orientation:portrait), (orientation:landscape) and (max-height:650px) and (pointer:coarse)');
+    const contactMapImages = [];
+    function syncContactMapImageMode() {
+      contactMapImages.forEach(function (item) {
+        const img = item.img;
+        if (phoneContactMapQuery.matches) {
+          img.removeAttribute('role');
+          img.removeAttribute('tabindex');
+          img.removeAttribute('aria-label');
+          img.removeAttribute('title');
+          img.style.cursor = '';
+        } else {
+          img.setAttribute('role', 'link');
+          img.setAttribute('tabindex', '0');
+          img.setAttribute('aria-label', item.label);
+          img.title = item.label;
+          img.style.cursor = 'pointer';
+        }
+      });
+    }
 
     track.innerHTML = '';
     dots.innerHTML = '';
@@ -268,19 +290,31 @@
         img.style.visibility = '';
       };
       if (key === 'kontakt' && contactMapLinks[index]) {
-        img.setAttribute('role', 'link');
-        img.setAttribute('tabindex', '0');
-        img.setAttribute('aria-label', index === 1
+        const label = index === 1
           ? 'Google Maps: Gerberngasse 3, Solothurn'
-          : 'Google Maps: Fussweg zur Gerberngasse 3');
-        img.title = img.getAttribute('aria-label');
-        img.style.cursor = 'pointer';
+          : 'Google Maps: Fussweg zur Gerberngasse 3';
+        contactMapImages.push({ img:img, label:label });
         img.addEventListener('keydown', function (event) {
           if (event.key !== 'Enter' && event.key !== ' ') return;
+          if (phoneContactMapQuery.matches) return; // image has no link role on phones
           event.preventDefault();
           event.stopPropagation();
           openContactMap(contactMapLinks[index]);
         });
+
+        // Only phone CSS displays this dedicated link in the slim row ABOVE
+        // the drawing. On desktop the original image-link remains active.
+        const mobileLink = document.createElement('a');
+        mobileLink.className = 'contact-map-mobile-link';
+        mobileLink.href = contactMapLinks[index];
+        mobileLink.target = '_blank';
+        mobileLink.rel = 'noopener noreferrer';
+        mobileLink.dataset.de = index === 1 ? 'STANDORT IN GOOGLE MAPS ↗' : 'FUSSWEG IN GOOGLE MAPS ↗';
+        mobileLink.dataset.en = index === 1 ? 'LOCATION IN GOOGLE MAPS ↗' : 'WALKING ROUTE IN GOOGLE MAPS ↗';
+        mobileLink.textContent = currentLanguage === 'en' ? mobileLink.dataset.en : mobileLink.dataset.de;
+        mobileLink.addEventListener('click', function (event) { event.stopPropagation(); });
+        slide.classList.add('contact-map-slide');
+        slide.appendChild(mobileLink);
       }
       slide.appendChild(img);
       // First KONTAKT image: make its IG and email text independently clickable.
@@ -310,6 +344,11 @@
       dot.addEventListener('click', function () { goTo(index); });
       dots.appendChild(dot);
     });
+
+    if (key === 'kontakt') {
+      syncContactMapImageMode();
+      phoneContactMapQuery.addEventListener('change', syncContactMapImageMode);
+    }
 
     if (images.length === 1) {
       prev.hidden = true;
@@ -354,7 +393,7 @@
       const mapUrl = key === 'kontakt'
         ? contactMapLinks[Number(event.target.dataset.imageIndex)]
         : null;
-      if (mapUrl) {
+      if (mapUrl && !phoneContactMapQuery.matches) {
         openContactMap(mapUrl);
         return;
       }
@@ -611,6 +650,9 @@
     renderPastEvents();
     renderNetwork();
     updateGalleryLanguage();
+    document.querySelectorAll('.contact-map-mobile-link').forEach(function (link) {
+      link.textContent = currentLanguage === 'en' ? link.dataset.en : link.dataset.de;
+    });
     document.querySelectorAll('.carousel[data-gallery]').forEach(function (carousel) {
       const key = carousel.dataset.gallery;
       carousel.setAttribute('aria-label', (NAV_LABELS[currentLanguage][key] || key) + (currentLanguage === 'en' ? ' image gallery' : ' Bildergalerie'));
