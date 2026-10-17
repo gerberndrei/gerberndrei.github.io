@@ -4845,63 +4845,40 @@ html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle:hover::a
   }
 }
  
-/* KONTAKT: on phone portrait and landscape, each linked Kroki gets an
-   unobtrusive Google Maps text link in a narrow row ABOVE the drawing.
-   No overlay, no change to the square carousel/dots or the other slides.
-   Desktop keeps the existing image-click Google Maps behaviour. */
-html body main #kontakt .carousel .contact-map-mobile-link {
-  display:none;
+/* KONTAKT: Maps links sit inside each full-size Kroki at the top centre.
+   The image itself keeps its normal click-to-next action. No extra row,
+   no smaller drawing, and no change to the gallery dots. */
+html body main #kontakt .carousel .contact-map-slide {
+  position:relative!important;
 }
-@media (max-width:650px) and (orientation:portrait),
-       (orientation:landscape) and (max-height:650px) and (pointer:coarse) {
-  html body main #kontakt .carousel .contact-map-slide {
-    position:relative!important;
-    grid-template-columns:minmax(0,1fr)!important;
-    grid-template-rows:28px minmax(0,1fr)!important;
-    align-items:stretch!important;
-    justify-items:stretch!important;
-  }
-  html body main #kontakt .carousel .contact-map-slide > .contact-map-mobile-link {
-    display:flex!important;
-    grid-column:1;
-    grid-row:1;
-    align-items:center;
-    justify-content:flex-end;
-    min-width:0;
-    min-height:28px;
-    padding:0 2px 2px;
-    font:300 clamp(11px,2.6vw,13px)/1.25 Arial,Helvetica,sans-serif!important;
-    letter-spacing:.06em!important;
-    white-space:nowrap;
-    color:#666!important;
-    -webkit-text-fill-color:#666!important;
-    text-decoration:underline!important;
-    text-decoration-color:#aaa!important;
-    text-underline-offset:3px;
-    background:#fff;
-    cursor:pointer;
-    z-index:2;
-    -webkit-tap-highlight-color:transparent;
-  }
-  html body main #kontakt .carousel .contact-map-slide > .contact-map-mobile-link:focus-visible {
-    outline:1px solid currentColor!important;
-    outline-offset:-1px;
-  }
-  html body main #kontakt .carousel .contact-map-slide > img {
-    grid-column:1!important;
-    grid-row:2!important;
-    width:100%!important;
-    height:100%!important;
-    min-height:0!important;
-    object-fit:contain!important;
-  }
+html body main #kontakt .carousel .contact-map-slide > .contact-map-overlay-link {
+  display:flex!important;
+  position:absolute!important;
+  z-index:2;
+  top:clamp(5px,1.6%,9px);
+  left:50%;
+  transform:translateX(-50%);
+  box-sizing:border-box;
+  align-items:center;
+  justify-content:center;
+  max-width:calc(100% - 20px);
+  min-height:34px;
+  padding:7px 11px;
+  font:300 clamp(11px,2.6vw,12px)/1.25 Arial,Helvetica,sans-serif!important;
+  letter-spacing:.04em!important;
+  white-space:nowrap;
+  color:#444!important;
+  -webkit-text-fill-color:#444!important;
+  text-decoration:underline!important;
+  text-decoration-color:#888!important;
+  text-underline-offset:3px;
+  background:rgba(255,255,255,.88)!important;
+  border-radius:3px;
+  cursor:pointer;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
 }
-@media (prefers-color-scheme:dark) and (max-width:650px) and (orientation:portrait),
-       (prefers-color-scheme:dark) and (orientation:landscape) and (max-height:650px) and (pointer:coarse) {
-  html body main #kontakt .carousel .contact-map-slide > .contact-map-mobile-link {
-    color:#D0D0D0!important;
-    -webkit-text-fill-color:#D0D0D0!important;
-    text-decoration-color:#999!important;
-    background:#111!important;
-  }
+html body main #kontakt .carousel .contact-map-slide > .contact-map-overlay-link:focus-visible {
+  outline:1px solid #444!important;
+  outline-offset:1px;
 }
