@@ -1275,12 +1275,17 @@
           }
         });
       });
-    const networkRight = Math.min(
-      visibleRight > 0 ? visibleRight : links.getBoundingClientRect().right,
-      document.documentElement.clientWidth - 22
-    );
+    // Without visible NETZWERK entries, PAST EVENTS uses its own fixed
+    // reading width, capped by the available viewport. It never falls back
+    // to the empty NETZWERK container's potentially much wider box.
+    const fallbackPastWidth = 560;
+    const rightLimit = document.documentElement.clientWidth - 22;
+    const networkRight = visibleRight > 0 ? Math.min(visibleRight, rightLimit) : null;
     pastEvents.querySelectorAll('.past-row').forEach(function (row) {
-      const width = Math.floor(networkRight - row.getBoundingClientRect().left);
+      const rowLeft = row.getBoundingClientRect().left;
+      const width = Math.floor(networkRight === null
+        ? Math.min(fallbackPastWidth, rightLimit - rowLeft)
+        : networkRight - rowLeft);
       if (width > 0) {
         row.style.setProperty('width',width+'px','important');
         row.style.setProperty('max-width',width+'px','important');
