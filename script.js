@@ -1261,11 +1261,22 @@
       else links.style.removeProperty('--gg-wide-network-reading-width');
     }
 
-    // Read back NETZWERK's real laid-out edge, including its active media
-    // queries. Each PAST row gets that same right edge from its own left
-    // position; explicit inline !important wins over historical PAST limits.
+    // Measure the *visible lettering*, not the full NETWORK container.
+    // A text Range returns the actual fragments even when labels wrap.
+    // This lets PAST EVENTS end near the longest visible NETWORK line.
+    let visibleRight = 0;
+    links.querySelectorAll('.network-row .network-label, .network-row .list-separator, .network-row a')
+      .forEach(function (element) {
+        const range = document.createRange();
+        range.selectNodeContents(element);
+        Array.from(range.getClientRects()).forEach(function (rect) {
+          if (rect.width > 0.5 && rect.height > 0.5) {
+            visibleRight = Math.max(visibleRight, rect.right);
+          }
+        });
+      });
     const networkRight = Math.min(
-      links.getBoundingClientRect().right,
+      visibleRight > 0 ? visibleRight : links.getBoundingClientRect().right,
       document.documentElement.clientWidth - 22
     );
     pastEvents.querySelectorAll('.past-row').forEach(function (row) {
@@ -1287,6 +1298,7 @@
   if (typeof MutationObserver !== 'undefined') {
     // Language switching creates new PAST rows; apply the width to them too.
     new MutationObserver(align).observe(pastEvents,{childList:true});
+    new MutationObserver(align).observe(links,{childList:true,characterData:true,subtree:true});
     new MutationObserver(align).observe(pastNav,{childList:true,characterData:true,subtree:true});
   }
 })();
