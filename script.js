@@ -1225,57 +1225,68 @@
   window.addEventListener('pageshow', align);
 })();
 
-/* Desktop: NETWORK and PAST EVENTS share exactly the same right text edge.
-   Measure the edge once (wide: end of 'PAST' in navigation; medium: 22px
-   from viewport right). Keep each section's original left reading axis. */
-(function capWideDesktopNetworkColumn(){
+/* NETZWERK retains its established responsive right boundary. PAST EVENTS
+   takes the *actual displayed* right edge of the NETZWERK list at every
+   browser width, instead of using a separate desktop-only approximation.
+   The left axes of the section title, year and event dates do not move. */
+(function syncReadingColumns(){
   const links = document.querySelector('#netzwerk #network-links');
   const pastEvents = document.querySelector('#past #past-events');
   const pastNav = document.querySelector('.fixed-head .secondary-nav a[href="#past"]');
-  if (!links || !pastNav) return;
+  if (!links || !pastNav || !pastEvents) return;
   const desktop = window.matchMedia('(min-width:861px) and (min-height:651px) and (hover:hover) and (pointer:fine)');
   const wide = window.matchMedia('(min-width:1201px) and (min-height:651px) and (hover:hover) and (pointer:fine)');
   function align(){
+    // Existing NETZWERK width behavior is unchanged.
     if (!desktop.matches) {
       links.style.removeProperty('--gg-wide-network-reading-width');
-      if (pastEvents) pastEvents.style.removeProperty('--gg-wide-past-reading-width');
-      return;
-    }
-    // Medium desktop: use the full reading area with 22px right gutter.
-    // Wide desktop: retain the end of the word PAST as the right limit.
-    const viewportRight = document.documentElement.clientWidth - 22;
-    let right = viewportRight;
-    if (wide.matches) {
-      right = pastNav.getBoundingClientRect().right;
-      const node = pastNav.firstChild;
-      if (node && node.nodeType === 3 && node.textContent.length >= 4) {
-        const range = document.createRange();
-        range.setStart(node,0);
-        range.setEnd(node,4);
-        const rect = range.getBoundingClientRect();
-        if (rect.width > 0) right = rect.right;
+    } else {
+      const viewportRight = document.documentElement.clientWidth - 22;
+      let right = viewportRight;
+      if (wide.matches) {
+        right = pastNav.getBoundingClientRect().right;
+        const node = pastNav.firstChild;
+        if (node && node.nodeType === 3 && node.textContent.length >= 4) {
+          const range = document.createRange();
+          range.setStart(node,0);
+          range.setEnd(node,4);
+          const rect = range.getBoundingClientRect();
+          if (rect.width > 0) right = rect.right;
+        }
+        right = Math.min(right, viewportRight);
       }
-      right = Math.min(right, viewportRight);
+      const networkLeft = links.getBoundingClientRect().left;
+      const networkWidth = Math.floor(right - networkLeft);
+      if (networkWidth > 0) links.style.setProperty('--gg-wide-network-reading-width',networkWidth+'px');
+      else links.style.removeProperty('--gg-wide-network-reading-width');
     }
-    const left = links.getBoundingClientRect().left;
-    const width = Math.floor(right - left);
-    if (width > 0) links.style.setProperty('--gg-wide-network-reading-width',width+'px');
-    else links.style.removeProperty('--gg-wide-network-reading-width');
 
-    // Match the right edge, not the width: PAST rows begin farther right
-    // than the heading, while NETWORK links use their own left anchor.
-    if (pastEvents) {
-      const firstRow = pastEvents.querySelector('.past-row');
-      const pastWidth = firstRow ? Math.floor(right - firstRow.getBoundingClientRect().left) : 0;
-      if (pastWidth > 0) pastEvents.style.setProperty('--gg-wide-past-reading-width', pastWidth+'px');
-      else pastEvents.style.removeProperty('--gg-wide-past-reading-width');
-    }
+    // Read back NETZWERK's real laid-out edge, including its active media
+    // queries. Each PAST row gets that same right edge from its own left
+    // position; explicit inline !important wins over historical PAST limits.
+    const networkRight = Math.min(
+      links.getBoundingClientRect().right,
+      document.documentElement.clientWidth - 22
+    );
+    pastEvents.querySelectorAll('.past-row').forEach(function (row) {
+      const width = Math.floor(networkRight - row.getBoundingClientRect().left);
+      if (width > 0) {
+        row.style.setProperty('width',width+'px','important');
+        row.style.setProperty('max-width',width+'px','important');
+      } else {
+        row.style.removeProperty('width');
+        row.style.removeProperty('max-width');
+      }
+    });
   }
   align();
   window.addEventListener('resize',align,{passive:true});
+  window.addEventListener('orientationchange',align,{passive:true});
   window.addEventListener('pageshow',align);
   window.addEventListener('load',align,{once:true});
   if (typeof MutationObserver !== 'undefined') {
+    // Language switching creates new PAST rows; apply the width to them too.
+    new MutationObserver(align).observe(pastEvents,{childList:true});
     new MutationObserver(align).observe(pastNav,{childList:true,characterData:true,subtree:true});
   }
 })();
