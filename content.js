@@ -79,7 +79,8 @@ window.SITE_CONTENT = {
       '02_kroki.jpg',
       '03_kroki.jpg',
       '04_vor-der-erleuchtung.webp',
-      '05_ego-muss-man.png'
+      '05_ego-muss-man.png',
+      '06_eingang-foto.jpg'
     ]
   },
 
