@@ -4459,12 +4459,3 @@ html body main #past #past-events .past-row > span {
     max-width:calc(100% - 1.25em)!important;
   }
 }
-/* Wide / medium desktop: PAST EVENTS uses NETWORK's exact right text edge.
-   JS measures both widths from their own left axes to the same right edge;
-   the title, year, date indent and all phone layouts remain unchanged. */
-@media (min-width:861px) and (min-height:651px) and (hover:hover) and (pointer:fine) {
-  html body main #past #past-events .past-row {
-    width:var(--gg-wide-past-reading-width, calc(100% - 3em))!important;
-    max-width:var(--gg-wide-past-reading-width, calc(100% - 3em))!important;
-  }
-}
