@@ -4572,7 +4572,7 @@ html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
 /* Compact portrait and compact desktop: two rows are independent, so
    MEDITATION does NOT need to align with NETWORK.
    The first row begins exactly after CONTACT's measured text width. */
-@media (max-width:919px) and (min-height:651px),
+@media (max-width:779px) and (min-height:651px),
        (max-width:650px) and (orientation:portrait) {
   html body .fixed-head > .secondary-nav {
     --gg-divider-side:30px;
@@ -4740,11 +4740,16 @@ html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle:hover::a
   }
 }
 
-/* Desktop menu remains on the right down to 920px.  To free space
-   well before that boundary, the colour mark moves gently to the left
-   starting near 1450px.  The compact and phone header stays unchanged. */
+/* Desktop menu stays right down to 780px.  The mark moves smoothly left
+   as the viewport shrinks, but less quickly below 920px, staying centred
+   between the primary and secondary links.  Phone layout is untouched. */
 @media (min-width:920px) and (min-height:651px) {
   html body .fixed-head > .mark {
     left:min(48.5%,calc(76.5vw - 406px))!important;
+  }
+}
+@media (min-width:780px) and (max-width:919px) and (min-height:651px) {
+  html body .fixed-head > .mark {
+    left:calc(61vw - 263px)!important;
   }
 }
