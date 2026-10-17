@@ -210,31 +210,7 @@
     // KONTAKT: second Kroki opens the address, third Kroki opens walking
     // directions. Other galleries keep their normal click-to-next behavior.
     const contactMapLinks = [null, "https://www.google.com/maps/place/Gerberngasse+3,+4500+Solothurn/@47.2063136,7.5151305,14z/data=!3m1!4b1!4m6!3m5!1s0x4791d7f8cca7ac59:0x75b4c51bc31c6aef!8m2!3d47.2063154!4d7.5356871!16s%2Fg%2F11c1x0930c?entry=ttu&g_ep=EgoyMDI2MTAxMS4wIKXMDSoASAFQAw%3D%3D", "https://www.google.com/maps/dir/Solothurn,+4500+Solothurn/Gerberngasse+3,+4500+Solothurn/@47.2063461,7.5235645,14.57z/data=!4m19!4m18!1m10!1m1!1s0x4791d7fcf3f5ef73:0xeba6a741959576c4!2m2!1d7.543276!2d47.204582!3m4!1m2!1d7.5356445!2d47.2059499!3s0x4791d7ff32718d2d:0x1253bffbb5ded8d2!1m5!1m1!1s0x4791d7f8cca7ac59:0x75b4c51bc31c6aef!2m2!1d7.5356871!2d47.2063154!3e2?entry=ttu&g_ep=EgoyMDI2MTAxMS4wIKXMDSoASAFQAw%3D%3D"];
-    function openContactMap(url) {
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }
-    // On real phone layouts the Krokis navigate like every other slide;
-    // a separate, always-visible Google Maps link sits above each Kroki.
-    const phoneContactMapQuery = window.matchMedia('(max-width:650px) and (orientation:portrait), (orientation:landscape) and (max-height:650px) and (pointer:coarse)');
-    const contactMapImages = [];
-    function syncContactMapImageMode() {
-      contactMapImages.forEach(function (item) {
-        const img = item.img;
-        if (phoneContactMapQuery.matches) {
-          img.removeAttribute('role');
-          img.removeAttribute('tabindex');
-          img.removeAttribute('aria-label');
-          img.removeAttribute('title');
-          img.style.cursor = '';
-        } else {
-          img.setAttribute('role', 'link');
-          img.setAttribute('tabindex', '0');
-          img.setAttribute('aria-label', item.label);
-          img.title = item.label;
-          img.style.cursor = 'pointer';
-        }
-      });
-    }
+    // The Krokis navigate like other images; their overlay links open Maps separately.
 
     track.innerHTML = '';
     dots.innerHTML = '';
@@ -289,34 +265,21 @@
         slide.classList.remove('missing');
         img.style.visibility = '';
       };
-      if (key === 'kontakt' && contactMapLinks[index]) {
-        const label = index === 1
-          ? 'Google Maps: Gerberngasse 3, Solothurn'
-          : 'Google Maps: Fussweg zur Gerberngasse 3';
-        contactMapImages.push({ img:img, label:label });
-        img.addEventListener('keydown', function (event) {
-          if (event.key !== 'Enter' && event.key !== ' ') return;
-          if (phoneContactMapQuery.matches) return; // image has no link role on phones
-          event.preventDefault();
-          event.stopPropagation();
-          openContactMap(contactMapLinks[index]);
-        });
-
-        // Only phone CSS displays this dedicated link in the slim row ABOVE
-        // the drawing. On desktop the original image-link remains active.
-        const mobileLink = document.createElement('a');
-        mobileLink.className = 'contact-map-mobile-link';
-        mobileLink.href = contactMapLinks[index];
-        mobileLink.target = '_blank';
-        mobileLink.rel = 'noopener noreferrer';
-        mobileLink.dataset.de = index === 1 ? 'STANDORT IN GOOGLE MAPS ↗' : 'FUSSWEG IN GOOGLE MAPS ↗';
-        mobileLink.dataset.en = index === 1 ? 'LOCATION IN GOOGLE MAPS ↗' : 'WALKING ROUTE IN GOOGLE MAPS ↗';
-        mobileLink.textContent = currentLanguage === 'en' ? mobileLink.dataset.en : mobileLink.dataset.de;
-        mobileLink.addEventListener('click', function (event) { event.stopPropagation(); });
-        slide.classList.add('contact-map-slide');
-        slide.appendChild(mobileLink);
-      }
       slide.appendChild(img);
+      if (key === 'kontakt' && contactMapLinks[index]) {
+        const mapLink = document.createElement('a');
+        mapLink.className = 'contact-map-overlay-link';
+        mapLink.href = contactMapLinks[index];
+        mapLink.target = '_blank';
+        mapLink.rel = 'noopener noreferrer';
+        mapLink.dataset.de = index === 1 ? 'STANDORT IN GOOGLE MAPS ↗' : 'FUSSWEG IN GOOGLE MAPS ↗';
+        mapLink.dataset.en = index === 1 ? 'LOCATION IN GOOGLE MAPS ↗' : 'WALKING ROUTE IN GOOGLE MAPS ↗';
+        mapLink.textContent = currentLanguage === 'en' ? mapLink.dataset.en : mapLink.dataset.de;
+        mapLink.setAttribute('aria-label', index === 1 ? 'Google Maps: Gerberngasse 3, Solothurn' : 'Google Maps: Fussweg zur Gerberngasse 3');
+        mapLink.addEventListener('click', function (event) { event.stopPropagation(); });
+        slide.classList.add('contact-map-slide');
+        slide.appendChild(mapLink);
+      }
       // First KONTAKT image: make its IG and email text independently clickable.
       // Keep the original slide/image intact and preserve swipe navigation.
       if (key === 'kontakt' && index === 0) {
@@ -344,11 +307,6 @@
       dot.addEventListener('click', function () { goTo(index); });
       dots.appendChild(dot);
     });
-
-    if (key === 'kontakt') {
-      syncContactMapImageMode();
-      phoneContactMapQuery.addEventListener('change', syncContactMapImageMode);
-    }
 
     if (images.length === 1) {
       prev.hidden = true;
@@ -390,13 +348,6 @@
     track.addEventListener('click', function (event) {
       if (event.target.tagName !== 'IMG') return;
       if (suppressSwipeClick) { suppressSwipeClick = false; return; }
-      const mapUrl = key === 'kontakt'
-        ? contactMapLinks[Number(event.target.dataset.imageIndex)]
-        : null;
-      if (mapUrl && !phoneContactMapQuery.matches) {
-        openContactMap(mapUrl);
-        return;
-      }
       if (index < images.length - 1) goTo(index + 1);
     });
 
@@ -650,7 +601,7 @@
     renderPastEvents();
     renderNetwork();
     updateGalleryLanguage();
-    document.querySelectorAll('.contact-map-mobile-link').forEach(function (link) {
+    document.querySelectorAll('.contact-map-overlay-link').forEach(function (link) {
       link.textContent = currentLanguage === 'en' ? link.dataset.en : link.dataset.de;
     });
     document.querySelectorAll('.carousel[data-gallery]').forEach(function (carousel) {
