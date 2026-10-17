@@ -558,6 +558,18 @@
     if (el && value != null) el.textContent = value;
   }
 
+  // Measure the *displayed* CONTACT / KONTAKT label for the compact navigation.
+  // This keeps | MEDITATION equally spaced after either language, without fixed
+  // pixel guesses or a shared grid with the PAST EVENTS / NETWORK row.
+  function syncContactNavWidth() {
+    const contact = document.querySelector('.primary-nav a[href="#kontakt"]');
+    if (!contact) return;
+    document.documentElement.style.setProperty(
+      '--gg-contact-nav-width', contact.getBoundingClientRect().width.toFixed(2) + 'px'
+    );
+  }
+  window.addEventListener('resize', syncContactNavWidth, { passive:true });
+
   function applyLanguage() {
     const labels = NAV_LABELS[currentLanguage];
     document.documentElement.lang = currentLanguage;
@@ -570,6 +582,7 @@
       const title = localized(data, 'title');
       setText('#' + id + ' .section-title', currentLanguage === 'en' && data.title_en == null ? labels[id] : title);
     });
+    syncContactNavWidth();
     setText('.secondary-nav a[href="#meditation"]', labels.meditation);
     setText('#meditation .section-title', labels.meditation);
     setText('.secondary-nav a[href="#past"]', labels.past);
