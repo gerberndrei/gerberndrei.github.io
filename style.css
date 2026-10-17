@@ -4774,7 +4774,9 @@ html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle:hover::a
     right:calc(100% + 6px)!important;
   }
   html body .fixed-head > .secondary-nav :is(.nav-meditation-row,.nav-more-row) > a::after,
-  html body .fixed-head > .secondary-nav .nav-more-row > a.active-secondary::after {
+  html body .fixed-head > .secondary-nav .nav-meditation-row > a[href="#meditation"].active-secondary::after,
+  html body .fixed-head > .secondary-nav .nav-more-row > a[href="#past"].active-secondary::after,
+  html body .fixed-head > .secondary-nav .nav-more-row > a[href="#netzwerk"].active-secondary::after {
     left:calc(100% + 6px)!important;
     margin-left:0!important;
   }
