@@ -49,7 +49,8 @@ window.SITE_CONTENT = {
       '01_flyer-front.png',
       '02_flyer-back.png',
       '03_nichts-ergibt-sinn.webp',
-      '04_sei-freundlich-wann.png'
+      '04_sei-freundlich-wann.png',
+      '05_dach.jpg'
     ]
   },
 
