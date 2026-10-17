@@ -4643,3 +4643,21 @@ html body .fixed-head > .secondary-nav > .language-toggle:hover::after {
 @media (prefers-color-scheme:dark) {
   html body .fixed-head > .secondary-nav > a::before {background:#D0D0D0!important;}
 }
+
+/* Extremely narrow portrait (<375px): three real columns instead of five.
+   CONTACT | MEDITATION, then PAST EVENTS | NETWORK, then language.
+   Empty fixed separator tracks must not consume space to the right. */
+@media (max-width:374px) and (orientation:portrait) {
+  html body .fixed-head > .secondary-nav {
+    grid-template-columns:max-content 2.2em max-content!important;
+    grid-template-rows:repeat(3,calc(var(--type-size) * var(--type-leading) + var(--nav-gap)))!important;
+  }
+  html body .fixed-head > .secondary-nav > .language-separator {
+    display:none!important;
+  }
+  html body .fixed-head > .secondary-nav > .language-toggle {
+    grid-column:3!important;
+    grid-row:3!important;
+    justify-self:start!important;
+  }
+}
