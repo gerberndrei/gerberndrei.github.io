@@ -118,8 +118,8 @@ MARCH 04: Opening`,
 
 
   legal: {
-    imprint: 'Hier kommt dein kurzes Impressum hin.',
-    imprint_en: 'Here comes your legal note.',
+    imprint: 'gerbern drei\nNiklaus Zumstein\nGerberngasse 3\n4500 Solothurn\nSchweiz\n\ngerbern.drei@gmail.com',
+    imprint_en: 'gerbern drei\nNiklaus Zumstein\nGerberngasse 3\n4500 Solothurn\nSchweiz\n\ngerbern.drei@gmail.com',
     privacy: 'Hier kommt deine kurze Datenschutzerklärung hin.',
     privacy_en: 'Here comes your privacy statement.'
   },
