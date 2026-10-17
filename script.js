@@ -272,8 +272,8 @@
         mapLink.href = contactMapLinks[index];
         mapLink.target = '_blank';
         mapLink.rel = 'noopener noreferrer';
-        mapLink.dataset.de = index === 1 ? 'STANDORT IN GOOGLE MAPS ↗' : 'FUSSWEG IN GOOGLE MAPS ↗';
-        mapLink.dataset.en = index === 1 ? 'LOCATION IN GOOGLE MAPS ↗' : 'WALKING ROUTE IN GOOGLE MAPS ↗';
+        mapLink.dataset.de = index === 1 ? 'Standort in Google Maps ↗' : 'Fussweg in Google Maps ↗';
+        mapLink.dataset.en = index === 1 ? 'Location in Google Maps ↗' : 'Walking route in Google Maps ↗';
         mapLink.textContent = currentLanguage === 'en' ? mapLink.dataset.en : mapLink.dataset.de;
         mapLink.setAttribute('aria-label', index === 1 ? 'Google Maps: Gerberngasse 3, Solothurn' : 'Google Maps: Fussweg zur Gerberngasse 3');
         mapLink.addEventListener('click', function (event) { event.stopPropagation(); });
