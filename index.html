@@ -13,7 +13,7 @@
 
   <link rel="icon" href="favicon-v32.png" type="image/png">
   <!-- Manuell bearbeiten: content.js = Inhalte, style.css = Darstellung, script.js = Bedienung. -->
-  <link rel="stylesheet" href="style.css?v=legal-matches-network-20261017">
+  <link rel="stylesheet" href="style.css?v=meditation-nav-20261017">
 
 
 </head>
@@ -35,8 +35,11 @@
     </button>
 
     <div class="secondary-nav">
+      <b class="contact-meditation-separator" aria-hidden="true">|</b>
+      <a href="#meditation">MEDITATION</a>
+      <b class="meditation-past-separator" aria-hidden="true">|</b>
       <a href="#past">PAST EVENTS</a>
-      <b>|</b>
+      <b class="past-network-separator" aria-hidden="true">|</b>
       <a href="#netzwerk">NETZWERK</a>
       <b class="language-separator" aria-hidden="true">|</b>
       <button class="language-toggle" type="button" aria-label="Switch to English">EN</button>
@@ -126,6 +129,22 @@
       </div>
     </section>
 
+    <section class="section" id="meditation">
+      <div class="window-group">
+        <h2 class="section-title">MEDITATION</h2>
+        <div class="carousel" data-gallery="meditation">
+          <div class="viewport">
+            <div class="track">
+              <div class="slide empty">BILD</div>
+            </div>
+          </div>
+          <button class="arrow prev" aria-label="Vorheriges Bild"></button>
+          <button class="arrow next" aria-label="Nächstes Bild"></button>
+          <div class="dots"></div>
+        </div>
+      </div>
+    </section>
+
     <section id="past" class="list-section">
       <div class="list-inner">
         <h2 class="section-title">PAST EVENTS</h2>
@@ -182,9 +201,9 @@
 
   <div class="fixed-foot"></div>
 
-  <script src="content.js?v=gallery-43b64eda2101"></script>
+  <script src="content.js?v=meditation-prepared-20261017"></script>
 
-  <script src="script.js?v=past-empty-network-fallback-20261017"></script>
+  <script src="script.js?v=meditation-nav-20261017"></script>
 
 </body>
 </html>
