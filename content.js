@@ -90,6 +90,7 @@ window.SITE_CONTENT = {
     // Ordner: images/meditation/. Optional: _en vor der Dateiendung.
     images: [
       '01_Entspanne-strecke.png',
+      '02_wenn-leute-anfangen.png',
       '03_indem-man.png'
     ]
   },
