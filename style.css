@@ -4671,7 +4671,9 @@ html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
     margin:0!important;
   }
   html body .fixed-head > .mark {
-    left:27vw!important;
+    /* Near ABOUT vertically; drift right as space towards MEDITATION allows. */
+    top:calc(var(--head-pad-top) + .45 * (var(--type-size) * var(--type-leading) + var(--nav-gap)))!important;
+    left:clamp(27vw,calc(58vw - 225px),35vw)!important;
   }
 }
 /* Short, exceptionally narrow landscape phones need more compact spacing. */
@@ -4778,6 +4780,16 @@ html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle:hover::a
   html body .fixed-head > .secondary-nav .nav-more-row > a[href="#past"].active-secondary::after,
   html body .fixed-head > .secondary-nav .nav-more-row > a[href="#netzwerk"].active-secondary::after {
     left:calc(100% + 6px)!important;
+    margin-left:0!important;
+  }
+}
+
+/* Portrait CONTACT shares the close active-dot spacing of PAST EVENTS.
+   The four preceding standalone primary links retain their original gap. */
+@media (max-width:650px) and (orientation:portrait) {
+  html body .fixed-head .primary-nav a[href="#kontakt"]::after {
+    left:calc(100% + 6px)!important;
+    right:auto!important;
     margin-left:0!important;
   }
 }
