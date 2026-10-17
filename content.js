@@ -120,8 +120,8 @@ MARCH 04: Opening`,
   legal: {
     imprint: 'gerbern drei\nNiklaus Zumstein\nGerberngasse 3\n4500 Solothurn\nSchweiz\n\ngerbern.drei@gmail.com',
     imprint_en: 'gerbern drei\nNiklaus Zumstein\nGerberngasse 3\n4500 Solothurn\nSchweiz\n\ngerbern.drei@gmail.com',
-    privacy: 'Hier kommt deine kurze Datenschutzerklärung hin.',
-    privacy_en: 'Here comes your privacy statement.'
+    privacy: "Diese Website wird über GitHub Pages betrieben. Dabei können technische Zugriffsdaten, insbesondere IP-Adressen, auch im Ausland verarbeitet werden.\n\nWir verwenden keine eigenen Analyse- oder Werbetracker. Die Spracheinstellung wird lokal im Browser gespeichert. Für externe Links, etwa zu Google Maps oder Instagram, gelten die Datenschutzbestimmungen der jeweiligen Anbieter.\n\nE-Mail-Anfragen werden ausschliesslich zur Kontaktaufnahme und Beantwortung verwendet und nur so lange wie nötig aufbewahrt.\n\nFür Auskunft, Berichtigung oder Löschung Ihrer Daten kontaktieren Sie bitte die im Impressum genannte verantwortliche Person.",
+    privacy_en: "This website is hosted on GitHub Pages. Technical access data, including IP addresses, may be processed outside Switzerland.\n\nWe do not use our own analytics or advertising trackers. Your language preference is stored locally in your browser. External links, such as Google Maps or Instagram, are subject to the respective providers' privacy policies.\n\nEmail enquiries are used solely for communication and replies and are retained only as long as necessary.\n\nTo request access to, correction or deletion of your data, please contact the responsible person listed in the legal notice."
   },
 
   network: [
