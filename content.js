@@ -27,7 +27,7 @@ window.SITE_CONTENT = {
   about: {
     title: 'ABOUT',
     images: [
-      '01_wenn-die-leute.png',
+      '01_stilles-sitzen.png',
       '02_fenster.jpg',
       '03_eingang-skizze.jpg',
       '04_dach-foto.jpg',
