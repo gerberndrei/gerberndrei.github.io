@@ -91,7 +91,8 @@ window.SITE_CONTENT = {
     images: [
       '01_entspanne-dich.png',
       '02_wenn-leute-anfangen.png',
-      '03_wenn-man-seinem.png'
+      '03_wenn-man-seinem.png',
+      '04_ich-kann-mich.webp'
     ]
   },
 
