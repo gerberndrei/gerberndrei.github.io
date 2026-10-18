@@ -16,6 +16,8 @@ window.SITE_CONTENT = {
     title: 'START',
     images: [
       '01_hall.jpg',
+      '02_stilles-sitzen.png',
+      '03_stempel.jpg',
       '04_es-ist-leer.webp',
       '05_vermeide-aggression.png',
       '06_fenster.jpg'
