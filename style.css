@@ -5045,9 +5045,9 @@ html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
 }
 html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-compact svg {
   display:block!important;
-  flex:0 0 15px!important;
-  width:15px!important;
-  height:15px!important;
+  flex:0 0 17px!important;
+  width:17px!important;
+  height:17px!important;
   transform:translateY(1px);
   stroke:currentColor;
 }
@@ -5114,7 +5114,7 @@ html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-comp
        (max-width:650px) and (orientation:portrait) {
   /* Shared grid tracks: both vertical dividers sit on exactly the same axes. */
   html body .fixed-head > .secondary-nav {
-    --gg-ig-bar-track:clamp(12px, 4vw, 24px);
+    --gg-ig-bar-track:clamp(12px, 10.5vw, 64px);
   }
   html body .fixed-head > .secondary-nav > .nav-meditation-row,
   html body .fixed-head > .secondary-nav > .nav-more-row {
