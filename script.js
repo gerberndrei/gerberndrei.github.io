@@ -558,7 +558,21 @@
       '--gg-contact-nav-width', contact.getBoundingClientRect().width.toFixed(2) + 'px'
     );
   }
-  window.addEventListener('resize', syncContactNavWidth, { passive:true });
+  // Measure the two compact labels so both rows share precise separator columns.
+  function syncCompactNavColumns() {
+    const nav = document.querySelector('.fixed-head .secondary-nav');
+    const contact = document.querySelector('.primary-nav a[href="#kontakt"]');
+    const past = nav && nav.querySelector('.nav-more-row a[href="#past"]');
+    const meditation = nav && nav.querySelector('.nav-meditation-row a[href="#meditation"]');
+    const network = nav && nav.querySelector('.nav-more-row a[href="#netzwerk"]');
+    if (!nav || !contact || !past || !meditation || !network) return;
+    nav.style.setProperty('--gg-ig-col-one', Math.ceil(Math.max(contact.getBoundingClientRect().width, past.getBoundingClientRect().width)) + 'px');
+    nav.style.setProperty('--gg-ig-col-three', Math.ceil(Math.max(meditation.getBoundingClientRect().width, network.getBoundingClientRect().width)) + 'px');
+  }
+  window.addEventListener('resize', function () {
+    syncContactNavWidth();
+    syncCompactNavColumns();
+  }, { passive:true });
 
   function applyLanguage() {
     const labels = NAV_LABELS[currentLanguage];
@@ -577,6 +591,7 @@
     setText('#meditation .section-title', labels.meditation);
     setText('.secondary-nav a[href="#past"]', labels.past);
     setText('.secondary-nav a[href="#netzwerk"]', labels.netzwerk);
+    syncCompactNavColumns();
     setText('#past .section-title', labels.past);
     setText('#netzwerk .section-title', labels.netzwerk);
     setText('#misc .section-title', currentLanguage === 'en' && content.misc && content.misc.title_en != null ? content.misc.title_en : labels.misc);
