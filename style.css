@@ -4927,11 +4927,12 @@ html body .fixed-head > .secondary-nav .nav-more-row > #nav-instagram-wide-divid
 html body .fixed-head > .secondary-nav .nav-more-row > #nav-instagram-wide {
   display:block!important;
   position:absolute!important;
-  top:calc(var(--gg-nav-pitch) - 4px)!important;
+  top:var(--gg-nav-pitch)!important;
   right:0!important;
   left:auto!important;
-  width:18px!important;
-  height:21px!important;
+  width:max-content!important;
+  height:auto!important;
+  line-height:inherit!important;
   margin:0!important;
   padding:0!important;
   color:#111!important;
@@ -4941,16 +4942,6 @@ html body .fixed-head > .secondary-nav .nav-more-row > #nav-instagram-wide {
 }
 html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
   right:55px!important;
-}
-html body .fixed-head > .secondary-nav .instagram-nav-link svg {
-  display:block!important;
-  position:absolute!important;
-  left:3px!important;
-  /* The SVG viewBox includes an inset; 15px matches the requested visual size. */
-  bottom:-2px!important;
-  width:15px!important;
-  height:15px!important;
-  stroke:currentColor!important;
 }
 html body .fixed-head > .secondary-nav .instagram-nav-link::before,
 html body .fixed-head > .secondary-nav .instagram-nav-link::after {
@@ -4975,8 +4966,9 @@ html body .fixed-head > .secondary-nav .instagram-nav-link::after {
     inset:auto!important;
     margin:0!important;
     padding:0!important;
-    width:18px!important;
-    height:21px!important;
+    width:max-content!important;
+    height:auto!important;
+    line-height:inherit!important;
     align-self:baseline!important;
     color:#111!important;
     -webkit-text-fill-color:#111!important;
