@@ -566,8 +566,25 @@
     const meditation = nav && nav.querySelector('.nav-meditation-row a[href="#meditation"]');
     const network = nav && nav.querySelector('.nav-more-row a[href="#netzwerk"]');
     if (!nav || !contact || !past || !meditation || !network) return;
-    nav.style.setProperty('--gg-ig-col-one', Math.ceil(Math.max(contact.getBoundingClientRect().width, past.getBoundingClientRect().width)) + 'px');
-    nav.style.setProperty('--gg-ig-col-three', Math.ceil(Math.max(meditation.getBoundingClientRect().width, network.getBoundingClientRect().width)) + 'px');
+    const firstWidth = Math.ceil(Math.max(contact.getBoundingClientRect().width, past.getBoundingClientRect().width));
+    const thirdWidth = Math.ceil(Math.max(meditation.getBoundingClientRect().width, network.getBoundingClientRect().width));
+    nav.style.setProperty('--gg-ig-col-one', firstWidth + 'px');
+    nav.style.setProperty('--gg-ig-col-three', thirdWidth + 'px');
+
+    // Generous, symmetrical separator spacing on left-only desktop and
+    // portrait phones, but always leave a right gutter on narrow screens.
+    const compact = window.matchMedia('(max-width:779px) and (min-height:651px), (max-width:650px) and (orientation:portrait)').matches;
+    if (compact) {
+      const viewportWidth = document.documentElement.clientWidth;
+      const leftInset = Math.max(0, nav.getBoundingClientRect().left);
+      const rightInset = Math.max(12, leftInset);
+      const freeWidth = Math.max(0, viewportWidth - leftInset - rightInset - firstWidth - thirdWidth - 28);
+      const preferredTrack = Math.min(64, Math.round(viewportWidth * 0.105));
+      const barTrack = Math.max(8, Math.min(preferredTrack, Math.floor(freeWidth / 2)));
+      nav.style.setProperty('--gg-ig-bar-track', barTrack + 'px');
+    } else {
+      nav.style.removeProperty('--gg-ig-bar-track');
+    }
   }
   window.addEventListener('resize', function () {
     syncContactNavWidth();
