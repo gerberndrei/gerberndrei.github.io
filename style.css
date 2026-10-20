@@ -5082,3 +5082,109 @@ html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-comp
     margin-left:auto!important;
   }
 }
+
+/* October 2026: identical Instagram glyph on both sides, matching EN/DE grey. */
+html body .fixed-head > .secondary-nav .nav-more-row > #nav-instagram-wide {
+  top:calc(var(--gg-nav-pitch) - 4px)!important;
+  width:18px!important;
+  height:21px!important;
+  color:#777!important;
+  -webkit-text-fill-color:#777!important;
+}
+html body .fixed-head > .secondary-nav .nav-more-row > #nav-instagram-wide-divider {
+  right:28px!important;
+}
+html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
+  right:55px!important;
+}
+html body .fixed-head > .secondary-nav .nav-more-row > #nav-instagram-wide svg {
+  display:block!important;
+  position:absolute!important;
+  left:1px!important;
+  bottom:-2px!important;
+  width:15px!important;
+  height:15px!important;
+  stroke:currentColor!important;
+}
+html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-compact {
+  color:#777!important;
+  -webkit-text-fill-color:#777!important;
+}
+@media (max-width:779px) and (min-height:651px),
+       (max-width:650px) and (orientation:portrait) {
+  /* Shared grid tracks: both vertical dividers sit on exactly the same axes. */
+  html body .fixed-head > .secondary-nav {
+    --gg-ig-bar-track:clamp(12px, 4vw, 24px);
+  }
+  html body .fixed-head > .secondary-nav > .nav-meditation-row,
+  html body .fixed-head > .secondary-nav > .nav-more-row {
+    display:grid!important;
+    grid-template-columns:var(--gg-ig-col-one, 118px) var(--gg-ig-bar-track)
+      var(--gg-ig-col-three, 112px) var(--gg-ig-bar-track) 28px!important;
+    align-items:baseline!important;
+    justify-items:start!important;
+    width:max-content!important;
+    min-width:0!important;
+    padding-left:0!important;
+    margin:0!important;
+  }
+  html body .fixed-head > .secondary-nav .nav-meditation-row > .contact-meditation-separator,
+  html body .fixed-head > .secondary-nav .nav-more-row > .past-network-separator {
+    grid-column:2!important;
+  }
+  html body .fixed-head > .secondary-nav .nav-meditation-row > a[href="#meditation"],
+  html body .fixed-head > .secondary-nav .nav-more-row > a[href="#netzwerk"] {
+    grid-column:3!important;
+  }
+  html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-compact-divider,
+  html body .fixed-head > .secondary-nav .nav-more-row > .language-separator {
+    grid-column:4!important;
+  }
+  html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-compact,
+  html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
+    grid-column:5!important;
+    box-sizing:border-box!important;
+    width:28px!important;
+    min-width:28px!important;
+    max-width:28px!important;
+    margin:0!important;
+    padding:0!important;
+    display:flex!important;
+    justify-content:flex-start!important;
+    align-items:baseline!important;
+    text-align:left!important;
+    justify-self:start!important;
+  }
+  html body .fixed-head > .secondary-nav .nav-more-row > a[href="#past"] {
+    grid-column:1!important;
+    justify-self:start!important;
+  }
+  html body .fixed-head > .secondary-nav .nav-meditation-row > .contact-meditation-separator,
+  html body .fixed-head > .secondary-nav .nav-more-row > .past-network-separator,
+  html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-compact-divider,
+  html body .fixed-head > .secondary-nav .nav-more-row > .language-separator {
+    margin:0!important;
+    padding:0!important;
+    text-align:center!important;
+    justify-self:center!important;
+    align-self:baseline!important;
+  }
+  html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
+    position:relative!important;
+    inset:auto!important;
+    flex:0 0 28px!important;
+    right:auto!important;
+    left:auto!important;
+  }
+  html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-compact {
+    height:auto!important;
+    color:#888!important;
+    -webkit-text-fill-color:#888!important;
+  }
+}
+@media (prefers-color-scheme:dark) and (max-width:650px) and (orientation:portrait) {
+  html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-compact {
+    color:#a5a5a5!important;
+    -webkit-text-fill-color:#a5a5a5!important;
+  }
+}
