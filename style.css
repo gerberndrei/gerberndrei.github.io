@@ -5010,3 +5010,50 @@ html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-comp
   display:none!important;
   opacity:0!important;
 }
+
+/* Instagram: full word on the right; glyph on the compact left.
+   Both compact rows have the same right edge for Instagram and EN/DE. */
+html body .fixed-head > .secondary-nav .nav-more-row > #nav-instagram-wide {
+  top:var(--gg-nav-pitch)!important;
+  right:0!important;
+}
+html body .fixed-head > .secondary-nav .nav-more-row > #nav-instagram-wide-divider {
+  right:calc(7.6em + 17px)!important;
+}
+html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
+  right:calc(7.6em + 45px)!important;
+}
+@media (max-width:779px) and (min-height:651px),
+       (max-width:650px) and (orientation:portrait) {
+  html body .fixed-head > .secondary-nav > .nav-meditation-row,
+  html body .fixed-head > .secondary-nav > .nav-more-row {
+    width:100%!important;
+    box-sizing:border-box!important;
+  }
+  html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-compact {
+    width:15px!important;
+    height:var(--type-size)!important;
+    margin-left:auto!important;
+    display:flex!important;
+    justify-content:flex-end!important;
+    align-items:flex-end!important;
+  }
+  html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
+    right:auto!important;
+    margin-left:auto!important;
+  }
+}
+html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-compact svg {
+  display:block!important;
+  flex:0 0 15px!important;
+  width:15px!important;
+  height:15px!important;
+  transform:translateY(1px);
+  stroke:currentColor;
+}
+@media (max-width:359px) and (orientation:portrait) {
+  html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
+    right:0!important;
+    margin-left:0!important;
+  }
+}
