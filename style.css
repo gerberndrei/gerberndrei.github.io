@@ -5003,3 +5003,18 @@ html body .fixed-head > .secondary-nav .instagram-nav-link::after {
     -webkit-text-fill-color:#D0D0D0!important;
   }
 }
+
+/* Instagram is a plain external link: no navigation hover or active dots. 
+   Match the high-specificity marker rules in the two navigation rows. */
+html body .fixed-head > .secondary-nav .nav-more-row > #nav-instagram-wide::before,
+html body .fixed-head > .secondary-nav .nav-more-row > #nav-instagram-wide::after,
+html body .fixed-head > .secondary-nav .nav-more-row > #nav-instagram-wide:hover::before,
+html body .fixed-head > .secondary-nav .nav-more-row > #nav-instagram-wide:hover::after,
+html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-compact::before,
+html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-compact::after,
+html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-compact:hover::before,
+html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-compact:hover::after {
+  content:none!important;
+  display:none!important;
+  opacity:0!important;
+}
