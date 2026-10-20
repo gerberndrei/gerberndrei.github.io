@@ -5057,3 +5057,28 @@ html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-comp
     margin-left:0!important;
   }
 }
+
+/* Compact Instagram glyph centered over EN/DE on the same column axis. */
+@media (max-width:779px) and (min-height:651px),
+       (max-width:650px) and (orientation:portrait) {
+  html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-compact,
+  html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
+    box-sizing:border-box!important;
+    width:28px!important;
+    min-width:28px!important;
+    max-width:28px!important;
+    padding:0!important;
+    display:flex!important;
+    justify-content:center!important;
+    text-align:center!important;
+  }
+  html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-compact {
+    align-items:flex-end!important;
+    margin-left:auto!important;
+  }
+  html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
+    flex:0 0 28px!important;
+    align-items:center!important;
+    margin-left:auto!important;
+  }
+}
