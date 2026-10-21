@@ -5100,10 +5100,10 @@ html body .fixed-head > .secondary-nav .nav-more-row > .language-toggle {
 html body .fixed-head > .secondary-nav .nav-more-row > #nav-instagram-wide svg {
   display:block!important;
   position:absolute!important;
-  left:1px!important;
-  bottom:-2px!important;
-  width:15px!important;
-  height:15px!important;
+  left:0px!important;
+  bottom:0px!important;
+  width:17px!important;
+  height:17px!important;
   stroke:currentColor!important;
 }
 html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-compact {
