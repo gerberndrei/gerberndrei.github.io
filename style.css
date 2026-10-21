@@ -5048,7 +5048,7 @@ html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-comp
   flex:0 0 17px!important;
   width:17px!important;
   height:17px!important;
-  transform:translateY(1px);
+  transform:translateY(3px);
   stroke:currentColor;
 }
 @media (max-width:359px) and (orientation:portrait) {
