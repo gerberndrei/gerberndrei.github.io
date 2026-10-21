@@ -5188,3 +5188,10 @@ html body .fixed-head > .secondary-nav .nav-meditation-row > #nav-instagram-comp
     -webkit-text-fill-color:#a5a5a5!important;
   }
 }
+
+/* Wide desktop: align visible Instagram glyph with EN/DE text baseline. */
+@media (min-width:780px) and (min-height:651px) {
+  html body .fixed-head > .secondary-nav .nav-more-row > #nav-instagram-wide svg {
+    bottom:-3px!important;
+  }
+}
