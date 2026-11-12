@@ -180,8 +180,8 @@ MARCH 04: Opening`,
       label: "Songtsen, Pema Wangyal Rinpoche",
       url: "https://www.songtsen.org/",
       display: "www.songtsen.org"
-    }
-    ,{
+    },
+    {
       label: "Niklaus Zumstein, Gestalttherapeut in Ausbildung, Solothurn",
       label_en: "Niklaus Zumstein, Gestalt Therapist in Training, Solothurn",
       url: "https://gerberngestalt.github.io/",
