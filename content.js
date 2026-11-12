@@ -181,5 +181,11 @@ MARCH 04: Opening`,
       url: "https://www.songtsen.org/",
       display: "www.songtsen.org"
     }
+    ,{
+      label: "Niklaus Zumstein, Gestalttherapeut in Ausbildung, Solothurn",
+      label_en: "Niklaus Zumstein, Gestalt Therapist in Training, Solothurn",
+      url: "https://gerberngestalt.github.io/",
+      display: "gerberngestalt.github.io"
+    }
   ]
 };
